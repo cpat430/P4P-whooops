@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import MapPage from './pages/MapPage';
 
 function App() {
   return (
     <div className="App">
-      <p>Hello world!</p>
+      <MapPage />
     </div>
   );
 }
