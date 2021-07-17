@@ -15,7 +15,8 @@ on:
 
 jobs:
   test:
-    runs-on: self-hosted
+    name: test
+    runs-on: ubuntu-latest
 
     steps:
       - name: Setup repo
