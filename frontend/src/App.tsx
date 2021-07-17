@@ -1,6 +1,6 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import './App.css';
+import logo from './logo.svg';
+import MapPage from './pages/MapPage';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         >
           Learn React
         </a>
+        <MapPage />
       </header>
     </div>
   );
