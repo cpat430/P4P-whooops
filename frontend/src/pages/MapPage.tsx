@@ -2,6 +2,9 @@ import React from 'react';
 import { IconButton } from '@material-ui/core';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import GoogleMapReact from 'google-map-react';
+import { useState } from 'react';
+import { UserProfile } from '../components/UserProfile';
+import { useDummyUsers } from '../utils/dummyUsers';
 
 /**
  * Any React Component that is rendered on the map must
@@ -10,16 +13,30 @@ import GoogleMapReact from 'google-map-react';
  *
  * Also, the coordinate is the top-left position, not the center
  */
-type Coordinate = {
-  lat: number;
-  lng: number;
+
+export type Interest = {
+  id: number;
+  name: string;
 };
 
-const PersonMarker = ({ lat, lng }: Coordinate) => {
+export type UserProps = {
+  lat: number;
+  lng: number;
+  name: string;
+  description: string;
+  interests: Interest[];
+};
+
+const PersonMarker = (props: UserProps) => {
+  const { lat, lng, name, description, interests } = props;
   return (
     <IconButton
       onClick={() => {
-        alert(`Location: ${lat}, ${lng}`);
+        alert(
+          `Location: ${lat}, ${lng}, ${name}, ${description}, ${interests.map(
+            (interest) => interest.name
+          )}`
+        );
       }}
     >
       <EmojiPeopleIcon />
@@ -28,6 +45,14 @@ const PersonMarker = ({ lat, lng }: Coordinate) => {
 };
 
 const MapPage = (): JSX.Element => {
+  const [isProfileOpen, toggleProfile] = useState<boolean>(true);
+
+  const { user1, user2 } = useDummyUsers();
+
+  const toggleUserProfile = () => {
+    toggleProfile(!isProfileOpen);
+  };
+
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
     console.error('Map key is undefined');
@@ -44,15 +69,19 @@ const MapPage = (): JSX.Element => {
 
   return (
     <div style={{ height: '100vh', width: '100%' }} data-testid={'map-page'}>
+      <UserProfile
+        isProfileOpen={isProfileOpen}
+        toggleUserProfile={toggleUserProfile}
+      />
       <GoogleMapReact
         bootstrapURLKeys={{ key: mapKey || '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
         {/* Sky Tower */}
-        <PersonMarker lat={-36.8484} lng={174.7622} />
+        <PersonMarker {...user1} />
         {/* Flat */}
-        <PersonMarker lat={-36.848869} lng={174.781547} />
+        <PersonMarker {...user2} />
       </GoogleMapReact>
     </div>
   );
