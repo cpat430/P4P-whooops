@@ -1,3 +1,4 @@
+import React from 'react';
 import { IconButton } from '@material-ui/core';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import GoogleMapReact from 'google-map-react';
@@ -26,7 +27,7 @@ const PersonMarker = ({ lat, lng }: Coordinate) => {
   );
 };
 
-const MapPage = () => {
+const MapPage = (): JSX.Element => {
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
     console.error('Map key is undefined');
