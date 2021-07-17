@@ -15,7 +15,7 @@ on:
 
 jobs:
   test:
-    runs-on: [ubuntu-latest, macos-latest] # runs a test on Ubuntu, Windows and macOS
+    runs-on: self-hosted
 
     steps:
       - name: Setup repo
