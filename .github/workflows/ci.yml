@@ -30,7 +30,17 @@ jobs:
         run: npm install -g yarn
 
       - name: Install dependencies
-        run: cd frontend && yarn install
+        working-directory: ./frontend
+        run: yarn install
 
       - name: Test
-        run: cd frontend && yarn test
+        working-directory: ./frontend
+        run: yarn test
+
+      - name: Typecheck
+        working-directory: ./frontend
+        run: yarn typecheck
+
+      - name: Linter
+        working-directory: ./frontend
+        run: eslint .
