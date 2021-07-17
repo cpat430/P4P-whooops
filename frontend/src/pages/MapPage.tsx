@@ -42,7 +42,7 @@ const MapPage = () => {
   };
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div style={{ height: '100vh', width: '100%' }} data-testid={'map-page'}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: mapKey || '' }}
         defaultCenter={defaultProps.center}
