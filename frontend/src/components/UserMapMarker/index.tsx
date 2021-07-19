@@ -20,6 +20,10 @@ const circleRadius = triangleWidth;
 const markerColor = '#555';
 const imagePadding = 8;
 const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
+  const handleClick = (event: React.MouseEvent) => {
+    onClick();
+    event.stopPropagation();
+  };
   return (
     <>
       {/* triangle */}
@@ -58,7 +62,7 @@ const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
             width: '100%',
             padding: imagePadding,
           }}
-          onClick={onClick}
+          onClick={handleClick}
         >
           <img src={user.image} width={'100%'} style={{ borderRadius: 9999 }} />
         </IconButton>
