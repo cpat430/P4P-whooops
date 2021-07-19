@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { PersonMarker } from '../components/PersonMarker';
 import { UserProfile } from '../components/UserProfile';
 import { useDummyUsers } from '../utils/dummyUsers';
-import { PersonMarker } from '../components/PersonMarker';
 
 /**
  * Any React Component that is rendered on the map must
