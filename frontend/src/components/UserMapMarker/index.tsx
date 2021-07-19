@@ -9,6 +9,7 @@ type UserMapMarkerProps = {
   lat: number;
   lng: number;
   user: User;
+  onClick: () => void;
 };
 
 // Constants that can change the marker
@@ -18,7 +19,7 @@ const circleRadius = triangleWidth;
 
 const markerColor = '#555';
 const imagePadding = 8;
-const UserMapMarker = ({ user }: UserMapMarkerProps): JSX.Element => {
+const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
   return (
     <>
       {/* triangle */}
@@ -57,6 +58,7 @@ const UserMapMarker = ({ user }: UserMapMarkerProps): JSX.Element => {
             width: '100%',
             padding: imagePadding,
           }}
+          onClick={onClick}
         >
           <img src={user.image} width={'100%'} style={{ borderRadius: 9999 }} />
         </IconButton>
