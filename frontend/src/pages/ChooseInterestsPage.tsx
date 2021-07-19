@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Button, Grid, Modal, Paper, Typography } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
@@ -67,8 +69,8 @@ const ChooseInterestsModal = ({
           width: '400px',
           padding: '10px',
 
-          top: `50%`,
-          left: `50%`,
+          top: '50%',
+          left: '50%',
           position: 'absolute',
           transform: 'translate(-50%, -50%)',
         }}
@@ -79,7 +81,7 @@ const ChooseInterestsModal = ({
           </Grid>
           <Grid item>
             <Grid container spacing={1}>
-              {allInterests.map((interest) => {
+              {allInterests.map((interest, index) => {
                 const userInterestIndex = userInterests.findIndex(
                   (userInterest) => {
                     return userInterest.id === interest.id;
@@ -87,7 +89,7 @@ const ChooseInterestsModal = ({
                 );
 
                 return (
-                  <Grid item>
+                  <Grid item key={index}>
                     <InterestChip
                       interest={interest}
                       checked={userInterestIndex !== -1}
@@ -119,7 +121,7 @@ const ChooseInterestsModal = ({
   );
 };
 
-const ChooseInterestsPage = () => {
+const ChooseInterestsPage = (): JSX.Element => {
   const [open, setOpen] = useState(true);
   return (
     <div
