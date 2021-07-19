@@ -10,14 +10,15 @@ type UserMapMarkerProps = {
   lng: number;
   user: User;
 };
+
+// Constants that can change the marker
+const triangleWidth = 25;
+const triangleHeight = triangleWidth * 1.7;
+const circleRadius = triangleWidth;
+
+const markerColor = '#555';
+const imagePadding = 8;
 const UserMapMarker = ({ user }: UserMapMarkerProps): JSX.Element => {
-  const ratio = 1.7;
-  const triangleWidth = 30;
-  const triangleHeight = triangleWidth * ratio;
-
-  const circleRadius = triangleWidth;
-
-  const markerColor = '666';
   return (
     <>
       {/* triangle */}
@@ -54,7 +55,7 @@ const UserMapMarker = ({ user }: UserMapMarkerProps): JSX.Element => {
           style={{
             height: '100%',
             width: '100%',
-            padding: 5,
+            padding: imagePadding,
           }}
         >
           <img src={user.image} width={'100%'} style={{ borderRadius: 9999 }} />
