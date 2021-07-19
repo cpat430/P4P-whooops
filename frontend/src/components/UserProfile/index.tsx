@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Avatar,
-  Chip,
-  Divider,
-  Modal,
-  styled,
-  Typography,
-} from '@material-ui/core';
+import { Avatar, Chip, Divider, Modal } from '@material-ui/core';
 import { UserProps } from '../../pages/MapPage';
 import * as Styled from './UserProfile.styled';
 import { useState } from 'react';
@@ -20,24 +13,26 @@ type UserProfileProps = {
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user } = props;
-  const { lat, lng, name, description, interests } = user;
+  const { name, description, interests } = user;
   const { isProfileOpen, toggleProfile } = props;
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  console.log(lat, lng, name, description, interests);
 
   const handleClose = () => {
     toggleProfile();
   };
 
-  useEffect(() => {
-    if (!user) return;
+  const handleClick = () => {
+    console.log('interest clicked');
+  };
 
+  useEffect(() => {
     setIsLoading(true);
+    if (!user) return;
+    setIsLoading(false);
   }, [user]);
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return <p data-testid={'loading'}>loading...</p>;
   }
 
   return (
@@ -47,24 +42,40 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
       disableEnforceFocus
       onClose={handleClose}
     >
-      <Styled.ProfileDetailsContainer>
-        <Styled.UserHeader>
-          <Styled.UserAvatar alt={user.name} src="default_avatar.png" />
-          <Styled.UserName>{user.name}</Styled.UserName>
+      <Styled.ProfileDetailsContainer data-testid={'profile-details-container'}>
+        <Styled.UserHeader data-testid={'user-header'}>
+          <Styled.UserAvatar
+            alt={name}
+            src="default_avatar.png"
+            data-testid={'user-avatar'}
+          />
+          <Styled.UserName data-testid={'user-name'}>{name}</Styled.UserName>
         </Styled.UserHeader>
         <Divider />
-        <Styled.UserText variant="h4">Bio</Styled.UserText>
-        <Styled.UserDescription>{user.description}</Styled.UserDescription>
+        <Styled.UserText variant="h4" data-testid={'bio-user-text'}>
+          Bio
+        </Styled.UserText>
+        <Styled.UserDescription data-testid={'user-description'}>
+          {description}
+        </Styled.UserDescription>
         <Divider />
-        <Styled.UserText variant="h4">Interests</Styled.UserText>
-        {interests.map((interest) => (
-          <Chip
-            avatar={<Avatar>{interest.emoji}</Avatar>}
-            key={interest.id}
-            label="basic"
-            variant="outlined"
-          />
-        ))}
+        <Styled.UserText variant="h4" data-testid={'interests-user-text'}>
+          Interests
+        </Styled.UserText>
+        <Styled.UserInterests data-testid={'user-interests'}>
+          {interests &&
+            interests.map((interest) => (
+              <Chip
+                avatar={<Avatar>{interest.emoji}</Avatar>}
+                key={interest.id}
+                label={interest.name}
+                variant="outlined"
+                style={{ textTransform: 'capitalize' }}
+                onClick={handleClick}
+                data-testid={'interest-chip'}
+              />
+            ))}
+        </Styled.UserInterests>
       </Styled.ProfileDetailsContainer>
     </Modal>
   );

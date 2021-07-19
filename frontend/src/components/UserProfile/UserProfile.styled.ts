@@ -1,4 +1,4 @@
-import { Avatar, Paper, Typography } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
 export const ProfileDetailsContainer = styled(Paper)`
@@ -11,6 +11,7 @@ export const ProfileDetailsContainer = styled(Paper)`
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 1%;
+    overflow: scroll;
   }
 `;
 
@@ -39,4 +40,10 @@ export const UserDescription = styled.p`
 
 export const UserText = styled(Typography)`
   padding-top: 1%;
+`;
+
+export const UserInterests = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 `;
