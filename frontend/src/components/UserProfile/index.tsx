@@ -32,7 +32,11 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
   }, [user]);
 
   if (isLoading) {
-    return <p data-testid={'loading'}>loading...</p>;
+    return (
+      <div data-testid={'loading'}>
+        <span>loading...</span>
+      </div>
+    );
   }
 
   return (
@@ -41,6 +45,7 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
       disableAutoFocus
       disableEnforceFocus
       onClose={handleClose}
+      data-testid={'user-profile'}
     >
       <Styled.ProfileDetailsContainer data-testid={'profile-details-container'}>
         <Styled.UserHeader data-testid={'user-header'}>
