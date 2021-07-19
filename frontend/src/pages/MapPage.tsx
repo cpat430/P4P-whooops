@@ -1,8 +1,11 @@
 import GoogleMapReact from 'google-map-react';
-import React, { useEffect, useState } from 'react';
+import { default as React, useEffect, useState } from 'react';
 import { PersonMarker } from '../components/PersonMarker';
+import UserMapMarker from '../components/UserMapMarker';
 import { UserProfile } from '../components/UserProfile';
 import { useDummyUsers } from '../utils/dummyUsers';
+import userPng from './../user-profiles/png/007-boy-1.png';
+import userPng2 from './../user-profiles/png/016-boy-2.png';
 
 /**
  * Any React Component that is rendered on the map must
@@ -76,6 +79,18 @@ const MapPage = (): JSX.Element => {
             setCurrentUser={setCurrentUser}
           />
         ))}
+        {/* Sky Tower */}
+        <UserMapMarker
+          lat={-36.8484}
+          lng={174.7622}
+          user={{ emoji: '🥳', image: userPng }}
+        />
+        {/* Flat */}
+        <UserMapMarker
+          lat={-36.848869}
+          lng={174.781547}
+          user={{ emoji: '🥳', image: userPng2 }}
+        />
       </GoogleMapReact>
     </div>
   );
