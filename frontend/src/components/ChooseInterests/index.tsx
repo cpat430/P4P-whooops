@@ -9,11 +9,8 @@ import {
 import CheckIcon from '@material-ui/icons/Check';
 import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
 import React, { useState } from 'react';
+import { Interest } from '../../pages/MapPage';
 
-type Interest = {
-  id: number;
-  name: string;
-};
 const InterestChip = ({
   interest,
   checked,
