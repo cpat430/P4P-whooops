@@ -84,12 +84,18 @@ const MapPage = (): JSX.Element => {
           lat={-36.8484}
           lng={174.7622}
           user={{ emoji: '🥳', image: userPng }}
+          onClick={() => {
+            // clicked!
+          }}
         />
         {/* Flat */}
         <UserMapMarker
           lat={-36.848869}
           lng={174.781547}
           user={{ emoji: '🥳', image: userPng2 }}
+          onClick={() => {
+            // clicked!
+          }}
         />
       </GoogleMapReact>
     </div>
