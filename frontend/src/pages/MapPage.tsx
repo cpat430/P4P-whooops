@@ -4,13 +4,12 @@ import { ChooseInterestsModal } from '../components/ChooseInterests';
 import UserMapMarker from '../components/UserMapMarker';
 import { UserProfile } from '../components/UserProfile';
 import { dummyInterests } from '../utils/dummyInterests';
-import { useDummyUsers } from '../utils/dummyUsers';
+import { dummyUsers } from '../utils/dummyUsers';
 import { Interest, UserProps } from '../utils/types';
 
 const MapPage = (): JSX.Element => {
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(true);
 
-  const dummyUsers = useDummyUsers();
   const [currentUser, setCurrentUser] = useState<UserProps>({} as UserProps);
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
     useState(true);
