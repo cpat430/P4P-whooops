@@ -1,7 +1,7 @@
-import { UserProps } from '../pages/MapPage';
-import { dummyInterests } from './dummyInterests';
 import image1 from '../user-profiles/png/018-boy-3.png';
 import image2 from '../user-profiles/png/019-woman-5.png';
+import { dummyInterests } from './dummyInterests';
+import { UserProps } from './types';
 
 export const useDummyUsers = (): UserProps[] => {
   const dummyUsers = [

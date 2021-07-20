@@ -1,7 +1,7 @@
-import React from 'react';
 import { IconButton } from '@material-ui/core';
-import { UserProps } from '../../pages/MapPage';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import React from 'react';
+import { UserProps } from '../../utils/types';
 
 type CoordProps = {
   lat: number;
