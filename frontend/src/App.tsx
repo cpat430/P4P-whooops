@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import ChooseInterestsPage from './pages/ChooseInterestsPage';
+import MapPage from './pages/MapPage';
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      {/* <MapPage /> */}
-      <ChooseInterestsPage />
+      <MapPage />
     </div>
   );
 }
