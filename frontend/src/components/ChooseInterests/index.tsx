@@ -1,9 +1,14 @@
-import React from 'react';
-
-import { Button, Grid, Modal, Paper, Typography } from '@material-ui/core';
+import {
+  Button,
+  Divider,
+  Grid,
+  Modal,
+  Paper,
+  Typography,
+} from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 type Interest = {
   id: number;
@@ -35,26 +40,25 @@ const InterestChip = ({
   );
 };
 
-const allInterests = [
-  'one',
-  'two',
-  'three',
-  'four',
-  'five',
-  'six',
-  'seven',
-].map((e, i) => {
-  return { id: i, name: e } as Interest;
-});
-
-const ChooseInterestsModal = ({
+export const ChooseInterestsModal = ({
   open,
   handleClose,
+  allInterests,
+  value,
+  onChange,
 }: {
   open: boolean;
   handleClose: () => void;
-}) => {
-  const [userInterests, setUserInterests] = useState<Interest[]>([]);
+  allInterests: Interest[];
+  value: Interest[];
+  onChange: (value: Interest[]) => void;
+}): JSX.Element => {
+  const [selectedInterests, setSelectedInterests] = useState<Interest[]>(value);
+
+  const handleSubmit = () => {
+    onChange(selectedInterests);
+    handleClose();
+  };
 
   return (
     <Modal
@@ -66,8 +70,8 @@ const ChooseInterestsModal = ({
     >
       <Paper
         style={{
-          width: '400px',
-          padding: '10px',
+          width: '400px', // TODO styling based on percentages
+          padding: '20px',
 
           top: '50%',
           left: '50%',
@@ -77,12 +81,15 @@ const ChooseInterestsModal = ({
       >
         <Grid container spacing={1}>
           <Grid item>
-            <Typography>Choose your interests:</Typography>
+            <Typography>Choose your interests</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
           </Grid>
           <Grid item>
             <Grid container spacing={1}>
               {allInterests.map((interest, index) => {
-                const userInterestIndex = userInterests.findIndex(
+                const userInterestIndex = selectedInterests.findIndex(
                   (userInterest) => {
                     return userInterest.id === interest.id;
                   }
@@ -95,10 +102,12 @@ const ChooseInterestsModal = ({
                       checked={userInterestIndex !== -1}
                       onClick={() => {
                         if (userInterestIndex === -1) {
-                          setUserInterests(userInterests.concat(interest));
+                          setSelectedInterests(
+                            selectedInterests.concat(interest)
+                          );
                         } else {
-                          setUserInterests(
-                            userInterests.filter((userInterest, index) => {
+                          setSelectedInterests(
+                            selectedInterests.filter((userInterest, index) => {
                               return index !== userInterestIndex;
                             })
                           );
@@ -110,9 +119,10 @@ const ChooseInterestsModal = ({
               })}
             </Grid>
           </Grid>
+
           <Grid item>
-            <Button style={{ textTransform: 'none' }} onClick={handleClose}>
-              Submit
+            <Button variant="outlined" onClick={handleSubmit}>
+              Save
             </Button>
           </Grid>
         </Grid>
@@ -120,26 +130,3 @@ const ChooseInterestsModal = ({
     </Modal>
   );
 };
-
-const ChooseInterestsPage = (): JSX.Element => {
-  const [open, setOpen] = useState(true);
-  return (
-    <div
-      style={{
-        height: '100vh',
-        width: '100wh',
-        backgroundColor: 'pink',
-        padding: '10px',
-      }}
-    >
-      <ChooseInterestsModal
-        open={open}
-        handleClose={() => {
-          setOpen(false);
-        }}
-      ></ChooseInterestsModal>
-    </div>
-  );
-};
-
-export default ChooseInterestsPage;

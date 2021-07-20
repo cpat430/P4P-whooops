@@ -1,7 +1,9 @@
 import GoogleMapReact from 'google-map-react';
-import { default as React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { ChooseInterestsModal } from '../components/ChooseInterests';
 import UserMapMarker from '../components/UserMapMarker';
 import { UserProfile } from '../components/UserProfile';
+import { dummyInterests } from '../utils/dummyInterests';
 import { useDummyUsers } from '../utils/dummyUsers';
 
 /**
@@ -28,11 +30,20 @@ export type UserProps = {
   interests: Interest[];
 };
 
+const allInterests = dummyInterests;
+
 const MapPage = (): JSX.Element => {
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(true);
 
   const dummyUsers = useDummyUsers();
   const [currentUser, setCurrentUser] = useState<UserProps>({} as UserProps);
+  const [openChooseInterestsModal, setOpenChooseInterestsModal] =
+    useState(true);
+  const [interests, setInterests] = useState<Interest[]>(
+    allInterests.filter(() => {
+      return Math.random() < 0.5;
+    })
+  );
 
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
@@ -83,6 +94,29 @@ const MapPage = (): JSX.Element => {
         })}
         {/* Sky Tower */}
       </GoogleMapReact>
+
+      <ChooseInterestsModal
+        open={openChooseInterestsModal}
+        handleClose={() => {
+          setOpenChooseInterestsModal(false);
+        }}
+        allInterests={allInterests}
+        value={interests}
+        onChange={(value: Interest[]) => {
+          // handle setting interests
+          console.log(
+            'Chose interests: ' +
+              value
+                .map((v) => {
+                  return v.name;
+                })
+                .join(',')
+          );
+
+          // update the user's interests
+          setInterests(value);
+        }}
+      ></ChooseInterestsModal>
     </div>
   );
 };
