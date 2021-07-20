@@ -1,14 +1,6 @@
 import { IconButton } from '@material-ui/core';
 import React from 'react';
-import { UserProps } from '../../pages/MapPage';
-
-type UserMapMarkerProps = {
-  lat: number;
-  lng: number;
-  key: number;
-  user: UserProps;
-  onClick: () => void;
-};
+import { UserProps } from '../../utils/types';
 
 // Constants that can change the marker
 const triangleWidth = 25;
@@ -17,6 +9,14 @@ const circleRadius = triangleWidth;
 
 const markerColor = '#555';
 const imagePadding = 8;
+
+type UserMapMarkerProps = {
+  lat: number;
+  lng: number;
+  key: number;
+  user: UserProps;
+  onClick: () => void;
+};
 const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
   const handleClick = (event: React.MouseEvent) => {
     onClick();

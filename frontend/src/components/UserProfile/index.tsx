@@ -1,9 +1,7 @@
-import React from 'react';
 import { Avatar, Chip, Divider, Modal } from '@material-ui/core';
-import { UserProps } from '../../pages/MapPage';
+import React, { useEffect, useState } from 'react';
+import { UserProps } from '../../utils/types';
 import * as Styled from './UserProfile.styled';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 type UserProfileProps = {
   user: UserProps;

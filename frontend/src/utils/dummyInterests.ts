@@ -1,4 +1,4 @@
-import { Interest } from '../pages/MapPage';
+import { Interest } from './types';
 
 export const dummyInterests = [
   {

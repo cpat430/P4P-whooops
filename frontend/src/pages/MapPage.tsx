@@ -5,32 +5,7 @@ import UserMapMarker from '../components/UserMapMarker';
 import { UserProfile } from '../components/UserProfile';
 import { dummyInterests } from '../utils/dummyInterests';
 import { useDummyUsers } from '../utils/dummyUsers';
-
-/**
- * Any React Component that is rendered on the map must
- * accept {lat, lng} in its props, which indicates where
- * it will be rendered on the map
- *
- * Also, the coordinate is the top-left position, not the center
- */
-
-export type Interest = {
-  id: number;
-  name: string;
-  emoji: string;
-};
-
-export type UserProps = {
-  id: number;
-  lat: number;
-  lng: number;
-  name: string;
-  image: string;
-  description: string;
-  interests: Interest[];
-};
-
-const allInterests = dummyInterests;
+import { Interest, UserProps } from '../utils/types';
 
 const MapPage = (): JSX.Element => {
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(true);
@@ -40,7 +15,7 @@ const MapPage = (): JSX.Element => {
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
     useState(true);
   const [interests, setInterests] = useState<Interest[]>(
-    allInterests.filter(() => {
+    dummyInterests.filter(() => {
       return Math.random() < 0.5;
     })
   );
@@ -100,7 +75,7 @@ const MapPage = (): JSX.Element => {
         handleClose={() => {
           setOpenChooseInterestsModal(false);
         }}
-        allInterests={allInterests}
+        allInterests={dummyInterests}
         value={interests}
         onChange={(value: Interest[]) => {
           // handle setting interests

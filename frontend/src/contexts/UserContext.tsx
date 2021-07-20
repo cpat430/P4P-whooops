@@ -1,11 +1,16 @@
 import React, { createContext, ReactNode } from 'react';
-import { User } from '../constants';
+import { UserProps } from '../utils/types';
 
 const defaultUser = {
-  name: 'Default Name',
+  id: -1,
+  lat: -1,
+  lng: -1,
+  name: 'Default User',
+  image: '',
+  description: '',
   interests: [],
 };
-export const UserContext = createContext<User>(defaultUser);
+export const UserContext = createContext<UserProps>(defaultUser);
 
 export const UserProvider = ({
   children,
