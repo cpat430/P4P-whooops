@@ -1,9 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { UserProfile } from '.';
-import { Interest, UserProps } from '../../pages/MapPage';
-
-// jest.mock('google-map-react', () => <div>Google Map React</div>);
 
 describe('User Profile', () => {
   it('should render user profile', () => {
@@ -13,15 +10,16 @@ describe('User Profile', () => {
       lat: -36.8484,
       lng: 174.7622,
       name: 'john stockman',
+      image: '',
       description: 'love long walks on the beach',
       interests: [
         {
           id: 1,
           name: 'basketball',
           emoji: '🏀',
-        } as Interest,
+        },
       ],
-    } as UserProps;
+    };
     const isProfileOpen = true;
     const toggleProfile = jest.fn();
 
