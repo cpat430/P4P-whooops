@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { Avatar, IconButton, Typography } from '@material-ui/core';
 import React from 'react';
 import { UserProps } from '../../utils/types';
 
@@ -6,6 +6,10 @@ import { UserProps } from '../../utils/types';
 const triangleWidth = 25;
 const triangleHeight = triangleWidth * 1.7;
 const circleRadius = triangleWidth;
+
+const interestCircleRadius = 25;
+const interestCircleBackgroundColor = '#777';
+const interestFontSize = 13;
 
 const markerColor = '#555';
 const imagePadding = 8;
@@ -15,13 +19,25 @@ type UserMapMarkerProps = {
   lng: number;
   key: number;
   user: UserProps;
+  displayInterestBadge: boolean;
   onClick: () => void;
 };
-const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
+const UserMapMarker = ({
+  user,
+  displayInterestBadge,
+  onClick,
+}: UserMapMarkerProps): JSX.Element => {
   const handleClick = (event: React.MouseEvent) => {
     onClick();
     event.stopPropagation();
   };
+
+  // TODO we will have some way of determining which interest from 'user' to display
+  const interestToDisplay =
+    user.interests.length > 0
+      ? user.interests[Math.floor(Math.random() * user.interests.length)]
+      : null;
+
   return (
     <>
       {/* triangle */}
@@ -65,6 +81,26 @@ const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
           <img src={user.image} width={'100%'} style={{ borderRadius: 9999 }} />
         </IconButton>
       </div>
+      {/* interest badge */}
+      {displayInterestBadge && interestToDisplay && (
+        <Avatar
+          style={{
+            position: 'absolute',
+            // places the avatar to the bottom-right edge of the circle
+            top: -triangleHeight + circleRadius * Math.sin(Math.PI / 4),
+            left: circleRadius * Math.sin(Math.PI / 4),
+            transform: 'translate(-50%, -50%)',
+            height: interestCircleRadius,
+            width: interestCircleRadius,
+            borderRadius: 9999,
+            backgroundColor: interestCircleBackgroundColor,
+          }}
+        >
+          <Typography style={{ fontSize: interestFontSize }}>
+            {interestToDisplay.emoji}
+          </Typography>
+        </Avatar>
+      )}
     </>
   );
 };

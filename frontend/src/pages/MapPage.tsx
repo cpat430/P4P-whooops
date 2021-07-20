@@ -60,6 +60,7 @@ const MapPage = (): JSX.Element => {
               lat={user.lat}
               lng={user.lng}
               user={user}
+              displayInterestBadge={true}
               onClick={() => {
                 setCurrentUser(user);
               }}
