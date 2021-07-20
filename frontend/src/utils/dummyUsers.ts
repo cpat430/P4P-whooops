@@ -2,6 +2,7 @@ import faker from 'faker';
 import _ from 'lodash';
 import { dummyInterests } from './dummyInterests';
 import { UserProps } from './types';
+import defaultImage from '../user-profiles/png/001-man.png';
 
 // Determines where the users will be located: +- delta from the sky tower
 const skyTowerPos = {
@@ -17,10 +18,17 @@ const importAll = (r: __WebpackModuleApi.RequireContext) => {
   });
 };
 
+const getImages = (dir: string) => {
+  // require.context does not exist if run outside of webpack (i.e. with jest)
+  if (!require.context) {
+    return [{ key: 'default', image: defaultImage }];
+  } else {
+    return importAll(require.context(dir, false, /\.(png|jpe?g|svg)$/));
+  }
+};
+
 // Loads all the images from '../user-profiles/png'
-const images = importAll(
-  require.context('../user-profiles/png', false, /\.(png|jpe?g|svg)$/)
-);
+const images = getImages('../user-profiles/png');
 
 const generateDummyUsers = (numUsers: number, seed: number) => {
   // The seed allows us to reproduce the random values/names, as long as it's generated from faker
