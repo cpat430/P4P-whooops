@@ -1,8 +1,8 @@
 import faker from 'faker';
 import _ from 'lodash';
+import { images } from '../user-profiles';
 import { dummyInterests } from './dummyInterests';
 import { UserProps } from './types';
-import defaultImage from '../user-profiles/png/001-man.png';
 
 // Determines where the users will be located: +- delta from the sky tower
 const skyTowerPos = {
@@ -10,25 +10,6 @@ const skyTowerPos = {
   lng: 174.7622,
 };
 const delta = 0.1;
-
-// Supports dynamically loading all the avatar images
-const importAll = (r: __WebpackModuleApi.RequireContext) => {
-  return r.keys().map((item: string) => {
-    return { key: item, image: r(item).default };
-  });
-};
-
-const getImages = (dir: string) => {
-  // require.context does not exist if run outside of webpack (i.e. with jest)
-  if (!require.context) {
-    return [{ key: 'default', image: defaultImage }];
-  } else {
-    return importAll(require.context(dir, false, /\.(png|jpe?g|svg)$/));
-  }
-};
-
-// Loads all the images from '../user-profiles/png'
-const images = getImages('../user-profiles/png');
 
 const generateDummyUsers = (numUsers: number, seed: number) => {
   // The seed allows us to reproduce the random values/names, as long as it's generated from faker
@@ -50,8 +31,7 @@ const generateDummyUsers = (numUsers: number, seed: number) => {
       }),
       name: faker.name.firstName() + ' ' + faker.name.lastName(),
       description: faker.lorem.paragraphs(1),
-      image:
-        images[faker.datatype.number({ min: 0, max: images.length - 1 })].image,
+      image: images[faker.datatype.number({ min: 0, max: images.length - 1 })],
       interests: dummyInterests.filter(() => {
         return faker.datatype.number({ min: 1, max: 2 }) === 1;
       }),
