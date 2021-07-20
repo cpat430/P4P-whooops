@@ -1,14 +1,12 @@
 import { IconButton } from '@material-ui/core';
 import React from 'react';
+import { UserProps } from '../../pages/MapPage';
 
-type User = {
-  emoji: string;
-  image: string;
-};
 type UserMapMarkerProps = {
   lat: number;
   lng: number;
-  user: User;
+  key: number;
+  user: UserProps;
   onClick: () => void;
 };
 

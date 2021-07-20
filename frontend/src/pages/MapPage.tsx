@@ -1,11 +1,8 @@
 import GoogleMapReact from 'google-map-react';
 import { default as React, useEffect, useState } from 'react';
-import { PersonMarker } from '../components/PersonMarker';
 import UserMapMarker from '../components/UserMapMarker';
 import { UserProfile } from '../components/UserProfile';
 import { useDummyUsers } from '../utils/dummyUsers';
-import userPng from './../user-profiles/png/007-boy-1.png';
-import userPng2 from './../user-profiles/png/016-boy-2.png';
 
 /**
  * Any React Component that is rendered on the map must
@@ -26,6 +23,7 @@ export type UserProps = {
   lat: number;
   lng: number;
   name: string;
+  image: string;
   description: string;
   interests: Interest[];
 };
@@ -70,33 +68,20 @@ const MapPage = (): JSX.Element => {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        {dummyUsers.map((user) => (
-          <PersonMarker
-            key={user.id}
-            lat={user.lat}
-            lng={user.lng}
-            user={user}
-            setCurrentUser={setCurrentUser}
-          />
-        ))}
+        {dummyUsers.map((user, userIndex) => {
+          return (
+            <UserMapMarker
+              key={userIndex}
+              lat={user.lat}
+              lng={user.lng}
+              user={user}
+              onClick={() => {
+                setCurrentUser(user);
+              }}
+            />
+          );
+        })}
         {/* Sky Tower */}
-        <UserMapMarker
-          lat={-36.8484}
-          lng={174.7622}
-          user={{ emoji: '🥳', image: userPng }}
-          onClick={() => {
-            // clicked!
-          }}
-        />
-        {/* Flat */}
-        <UserMapMarker
-          lat={-36.848869}
-          lng={174.781547}
-          user={{ emoji: '🥳', image: userPng2 }}
-          onClick={() => {
-            // clicked!
-          }}
-        />
       </GoogleMapReact>
     </div>
   );

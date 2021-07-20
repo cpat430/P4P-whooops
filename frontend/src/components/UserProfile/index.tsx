@@ -51,7 +51,7 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
         <Styled.UserHeader data-testid={'user-header'}>
           <Styled.UserAvatar
             alt={name}
-            src="default_avatar.png"
+            src={user.image}
             data-testid={'user-avatar'}
           />
           <Styled.UserName data-testid={'user-name'}>{name}</Styled.UserName>
