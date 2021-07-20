@@ -3,18 +3,21 @@ import _ from 'lodash';
 import { dummyInterests } from './dummyInterests';
 import { UserProps } from './types';
 
+// Determines where the users will be located: +- delta from the sky tower
 const skyTowerPos = {
   lat: -36.8484,
   lng: 174.7622,
 };
 const delta = 0.1;
 
+// Supports dynamically loading all the avatar images
 const importAll = (r: __WebpackModuleApi.RequireContext) => {
   return r.keys().map((item: string) => {
     return { key: item, image: r(item).default };
   });
 };
 
+// Loads all the images from '../user-profiles/png'
 const images = importAll(
   require.context('../user-profiles/png', false, /\.(png|jpe?g|svg)$/)
 );
