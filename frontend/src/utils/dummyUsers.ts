@@ -1,35 +1,51 @@
-import image1 from '../user-profiles/png/018-boy-3.png';
-import image2 from '../user-profiles/png/019-woman-5.png';
+import faker from 'faker';
+import _ from 'lodash';
 import { dummyInterests } from './dummyInterests';
 import { UserProps } from './types';
 
-export const useDummyUsers = (): UserProps[] => {
-  const dummyUsers = [
-    {
-      id: 1,
-      // Sky Tower
-      lat: -36.8484,
-      lng: 174.7622,
-      name: 'john stockman',
-      description: 'love long walks on the beach',
-      image: image1,
-      interests: [0, 1, 2, 3, 4].map((interestIndex) => {
-        return dummyInterests[interestIndex];
-      }),
-    },
-    {
-      id: 2,
-      // flat
-      lat: -36.848869,
-      lng: 174.781547,
-      name: 'michaelangelo',
-      image: image2,
-      description: 'slinging my numchucks',
-      interests: [0, 3, 4].map((interestIndex) => {
-        return dummyInterests[interestIndex];
-      }),
-    },
-  ];
-
-  return dummyUsers;
+const skyTowerPos = {
+  lat: -36.8484,
+  lng: 174.7622,
 };
+const delta = 0.1;
+
+const importAll = (r: __WebpackModuleApi.RequireContext) => {
+  return r.keys().map((item: string) => {
+    return { key: item, image: r(item).default };
+  });
+};
+
+const images = importAll(
+  require.context('../user-profiles/png', false, /\.(png|jpe?g|svg)$/)
+);
+
+const generateDummyUsers = (numUsers: number, seed: number) => {
+  // The seed allows us to reproduce the random values/names, as long as it's generated from faker
+  faker.seed(seed);
+
+  // Returns a list of length numUsers of a randomly generated person
+  return _.range(numUsers).map((userIndex) => {
+    return {
+      id: userIndex,
+      lat: faker.datatype.number({
+        min: skyTowerPos.lat - delta,
+        max: skyTowerPos.lat + delta,
+        precision: 0.00001,
+      }),
+      lng: faker.datatype.number({
+        min: skyTowerPos.lng - delta,
+        max: skyTowerPos.lng + delta,
+        precision: 0.00001,
+      }),
+      name: faker.name.firstName() + ' ' + faker.name.lastName(),
+      description: faker.lorem.paragraphs(1),
+      image:
+        images[faker.datatype.number({ min: 0, max: images.length - 1 })].image,
+      interests: dummyInterests.filter(() => {
+        return faker.datatype.number({ min: 1, max: 2 }) === 1;
+      }),
+    } as UserProps;
+  });
+};
+
+export const dummyUsers = generateDummyUsers(20, 1);
