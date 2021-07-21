@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
-import express from "express";
-import { connectCloudDB } from "./db";
+import dotenv from 'dotenv';
+import express from 'express';
+import { connectCloudDB } from './db';
 
 dotenv.config();
 const port = process.env.PORT || 4000;
@@ -11,14 +11,14 @@ const main = () => {
 
   connectCloudDB()
     .then(() => {
-      console.log("Connected to MongoDB ☁️");
+      console.log('📄 Connected to MongoDB');
     })
     .catch((e) => {
-      console.error("Error connecting to MongoDB ☁️");
+      console.error(e.message);
     });
 
   app.listen(port, () => {
-    console.log(`App server listening on port ${port}!`);
+    console.log(`🚀 Server listening on port ${port}!`);
   });
 };
 
