@@ -1,21 +1,13 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# This workflow will install npm and yarn and run tests across stable and canary builds on Windows, Ubuntu and macOS.
-
-name: Yarn [frontend]
+name: CI Test
 
 on:
-  push:
-    branches: [main]
+  push
   pull_request:
     branches: [main]
 
 jobs:
   test:
-    name: frontend test
+    name: frontend
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +18,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-      - name: Install Yarn
+      - name: Install yarn
         run: npm install -g yarn
 
       - name: Install dependencies
@@ -43,4 +35,35 @@ jobs:
 
       - name: Linter
         working-directory: ./frontend
+        run: yarn lint
+
+  test:
+    name: backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup NodeJs 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: yarn install
+
+      - name: Test
+        working-directory: ./backend
+        run: yarn test
+
+      - name: Typecheck
+        working-directory: ./backend
+        run: yarn typecheck
+
+      - name: Linter
+        working-directory: ./backend
         run: yarn lint
