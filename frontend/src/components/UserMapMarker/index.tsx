@@ -3,7 +3,6 @@ import { UserProps } from '../../utils/types';
 import {
   ImageAvatar,
   ImageIconButton,
-  InterestAvatar,
   InterestTypography,
   TriangleDiv,
 } from './UserMapMarker.styled';
@@ -27,11 +26,17 @@ const UserMapMarker = ({
   };
 
   // TODO we will have some way of determining which interest from 'user' to display
-  const interestToDisplay =
-    user.interests.length > 0
-      ? user.interests[Math.floor(user.interests.length / 2)]
-      : null;
+  const interestEmojis = user.interests.map((interest) => {
+    return interest.emoji;
+  });
 
+  const displayEmojis =
+    interestEmojis.length <= 3
+      ? interestEmojis.concat()
+      : interestEmojis.slice(0, 2).concat(interestEmojis.length.toString());
+
+  // char code 160 is the no-break space (&nbsp;) - forces the emojis/numbers to stay on one line
+  const displayString = displayEmojis.join(String.fromCharCode(160));
   return (
     <>
       {/* triangle that points towards the location */}
@@ -43,10 +48,8 @@ const UserMapMarker = ({
         <ImageAvatar src={user.image} />
       </ImageIconButton>
       {/* displayed interest avatar */}
-      {interestToDisplay && displayInterestBadge && (
-        <InterestAvatar>
-          <InterestTypography>{interestToDisplay.emoji}</InterestTypography>
-        </InterestAvatar>
+      {displayInterestBadge && displayEmojis.length > 0 && (
+        <InterestTypography>{displayString}</InterestTypography>
       )}
     </>
   );

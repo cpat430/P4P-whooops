@@ -2,18 +2,18 @@ import { Avatar, IconButton, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
 // Constants that change the style of the marker. All units are in rem
-const triangleWidth = 2;
-const triangleHeight = 2.25;
+const triangleWidth = 2.5;
+const triangleHeight = 2.5;
 const triangleColor = '#555';
 
-const circleRadius = 1.5;
+const circleRadius = 1.8;
 const circlePadding = 0.5;
 const circleColor = '#555';
 
-const interestCircleRadius = 0.6;
-const interestCircleBackgroundColor = '#666';
-const interestCirclePadding = 0.3;
-const interestCircleFontSize = 0.6;
+const interestHeight = 0.6;
+const interestBackgroundColor = '#666';
+const interestPadding = 0.3;
+const interestFontSize = 0.5;
 
 export const TriangleDiv = styled.div`
   position: absolute;
@@ -51,19 +51,23 @@ export const ImageAvatar = styled(Avatar)`
 
 export const InterestAvatar = styled(Avatar)`
   &&& {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: ${-triangleHeight + circleRadius * Math.sin(Math.PI / 4)}rem;
-    left: ${circleRadius * Math.sin(Math.PI / 4)}rem;
-    height: ${interestCircleRadius * 2 - interestCirclePadding * 2}rem;
-    width: ${interestCircleRadius * 2 - interestCirclePadding * 2}rem;
-    background-color: ${interestCircleBackgroundColor};
-    padding: ${interestCirclePadding}rem;
   }
 `;
 
 export const InterestTypography = styled(Typography)`
   &&& {
-    font-size: ${interestCircleFontSize}rem;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: ${-triangleHeight + circleRadius * Math.sin(Math.PI / 4)}rem;
+    left: ${circleRadius * Math.sin(Math.PI / 4)}rem;
+    height: ${interestHeight}rem;
+    line-height: ${interestHeight}rem;
+    width: fit-content;
+    overflow: none;
+    background-color: ${interestBackgroundColor};
+    padding: ${interestPadding}rem;
+    font-size: ${interestFontSize}rem;
+    border-radius: 9999rem;
+    color: white;
   }
 `;
