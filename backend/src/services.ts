@@ -13,7 +13,7 @@ services.post('/track-event', (req, res) => {
       console.log('✅ Successfully logged event');
       res.sendStatus(204);
     })
-    .catch((e) => {
+    .catch(() => {
       console.log('🛑 Did not track event successfully');
       res.sendStatus(400);
     });
