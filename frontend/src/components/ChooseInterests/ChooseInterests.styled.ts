@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 export const ChooseInterestPaper = styled(Paper)`
   &&& {
-    width: 400px;
+    width: 30rem;
     max-width: 90%;
-    padding: 20px;
+    padding: 1.5rem;
 
     top: 50%;
     left: 50%;
