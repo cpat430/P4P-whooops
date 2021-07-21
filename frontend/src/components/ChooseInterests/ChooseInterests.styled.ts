@@ -13,10 +13,6 @@ export const ChooseInterestPaper = styled(Paper)`
     transform: translate(-50%, -50%);
   }
 `;
-export const SelectedChip = styled(Chip)`
-  &&& {
-  }
-`;
 
 export const UnselectedChip = styled(Chip)`
   &&& {

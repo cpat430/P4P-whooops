@@ -1,10 +1,11 @@
 import {
   Avatar,
   Button,
+  Chip,
   Divider,
   Grid,
   Modal,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import SaveIcon from '@material-ui/icons/Save';
@@ -14,8 +15,7 @@ import {
   CaptionTypography,
   ChooseInterestPaper,
   FlexGrid,
-  SelectedChip,
-  UnselectedChip
+  UnselectedChip,
 } from './ChooseInterests.styled';
 
 const InterestChip = ({
@@ -27,9 +27,9 @@ const InterestChip = ({
   checked?: boolean;
   onClick?: () => void;
 }) => {
-  // TODO does the button look better with
+  // TODO does the button look better with constant size (but empty space), or changing size?
   return checked ? (
-    <SelectedChip
+    <Chip
       avatar={<Avatar>{interest.emoji}</Avatar>}
       label={interest.name}
       color="primary"
