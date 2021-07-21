@@ -1,12 +1,12 @@
-import { Fab } from '@material-ui/core';
 import GoogleMapReact from 'google-map-react';
 import React, { useEffect, useState } from 'react';
-import { ChooseInterestsModal } from '../components/ChooseInterests';
-import UserMapMarker from '../components/UserMapMarker';
-import { UserProfile } from '../components/UserProfile';
-import { dummyInterests } from '../utils/dummyInterests';
-import { dummyUsers } from '../utils/dummyUsers';
-import { Interest, UserProps } from '../utils/types';
+import { ChooseInterestsModal } from '../../components/ChooseInterests';
+import UserMapMarker from '../../components/UserMapMarker';
+import { UserProfile } from '../../components/UserProfile';
+import { dummyInterests } from '../../utils/dummyInterests';
+import { dummyUsers } from '../../utils/dummyUsers';
+import { Interest, UserProps } from '../../utils/types';
+import { EditInterestFab, MapDiv } from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
   return {
@@ -52,7 +52,7 @@ const MapPage = (): JSX.Element => {
   }, [currentUser]);
 
   return (
-    <div style={{ height: '100vh', width: '100%' }} data-testid={'map-page'}>
+    <MapDiv data-testid={'map-page'}>
       <UserProfile
         user={currentUser}
         isProfileOpen={isProfileOpen}
@@ -81,14 +81,13 @@ const MapPage = (): JSX.Element => {
       </GoogleMapReact>
 
       {/* Temporary way to open edit interests modal */}
-      <Fab
+      <EditInterestFab
         onClick={() => {
           setOpenChooseInterestsModal(true);
         }}
-        style={{ position: 'absolute', bottom: 10, right: 10 }}
       >
         Edit Interest
-      </Fab>
+      </EditInterestFab>
 
       <ChooseInterestsModal
         open={openChooseInterestsModal}
@@ -112,7 +111,7 @@ const MapPage = (): JSX.Element => {
           setInterests(value);
         }}
       ></ChooseInterestsModal>
-    </div>
+    </MapDiv>
   );
 };
 
