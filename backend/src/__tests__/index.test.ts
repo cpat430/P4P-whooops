@@ -1,4 +1,4 @@
-import { connectCloudDB } from '../db';
+import { connectCloudDB } from '../db/connect';
 
 it('connect to cloud DB without credentials', async () => {
   try {
