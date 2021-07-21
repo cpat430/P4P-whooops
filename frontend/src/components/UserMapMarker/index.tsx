@@ -1,18 +1,12 @@
-import { Avatar, IconButton, Typography } from '@material-ui/core';
 import React from 'react';
 import { UserProps } from '../../utils/types';
-
-// Constants that can change the marker
-const triangleWidth = 25;
-const triangleHeight = triangleWidth * 1.7;
-const circleRadius = triangleWidth;
-
-const interestCircleRadius = 25;
-const interestCircleBackgroundColor = '#777';
-const interestFontSize = 13;
-
-const markerColor = '#555';
-const imagePadding = 8;
+import {
+  ImageAvatar,
+  ImageIconButton,
+  InterestAvatar,
+  InterestTypography,
+  TriangleDiv,
+} from './UserMapMarker.styled';
 
 type UserMapMarkerProps = {
   lat: number;
@@ -40,66 +34,19 @@ const UserMapMarker = ({
 
   return (
     <>
-      {/* triangle */}
-      <div
-        style={{
-          position: 'absolute',
-          transform: 'translate(-50%, -50%)',
-          top: 0,
-          left: 0,
-          height: 0,
-          width: 0,
-          borderTop: `${triangleHeight}px solid ${markerColor}`,
-          borderBottom: `${triangleHeight}px solid transparent`,
+      {/* triangle that points towards the location */}
+      <TriangleDiv />
 
-          borderLeft: `${triangleWidth}px solid transparent`,
-          borderRight: `${triangleWidth}px solid transparent`,
-        }}
-      />
-      {/* outside circle */}
-      <div
-        style={{
-          position: 'absolute',
-          top: -triangleHeight,
-          left: 0,
-          transform: 'translate(-50%, -50%)',
-          height: circleRadius * 2,
-          width: circleRadius * 2,
-          borderRadius: 9999,
-          backgroundColor: markerColor,
-        }}
-      >
-        {/* inside circle */}
-        <IconButton
-          style={{
-            height: '100%',
-            width: '100%',
-            padding: imagePadding,
-          }}
-          onClick={handleClick}
-        >
-          <img src={user.image} width={'100%'} style={{ borderRadius: 9999 }} />
-        </IconButton>
-      </div>
-      {/* interest badge */}
-      {displayInterestBadge && interestToDisplay && (
-        <Avatar
-          style={{
-            position: 'absolute',
-            // places the avatar to the bottom-right edge of the circle
-            top: -triangleHeight + circleRadius * Math.sin(Math.PI / 4),
-            left: circleRadius * Math.sin(Math.PI / 4),
-            transform: 'translate(-50%, -50%)',
-            height: interestCircleRadius,
-            width: interestCircleRadius,
-            borderRadius: 9999,
-            backgroundColor: interestCircleBackgroundColor,
-          }}
-        >
-          <Typography style={{ fontSize: interestFontSize }}>
-            {interestToDisplay.emoji}
-          </Typography>
-        </Avatar>
+      {/* button that contains the profile image */}
+      <ImageIconButton onClick={handleClick}>
+        {/* profile image */}
+        <ImageAvatar src={user.image} />
+      </ImageIconButton>
+      {/* displayed interest avatar */}
+      {interestToDisplay && displayInterestBadge && (
+        <InterestAvatar>
+          <InterestTypography>{interestToDisplay.emoji}</InterestTypography>
+        </InterestAvatar>
       )}
     </>
   );
