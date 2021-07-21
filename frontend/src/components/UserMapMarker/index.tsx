@@ -35,7 +35,7 @@ const UserMapMarker = ({
   // TODO we will have some way of determining which interest from 'user' to display
   const interestToDisplay =
     user.interests.length > 0
-      ? user.interests[Math.floor(Math.random() * user.interests.length)]
+      ? user.interests[Math.floor(user.interests.length / 2)]
       : null;
 
   return (
