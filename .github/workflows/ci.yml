@@ -1,69 +1,40 @@
 name: CI Test
 
-on:
-  push
-  pull_request:
-    branches: [main]
+on: [push, pull_request]
 
 jobs:
   test:
-    name: frontend
+    strategy:
+      matrix:
+        dir: ["./frontend", "./backend"]
+
+    name: ${{ matrix.dir }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Setup repo
+      - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Setup NodeJs 16
+      - name: Setup NodeJS 16
         uses: actions/setup-node@v1
         with:
           node-version: 16
+
       - name: Install yarn
         run: npm install -g yarn
 
       - name: Install dependencies
-        working-directory: ./frontend
+        working-directory: ${{ matrix.dir }}
         run: yarn install
 
       - name: Test
-        working-directory: ./frontend
+        working-directory: ${{ matrix.dir }}
         run: yarn test
 
-      - name: Typecheck
-        working-directory: ./frontend
+      - name: Type-check
+        working-directory: ${{ matrix.dir }}
         run: yarn typecheck
 
-      - name: Linter
-        working-directory: ./frontend
-        run: yarn lint
-
-  test:
-    name: backend
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Setup repo
-        uses: actions/checkout@v2
-
-      - name: Setup NodeJs 16
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-      - name: Install yarn
-        run: npm install -g yarn
-
-      - name: Install dependencies
-        working-directory: ./backend
-        run: yarn install
-
-      - name: Test
-        working-directory: ./backend
-        run: yarn test
-
-      - name: Typecheck
-        working-directory: ./backend
-        run: yarn typecheck
-
-      - name: Linter
-        working-directory: ./backend
+      - name: Lint
+        working-directory: ${{ matrix.dir }}
         run: yarn lint
