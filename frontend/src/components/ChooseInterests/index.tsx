@@ -1,15 +1,22 @@
 import {
+  Avatar,
   Button,
   Divider,
   Grid,
   Modal,
-  Paper,
-  Typography,
+  Typography
 } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/Check';
-import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
-import React, { useState } from 'react';
+import DoneIcon from '@material-ui/icons/Done';
+import SaveIcon from '@material-ui/icons/Save';
+import { default as React, useState } from 'react';
 import { Interest } from '../../utils/types';
+import {
+  CaptionTypography,
+  ChooseInterestPaper,
+  FlexGrid,
+  SelectedChip,
+  UnselectedChip
+} from './ChooseInterests.styled';
 
 const InterestChip = ({
   interest,
@@ -20,20 +27,24 @@ const InterestChip = ({
   checked?: boolean;
   onClick?: () => void;
 }) => {
-  return (
-    <Button
-      variant="outlined"
-      style={{
-        borderRadius: 9999,
-        borderColor: checked ? 'black' : undefined,
-        textTransform: 'none',
-      }}
-      startIcon={<SportsBasketballIcon />} // insert image here
-      endIcon={<CheckIcon style={{ opacity: checked ? '100%' : '0%' }} />}
+  // TODO does the button look better with
+  return checked ? (
+    <SelectedChip
+      avatar={<Avatar>{interest.emoji}</Avatar>}
+      label={interest.name}
+      color="primary"
+      clickable
       onClick={onClick}
-    >
-      {interest.name}
-    </Button>
+      onDelete={onClick}
+      deleteIcon={<DoneIcon />}
+    />
+  ) : (
+    <UnselectedChip
+      avatar={<Avatar>{interest.emoji}</Avatar>}
+      label={interest.name}
+      clickable
+      onClick={onClick}
+    />
   );
 };
 
@@ -65,26 +76,26 @@ export const ChooseInterestsModal = ({
       disableEnforceFocus
       disableRestoreFocus
     >
-      <Paper
-        style={{
-          width: '400px', // TODO styling based on percentages
-          padding: '20px',
-
-          top: '50%',
-          left: '50%',
-          position: 'absolute',
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
+      <ChooseInterestPaper>
         <Grid container spacing={1}>
-          <Grid item>
-            <Typography>Choose your interests</Typography>
+          <Grid item xs={12}>
+            <Typography>Choose Interests</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <CaptionTypography>
+              What are your interests and hobbies?
+            </CaptionTypography>
           </Grid>
           <Grid item xs={12}>
             <Divider />
           </Grid>
           <Grid item>
-            <Grid container spacing={1}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+            >
               {allInterests.map((interest, index) => {
                 const userInterestIndex = selectedInterests.findIndex(
                   (userInterest) => {
@@ -116,14 +127,23 @@ export const ChooseInterestsModal = ({
               })}
             </Grid>
           </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
 
+          <FlexGrid item />
           <Grid item>
-            <Button variant="outlined" onClick={handleSubmit}>
-              Save
+            <Button
+              variant="outlined"
+              onClick={handleSubmit}
+              color="primary"
+              endIcon={<SaveIcon />}
+            >
+              save
             </Button>
           </Grid>
         </Grid>
-      </Paper>
+      </ChooseInterestPaper>
     </Modal>
   );
 };
