@@ -1,3 +1,4 @@
+import { Fab } from '@material-ui/core';
 import GoogleMapReact from 'google-map-react';
 import React, { useEffect, useState } from 'react';
 import { ChooseInterestsModal } from '../components/ChooseInterests';
@@ -6,6 +7,15 @@ import { UserProfile } from '../components/UserProfile';
 import { dummyInterests } from '../utils/dummyInterests';
 import { dummyUsers } from '../utils/dummyUsers';
 import { Interest, UserProps } from '../utils/types';
+
+const mapOptions = (maps: GoogleMapReact.Maps) => {
+  return {
+    zoomControlOptions: {
+      position: maps.ControlPosition.RIGHT_CENTER,
+      style: maps.ZoomControlStyle.SMALL,
+    },
+  };
+};
 
 const MapPage = (): JSX.Element => {
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(true);
@@ -52,6 +62,7 @@ const MapPage = (): JSX.Element => {
         bootstrapURLKeys={{ key: mapKey || '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
+        options={mapOptions}
       >
         {dummyUsers.map((user, userIndex) => {
           return (
@@ -67,8 +78,17 @@ const MapPage = (): JSX.Element => {
             />
           );
         })}
-        {/* Sky Tower */}
       </GoogleMapReact>
+
+      {/* Temporary way to open edit interests modal */}
+      <Fab
+        onClick={() => {
+          setOpenChooseInterestsModal(true);
+        }}
+        style={{ position: 'absolute', bottom: 10, right: 10 }}
+      >
+        Edit Interest
+      </Fab>
 
       <ChooseInterestsModal
         open={openChooseInterestsModal}
