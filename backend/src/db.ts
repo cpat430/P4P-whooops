@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 const database = 'database';
@@ -10,8 +9,6 @@ const connectDB = async (uri: string): Promise<void> => {
 };
 
 export const connectCloudDB = async (): Promise<void> => {
-  dotenv.config();
-
   const username = process.env.MONGODB_USERNAME;
   const password = process.env.MONGODB_PASSWORD;
 
