@@ -39,6 +39,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",
+    "prettiercheck": "yarn prettier --check .",
     "typecheck": "tsc --noEmit"
   },
   "eslintConfig": {

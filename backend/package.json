@@ -8,6 +8,7 @@
     "dev": "ts-node-dev --transpile-only src/index.ts",
     "test": "jest .",
     "lint": "eslint .",
+    "prettiercheck": "yarn prettier --check .",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
@@ -24,6 +25,7 @@
     "express": "^4.17.1",
     "jest": "^27.0.6",
     "mongoose": "^5.13.3",
+    "prettier": "^2.3.2",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.1.0",
     "ts-node-dev": "^1.1.8",

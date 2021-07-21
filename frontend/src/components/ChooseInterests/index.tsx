@@ -4,7 +4,7 @@ import {
   Grid,
   Modal,
   Paper,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';

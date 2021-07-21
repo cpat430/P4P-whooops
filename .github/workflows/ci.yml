@@ -31,10 +31,14 @@ jobs:
         working-directory: ${{ matrix.dir }}
         run: yarn test
 
-      - name: Type-check
+      - name: Typecheck
         working-directory: ${{ matrix.dir }}
         run: yarn typecheck
 
       - name: Lint
         working-directory: ${{ matrix.dir }}
         run: yarn lint
+
+      - name: Prettiercheck
+        working-directory: ${{ matrix.dir }}
+        run: yarn prettiercheck
