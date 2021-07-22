@@ -30,10 +30,13 @@ const UserMapMarker = ({
     return interest.emoji;
   });
 
+  const emojiLimit = 2;
   const displayEmojis =
-    interestEmojis.length <= 3
+    interestEmojis.length <= emojiLimit
       ? interestEmojis.concat()
-      : interestEmojis.slice(0, 2).concat(interestEmojis.length.toString());
+      : interestEmojis
+          .slice(0, emojiLimit)
+          .concat('+' + (interestEmojis.length - 2).toString());
 
   // char code 160 is the no-break space (&nbsp;) - forces the emojis/numbers to stay on one line
   const displayString = displayEmojis.join(String.fromCharCode(160));
