@@ -6,17 +6,17 @@ import * as Styled from './UserProfile.styled';
 type UserProfileProps = {
   user: UserProps;
   isProfileOpen: boolean;
-  toggleProfile: () => void;
+  setCurrentUser: (user: UserProps) => void;
 };
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user } = props;
   const { name, description, interests } = user;
-  const { isProfileOpen, toggleProfile } = props;
+  const { isProfileOpen, setCurrentUser } = props;
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleClose = () => {
-    toggleProfile();
+    setCurrentUser({} as UserProps);
   };
 
   const handleClick = () => {

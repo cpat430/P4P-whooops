@@ -12,4 +12,5 @@ export type UserProps = {
   image: string;
   description: string;
   interests: Interest[];
+  isFriendsWithUser: boolean;
 };
