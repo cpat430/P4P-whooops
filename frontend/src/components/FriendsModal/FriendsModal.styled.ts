@@ -76,3 +76,5 @@ export const FriendsModalUserPill = styled.div`
     background-color: ${colours.shadow};
   }
 `;
+
+export const FriendsContainer = styled.div``;

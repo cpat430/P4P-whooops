@@ -11,7 +11,7 @@ type UserProfileProps = {
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user } = props;
-  const { name, description, interests } = user;
+  const { name, description, interests, isFriendsWithUser } = user;
   const { isProfileOpen, setCurrentUser } = props;
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -79,6 +79,9 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
               />
             ))}
         </Styled.UserInterests>
+        <Styled.UserText>
+          Are you friends?: {isFriendsWithUser ? '👍' : '👎'}
+        </Styled.UserText>
       </Styled.ProfileDetailsContainer>
     </Modal>
   );
