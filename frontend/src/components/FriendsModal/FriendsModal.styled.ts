@@ -44,7 +44,7 @@ export const FriendsModalFilterIconContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const FriendsModalFilterIcon = styled(FilterListIcon)`
+export const TuneIcon = styled(FilterListIcon)`
   float: right;
   border-radius: 50%;
   padding: 1%;
@@ -54,10 +54,9 @@ export const FriendsModalFilterIcon = styled(FilterListIcon)`
 `;
 
 export const FriendsModalUsersContainer = styled.div`
-  // display: flex;
   justify-content: center;
   overflow-y: scroll;
-  max-height: 60vh;
+  height: 60vh;
 `;
 
 export const FriendsModalUserPill = styled.div`
@@ -71,6 +70,7 @@ export const FriendsModalUserPill = styled.div`
   border: 0.05rem solid black;
   box-shadow: 0.1rem 0.1rem ${colours.shadow};
   margin-bottom: 1rem;
+  cursor: pointer;
 
   :hover {
     background-color: ${colours.shadow};
