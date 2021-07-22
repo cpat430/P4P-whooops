@@ -1,4 +1,4 @@
-import { intersestInCommon } from './interestInCommon';
+import { interestInCommon } from './interestInCommon';
 import { Interest } from './types';
 
 describe('Selected Interests', () => {
@@ -18,7 +18,7 @@ describe('Selected Interests', () => {
     const userInterests = [] as Interest[];
     const selectedInterests = [] as Interest[];
 
-    const result = intersestInCommon(userInterests, selectedInterests);
+    const result = interestInCommon(userInterests, selectedInterests);
 
     expect(result).toBe(true);
   });
@@ -27,7 +27,7 @@ describe('Selected Interests', () => {
     const userInterests = [interest1];
     const selectedInterests = [interest1];
 
-    const result = intersestInCommon(userInterests, selectedInterests);
+    const result = interestInCommon(userInterests, selectedInterests);
 
     expect(result).toBe(true);
   });
@@ -36,7 +36,7 @@ describe('Selected Interests', () => {
     const userInterests = [interest1];
     const selectedInterests = [interest2];
 
-    const result = intersestInCommon(userInterests, selectedInterests);
+    const result = interestInCommon(userInterests, selectedInterests);
 
     expect(result).toBe(false);
   });

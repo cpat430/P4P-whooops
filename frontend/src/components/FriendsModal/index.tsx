@@ -3,7 +3,7 @@ import { Avatar, Modal, Typography } from '@material-ui/core';
 import {
   FriendsModalAppBar,
   FriendsModalContainer,
-  FriendsModalFilterIcon,
+  TuneIcon,
   FriendsModalHeader,
   FriendsModalHeadingText,
   FriendsModalTab,
@@ -18,7 +18,7 @@ import { dummyUsers } from '../../utils/dummyUsers';
 import { Interest, UserProps } from '../../utils/types';
 import { ChooseInterestsModal } from '../ChooseInterests';
 import { dummyInterests } from '../../utils/dummyInterests';
-import { intersestInCommon } from '../../utils/interestInCommon';
+import { interestInCommon } from '../../utils/interestInCommon';
 
 type FriendsModalProps = {
   open: boolean;
@@ -65,19 +65,19 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
                 <FriendsModalTab label="Nearby Users"></FriendsModalTab>
                 <FriendsModalTab label="Friends"></FriendsModalTab>
               </FriendsModalTabs>
-              <FriendsModalFilterIcon
+              <TuneIcon
                 onClick={() => setOpenChooseInterestsModal(true)}
-              ></FriendsModalFilterIcon>
+              ></TuneIcon>
             </FriendsModalAppBar>
             <FriendsModalUsersContainer>
               {dummyUsers.map(
                 (user, index) =>
-                  intersestInCommon(user.interests, selectedInterests) &&
+                  interestInCommon(user.interests, selectedInterests) &&
                   (currentTab === 0 ||
                     (currentTab === 1 && user.isFriendsWithUser)) && (
                     <FriendsModalUserPill
-                      key={index}
                       onClick={() => setCurrentUser(user)}
+                      key={index}
                     >
                       <Avatar src={user.image} />
                       <Typography>{user.name}</Typography>

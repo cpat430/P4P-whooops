@@ -1,6 +1,6 @@
 import { Interest } from './types';
 
-export const intersestInCommon = (
+export const interestInCommon = (
   userInterests: Interest[],
   selectedInterests: Interest[]
 ): boolean => {
