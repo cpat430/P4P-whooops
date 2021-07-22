@@ -23,12 +23,14 @@ describe('User Profile', () => {
     };
     const isProfileOpen = true;
     const setCurrentUser = jest.fn();
+    const handleUpdateFriend = jest.fn();
 
     render(
       <UserProfile
         user={user}
         isProfileOpen={isProfileOpen}
         setCurrentUser={setCurrentUser}
+        handleUpdateFriend={handleUpdateFriend}
       />
     );
 
