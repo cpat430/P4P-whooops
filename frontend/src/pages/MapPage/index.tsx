@@ -1,5 +1,5 @@
 import GoogleMapReact from 'google-map-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ChooseInterestsModal } from '../../components/ChooseInterests';
 import { FriendsModal } from '../../components/FriendsModal';
 import UserMapMarker from '../../components/UserMapMarker';
@@ -7,7 +7,7 @@ import { UserProfile } from '../../components/UserProfile';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { dummyUsers } from '../../utils/dummyUsers';
 import { Interest, UserProps } from '../../utils/types';
-import { EditInterestFab, MapDiv, FriendsFab } from './MapPage.styled';
+import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
   return {
@@ -19,10 +19,12 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 };
 
 const MapPage = (): JSX.Element => {
-  // negates the use effect, not sure on legit solution yet.
-  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(true);
+  /**
+   * currentUser is the current profile that is open.
+   * If currentUser === null, the modal is not open
+   */
+  const [currentUser, setCurrentUser] = useState<UserProps | null>(null);
 
-  const [currentUser, setCurrentUser] = useState<UserProps>({} as UserProps);
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
     useState(false);
   const [openFriendsModal, setOpenFriendsModal] = useState(false);
@@ -47,31 +49,14 @@ const MapPage = (): JSX.Element => {
     zoom: 14,
   };
 
-  const toggleProfile = () => {
-    setIsProfileOpen(!isProfileOpen);
-  };
-
-  const handleUpdateFriend = (index: number): void => {
-    const changeUsers = [...users];
-
-    changeUsers[index].isFriendsWithUser =
-      !changeUsers[index].isFriendsWithUser;
-
-    setUsers(changeUsers);
-  };
-
-  useEffect(() => {
-    if (!currentUser) return;
-    toggleProfile();
-  }, [currentUser]);
-
   return (
     <MapDiv data-testid={'map-page'}>
       <UserProfile
         user={currentUser}
-        isProfileOpen={isProfileOpen}
-        setCurrentUser={setCurrentUser}
-        handleUpdateFriend={handleUpdateFriend}
+        onClose={() => {
+          // to close the modal, set the current user to null
+          setCurrentUser(null);
+        }}
       />
       <GoogleMapReact
         bootstrapURLKeys={{ key: mapKey || '' }}
