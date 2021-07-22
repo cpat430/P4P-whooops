@@ -24,18 +24,9 @@ describe('User Profile', () => {
       ],
       isFriendsWithUser: false,
     };
-    const isProfileOpen = true;
-    const setCurrentUser = jest.fn();
-    const handleUpdateFriend = jest.fn();
+    const setUserToNull = jest.fn();
 
-    render(
-      <UserProfile
-        user={user}
-        isProfileOpen={isProfileOpen}
-        setCurrentUser={setCurrentUser}
-        handleUpdateFriend={handleUpdateFriend}
-      />
-    );
+    render(<UserProfile user={user} onClose={setUserToNull} />);
 
     const userProfile = screen.getByTestId('user-profile');
     const userHeader = screen.getByTestId('user-header');
