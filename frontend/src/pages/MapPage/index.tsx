@@ -31,6 +31,7 @@ const MapPage = (): JSX.Element => {
       return Math.random() < 0.5;
     })
   );
+  const [users, setUsers] = useState<UserProps[]>(dummyUsers);
 
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
@@ -50,6 +51,15 @@ const MapPage = (): JSX.Element => {
     setIsProfileOpen(!isProfileOpen);
   };
 
+  const handleUpdateFriend = (index: number): void => {
+    const changeUsers = [...users];
+
+    changeUsers[index].isFriendsWithUser =
+      !changeUsers[index].isFriendsWithUser;
+
+    setUsers(changeUsers);
+  };
+
   useEffect(() => {
     if (!currentUser) return;
     toggleProfile();
@@ -61,6 +71,7 @@ const MapPage = (): JSX.Element => {
         user={currentUser}
         isProfileOpen={isProfileOpen}
         setCurrentUser={setCurrentUser}
+        handleUpdateFriend={handleUpdateFriend}
       />
       <GoogleMapReact
         bootstrapURLKeys={{ key: mapKey || '' }}

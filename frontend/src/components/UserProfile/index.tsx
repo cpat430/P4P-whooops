@@ -7,12 +7,13 @@ type UserProfileProps = {
   user: UserProps;
   isProfileOpen: boolean;
   setCurrentUser: (user: UserProps) => void;
+  handleUpdateFriend: (index: number) => void;
 };
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user } = props;
-  const { name, description, interests, isFriendsWithUser } = user;
-  const { isProfileOpen, setCurrentUser } = props;
+  const { id, name, description, interests, isFriendsWithUser } = user;
+  const { isProfileOpen, setCurrentUser, handleUpdateFriend } = props;
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleClose = () => {
@@ -81,6 +82,19 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
         <Styled.UserText>
           Are you friends?: {isFriendsWithUser ? '👍' : '👎'}
         </Styled.UserText>
+        {!isFriendsWithUser ? (
+          <Styled.UserAddFriendContainer>
+            <Styled.UserAddFriendButton onClick={() => handleUpdateFriend(id)}>
+              Add Friend
+            </Styled.UserAddFriendButton>
+          </Styled.UserAddFriendContainer>
+        ) : (
+          <Styled.UserAddFriendContainer>
+            <Styled.UserAddFriendButton onClick={() => handleUpdateFriend(id)}>
+              Remove Friend
+            </Styled.UserAddFriendButton>
+          </Styled.UserAddFriendContainer>
+        )}
       </Styled.ProfileDetailsContainer>
     </Modal>
   );
