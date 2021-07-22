@@ -1,5 +1,6 @@
-import { Paper, Typography } from '@material-ui/core';
+import { Button, Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
+import { colours } from '../../utils/colours';
 
 export const ProfileDetailsContainer = styled(Paper)`
   &&& {
@@ -46,4 +47,16 @@ export const UserInterests = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+`;
+
+export const UserAddFriendContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const UserAddFriendButton = styled(Button)`
+  &&& {
+    color: white;
+    background-color: ${colours.primary};
+  }
 `;
