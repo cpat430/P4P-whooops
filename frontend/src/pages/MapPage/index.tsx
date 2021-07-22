@@ -19,12 +19,13 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 };
 
 const MapPage = (): JSX.Element => {
+  // negates the use effect, not sure on legit solution yet.
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(true);
 
   const [currentUser, setCurrentUser] = useState<UserProps>({} as UserProps);
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
-    useState(true);
-  const [openFriendsModal, setOpenFriendsModal] = useState(true);
+    useState(false);
+  const [openFriendsModal, setOpenFriendsModal] = useState(false);
   const [interests, setInterests] = useState<Interest[]>(
     dummyInterests.filter(() => {
       return Math.random() < 0.5;
@@ -50,6 +51,7 @@ const MapPage = (): JSX.Element => {
   };
 
   useEffect(() => {
+    if (!currentUser) return;
     toggleProfile();
   }, [currentUser]);
 
@@ -128,6 +130,8 @@ const MapPage = (): JSX.Element => {
           setOpenFriendsModal(false);
         }}
         setCurrentUser={setCurrentUser}
+        openChooseInterestsModal={openChooseInterestsModal}
+        setOpenChooseInterestModal={setOpenChooseInterestsModal}
       ></FriendsModal>
     </MapDiv>
   );

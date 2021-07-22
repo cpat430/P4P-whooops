@@ -19,15 +19,16 @@ describe('User Profile', () => {
           emoji: '🏀',
         },
       ],
+      isFriendsWithUser: false,
     };
     const isProfileOpen = true;
-    const toggleProfile = jest.fn();
+    const setCurrentUser = jest.fn();
 
     render(
       <UserProfile
         user={user}
         isProfileOpen={isProfileOpen}
-        toggleProfile={toggleProfile}
+        setCurrentUser={setCurrentUser}
       />
     );
 
