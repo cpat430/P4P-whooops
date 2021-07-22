@@ -24,7 +24,6 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     if (!user) return;
     setIsLoading(false);
   }, [user]);
