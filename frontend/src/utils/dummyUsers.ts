@@ -35,6 +35,7 @@ const generateDummyUsers = (numUsers: number, seed: number) => {
       interests: dummyInterests.filter(() => {
         return faker.datatype.number({ min: 1, max: 2 }) === 1;
       }),
+      isFriendsWithUser: faker.datatype.boolean(),
     } as UserProps;
   });
 };

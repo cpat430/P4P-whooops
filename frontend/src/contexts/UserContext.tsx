@@ -9,6 +9,7 @@ const defaultUser = {
   image: '',
   description: '',
   interests: [],
+  isFriendsWithUser: false,
 };
 export const UserContext = createContext<UserProps>(defaultUser);
 

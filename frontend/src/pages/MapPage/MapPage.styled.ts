@@ -13,3 +13,11 @@ export const EditInterestFab = styled(Fab)`
     bottom: 1rem;
   }
 `;
+
+export const FriendsFab = styled(Fab)`
+  &&& {
+    position: absolute;
+    right: 6rem;
+    bottom: 1rem;
+  }
+`;
