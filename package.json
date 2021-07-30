@@ -4,7 +4,8 @@
   "description": "Charles' and Shih-Hao's Part IV Project",
   "main": "backend/build/index.js",
   "scripts": {
-    "build": "yarn --cwd frontend build && yarn --cwd backend build"
+    "build": "yarn --cwd frontend build && yarn --cwd backend build",
+    "start": "node ."
   },
   "private": true,
   "workspaces": [
