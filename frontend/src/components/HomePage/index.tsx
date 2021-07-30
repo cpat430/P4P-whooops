@@ -35,7 +35,7 @@ export const HomePage = (): JSX.Element => {
   };
 
   return (
-    <PageContainer>
+    <PageContainer data-testid="home-page">
       <PageHeader>
         <PageTitle variant="h3">Welcome to Shweep</PageTitle>
       </PageHeader>
