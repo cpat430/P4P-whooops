@@ -1,0 +1,25 @@
+{
+  "name": "P4P-whooops",
+  "version": "1.0.0",
+  "description": "Charles' and Shih-Hao's Part IV Project",
+  "main": "backend/build/index.js",
+  "scripts": {
+    "build": "yarn --cwd frontend build && yarn --cwd backend build"
+  },
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cpat430/P4P-whooops.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cpat430/P4P-whooops/issues"
+  },
+  "homepage": "https://github.com/cpat430/P4P-whooops#readme"
+}
