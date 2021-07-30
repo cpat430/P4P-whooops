@@ -1,5 +1,6 @@
 import { Button, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import { createUser, NoIdUserProps } from '../../utils/createUser';
 import {
   PageContainer,
   PageContent,
@@ -29,8 +30,15 @@ export const HomePage = (): JSX.Element => {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // means we can do what we like.
+    const user = {
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      email: formValues.email,
+    } as NoIdUserProps;
+    const id = await createUser(user);
+    console.log(`created user with id: ${id}`);
     window.location.href = window.location.origin + '/map';
   };
 
