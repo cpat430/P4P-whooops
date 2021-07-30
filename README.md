@@ -13,8 +13,7 @@ git clone https://github.com/cpat430/P4P-whooops.git
 Install dependencies
 
 ```sh
-yarn --cwd frontend
-yarn --cwd backend
+yarn
 ```
 
 In one terminal, run the backend server. The server will be running on `localhost:4000`
