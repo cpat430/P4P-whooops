@@ -42,3 +42,7 @@ jobs:
       - name: Prettiercheck
         working-directory: ${{ matrix.dir }}
         run: yarn prettiercheck
+
+      - name: Build
+        working-directory: ${{ matrix.dir }}
+        run: yarn build
