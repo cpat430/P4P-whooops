@@ -5,10 +5,13 @@ export type Interest = {
 };
 
 export type UserProps = {
-  id: number;
+  id: string;
+  index: number;
   lat: number;
   lng: number;
-  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   image: string;
   description: string;
   interests: Interest[];

@@ -1,6 +1,10 @@
 import { Button, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useContext } from 'react';
+import { useHistory } from 'react-router';
+import { UserContext } from '../../contexts/UserContext';
 import { createUser, NoIdUserProps } from '../../utils/createUser';
+import { updateUser } from '../../utils/updateUser';
 import {
   PageContainer,
   PageContent,
@@ -19,6 +23,8 @@ const defaultValues = {
 
 export const HomePage = (): JSX.Element => {
   const [formValues, setFormValues] = useState(defaultValues);
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
 
   const handleInputChange = (
     event: React.ChangeEvent<{ name: string; value: string }>
@@ -32,14 +38,19 @@ export const HomePage = (): JSX.Element => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // means we can do what we like.
-    const user = {
+    const userDetails = {
       firstName: formValues.firstName,
       lastName: formValues.lastName,
       email: formValues.email,
     } as NoIdUserProps;
-    const id = await createUser(user);
-    console.log(`created user with id: ${id}`);
-    window.location.href = window.location.origin + '/map';
+
+    const id = await createUser(userDetails);
+    const userDetailsWithId = {
+      id,
+      ...userDetails,
+    };
+    updateUser({ userDetails: userDetailsWithId, user, setUser });
+    history.push('/map');
   };
 
   return (

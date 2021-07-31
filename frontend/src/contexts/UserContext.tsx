@@ -1,24 +1,43 @@
-import React, { createContext, ReactNode } from 'react';
+import React, { createContext, ReactNode, useState } from 'react';
 import { UserProps } from '../utils/types';
 
 const defaultUser = {
-  id: -1,
+  id: '',
+  index: -1,
   lat: -1,
   lng: -1,
-  name: 'Default User',
+  firstName: 'Default',
+  lastName: 'User',
+  email: 'test@gmail.com',
   image: '',
   description: '',
   interests: [],
   isFriendsWithUser: false,
 };
-export const UserContext = createContext<UserProps>(defaultUser);
+
+type UserContextProps = {
+  user: UserProps;
+  setUser: (user: UserProps) => void;
+};
+
+export const UserContext = createContext<UserContextProps>({
+  user: defaultUser,
+  setUser: (user: UserProps) => console.warn(`${user}`),
+});
 
 export const UserProvider = ({
   children,
 }: {
   children?: ReactNode;
 }): JSX.Element => {
+  const [user, setUser] = useState<UserProps>(defaultUser);
+
+  const context = {
+    user,
+    setUser,
+  };
+
   return (
-    <UserContext.Provider value={defaultUser}>{children}</UserContext.Provider>
+    <UserContext.Provider value={context}>{children}</UserContext.Provider>
   );
 };
