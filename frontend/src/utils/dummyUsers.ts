@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { images } from '../user-profiles';
 import { dummyInterests } from './dummyInterests';
 import { UserProps } from './types';
+import { v4 as uuid } from 'uuid';
 
 // Determines where the users will be located: +- delta from the sky tower
 const skyTowerPos = {
@@ -17,8 +18,12 @@ const generateDummyUsers = (numUsers: number, seed: number) => {
 
   // Returns a list of length numUsers of a randomly generated person
   return _.range(numUsers).map((userIndex) => {
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+
     return {
-      id: userIndex,
+      id: uuid(),
+      index: userIndex,
       lat: faker.datatype.number({
         min: skyTowerPos.lat - delta,
         max: skyTowerPos.lat + delta,
@@ -29,7 +34,9 @@ const generateDummyUsers = (numUsers: number, seed: number) => {
         max: skyTowerPos.lng + delta,
         precision: 0.00001,
       }),
-      name: faker.name.firstName() + ' ' + faker.name.lastName(),
+      firstName: firstName,
+      lastName: lastName,
+      email: faker.internet.email(firstName, lastName),
       description: faker.lorem.paragraphs(1),
       image: images[faker.datatype.number({ min: 0, max: images.length - 1 })],
       interests: dummyInterests.filter(() => {

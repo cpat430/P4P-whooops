@@ -12,7 +12,14 @@ type UserProfileProps = {
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user } = props;
-  const { id, name, description, interests, isFriendsWithUser } = user;
+  const {
+    index,
+    firstName,
+    lastName,
+    description,
+    interests,
+    isFriendsWithUser,
+  } = user;
   const { isProfileOpen, setCurrentUser, handleUpdateFriend } = props;
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -48,11 +55,13 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
       <Styled.ProfileDetailsContainer data-testid={'profile-details-container'}>
         <Styled.UserHeader data-testid={'user-header'}>
           <Styled.UserAvatar
-            alt={name}
+            alt={firstName}
             src={user.image}
             data-testid={'user-avatar'}
           />
-          <Styled.UserName data-testid={'user-name'}>{name}</Styled.UserName>
+          <Styled.UserName
+            data-testid={'user-name'}
+          >{`${firstName} ${lastName}`}</Styled.UserName>
         </Styled.UserHeader>
         <Divider />
         <Styled.UserText variant="h4" data-testid={'bio-user-text'}>
@@ -84,13 +93,17 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
         </Styled.UserText>
         {!isFriendsWithUser ? (
           <Styled.UserAddFriendContainer>
-            <Styled.UserAddFriendButton onClick={() => handleUpdateFriend(id)}>
+            <Styled.UserAddFriendButton
+              onClick={() => handleUpdateFriend(index)}
+            >
               Add Friend
             </Styled.UserAddFriendButton>
           </Styled.UserAddFriendContainer>
         ) : (
           <Styled.UserAddFriendContainer>
-            <Styled.UserAddFriendButton onClick={() => handleUpdateFriend(id)}>
+            <Styled.UserAddFriendButton
+              onClick={() => handleUpdateFriend(index)}
+            >
               Remove Friend
             </Styled.UserAddFriendButton>
           </Styled.UserAddFriendContainer>

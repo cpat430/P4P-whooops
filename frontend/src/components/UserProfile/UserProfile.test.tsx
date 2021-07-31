@@ -5,11 +5,14 @@ import { UserProfile } from '.';
 describe('User Profile', () => {
   it('should render user profile', () => {
     const user = {
-      id: 1,
+      id: '1',
+      index: 1,
       // Sky Tower
       lat: -36.8484,
       lng: 174.7622,
-      name: 'john stockman',
+      firstName: 'john',
+      lastName: 'stockman',
+      email: 'j.stockman@gmail.com',
       image: '',
       description: 'love long walks on the beach',
       interests: [

@@ -80,7 +80,7 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
                       key={index}
                     >
                       <Avatar src={user.image} />
-                      <Typography>{user.name}</Typography>
+                      <Typography>{`${user.firstName} ${user.lastName}`}</Typography>
                       <Typography variant="h4">
                         {user.interests[0].emoji}
                       </Typography>

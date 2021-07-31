@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import './App.css';
-import { HomePage } from './components/HomePage';
+import { HomePage } from './pages/HomePage';
 import { UserProvider } from './contexts/UserContext';
 import MapPage from './pages/MapPage';
 
