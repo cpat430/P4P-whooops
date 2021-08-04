@@ -33,7 +33,6 @@ const MapPage = (): JSX.Element => {
       return Math.random() < 0.5;
     })
   );
-  const [users, setUsers] = useState<UserProps[]>(dummyUsers);
 
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
