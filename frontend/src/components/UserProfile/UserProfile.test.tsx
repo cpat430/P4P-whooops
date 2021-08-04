@@ -34,7 +34,7 @@ describe('User Profile', () => {
     const userInterests = screen.getByTestId('user-interests');
     expect(userProfile).toBeInTheDocument();
     expect(userHeader).toBeInTheDocument();
-    expect(userName.innerHTML).toBe('john stockman');
+    expect(userName.innerHTML).toBe('john');
     expect(userInterests).toBeInTheDocument();
   });
 });
