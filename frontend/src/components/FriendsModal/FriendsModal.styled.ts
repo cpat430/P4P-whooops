@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs, Typography } from '@material-ui/core';
+import { Avatar, Paper, Tab, Tabs, Typography } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import styled from 'styled-components';
 import { colours } from '../../utils/colours';
@@ -75,6 +75,18 @@ export const FriendsModalUserPill = styled.div`
   :hover {
     background-color: ${colours.shadow};
   }
+`;
+
+export const PillAvatar = styled(Avatar)`
+  max-width: 33%;
+`;
+
+export const PillText = styled(Typography)`
+  /* max-width: 33%; */
+`;
+
+export const PillEmojis = styled(Typography)`
+  max-width: 33%;
 `;
 
 export const FriendsContainer = styled.div``;

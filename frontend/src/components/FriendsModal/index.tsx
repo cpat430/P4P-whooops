@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Modal, Typography } from '@material-ui/core';
+import { Modal } from '@material-ui/core';
 import {
   FriendsModalAppBar,
   FriendsModalContainer,
@@ -12,6 +12,9 @@ import {
   FriendsModalUsersContainer,
   FriendsPaper,
   FriendsContainer,
+  PillAvatar,
+  PillText,
+  PillEmojis,
 } from './FriendsModal.styled';
 import { useState } from 'react';
 import { dummyUsers } from '../../utils/dummyUsers';
@@ -19,6 +22,7 @@ import { Interest, UserProps } from '../../utils/types';
 import { ChooseInterestsModal } from '../ChooseInterests';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { interestInCommon } from '../../utils/interestInCommon';
+import { getEmojis } from '../../utils/getEmojis';
 
 type FriendsModalProps = {
   open: boolean;
@@ -79,11 +83,11 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
                       onClick={() => setCurrentUser(user)}
                       key={index}
                     >
-                      <Avatar src={user.image} />
-                      <Typography>{`${user.firstName} ${user.lastName}`}</Typography>
-                      <Typography variant="h4">
-                        {user.interests[0].emoji}
-                      </Typography>
+                      <PillAvatar src={user.image} />
+                      <PillText>{`${user.firstName} ${user.lastName}`}</PillText>
+                      <PillEmojis variant="h5">
+                        {getEmojis(user.interests)}
+                      </PillEmojis>
                     </FriendsModalUserPill>
                   )
               )}
