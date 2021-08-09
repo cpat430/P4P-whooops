@@ -1,7 +1,8 @@
 import { Grid, Modal, Typography } from '@material-ui/core';
 import React from 'react';
 import {
-  ChallengeHelperGrid, ChallengeHelperPaper
+  ChallengeHelperGrid,
+  ChallengeHelperPaper,
 } from './ChallengeHelperModal.styled';
 
 type ChallengeHelperModalProps = {
