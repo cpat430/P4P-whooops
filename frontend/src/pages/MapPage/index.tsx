@@ -1,6 +1,5 @@
 import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
-import { ChallengeButton } from '../../components/ChallengeButton';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
 import { ChooseInterestsModal } from '../../components/ChooseInterests';
 import { FriendsModal } from '../../components/FriendsModal';
@@ -11,7 +10,12 @@ import { ChallengeContext } from '../../contexts/ChallengeContext';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { dummyUsers } from '../../utils/dummyUsers';
 import { Interest, UserProps } from '../../utils/types';
-import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
+import {
+  EditInterestFab,
+  FriendsFab,
+  MapDiv,
+  StyledChallengeButton,
+} from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
   return {
@@ -126,14 +130,10 @@ const MapPage = (): JSX.Element => {
         Friends
       </FriendsFab>
 
-      <ChallengeButton
+      <StyledChallengeButton
+        className="challenge-button"
         onClick={() => {
           setOpenChallengeHelperModal(true);
-        }}
-        style={{
-          position: 'absolute',
-          bottom: '1rem',
-          right: '11rem',
         }}
       />
 
