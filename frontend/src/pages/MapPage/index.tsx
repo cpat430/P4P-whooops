@@ -1,9 +1,10 @@
 import GoogleMapReact from 'google-map-react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ChooseInterestsModal } from '../../components/ChooseInterests';
 import { FriendsModal } from '../../components/FriendsModal';
 import UserMapMarker from '../../components/UserMapMarker';
 import { UserProfile } from '../../components/UserProfile';
+import { EventContext } from '../../contexts/EventContext';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { dummyUsers } from '../../utils/dummyUsers';
 import { Interest, UserProps } from '../../utils/types';
@@ -19,6 +20,8 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 };
 
 const MapPage = (): JSX.Element => {
+  const { addEvent } = useContext(EventContext);
+
   /**
    * currentUser is the current profile that is open.
    * If currentUser === null, the modal is not open
@@ -82,6 +85,7 @@ const MapPage = (): JSX.Element => {
       {/* Temporary way to open edit interests modal */}
       <EditInterestFab
         onClick={() => {
+          addEvent({ name: 'Edit interest clicked' });
           setOpenChooseInterestsModal(true);
         }}
       >
