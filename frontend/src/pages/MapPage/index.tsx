@@ -20,7 +20,7 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 };
 
 const MapPage = (): JSX.Element => {
-  const { addEvent } = useContext(AppEventContext);
+  const { addAppEvent: addEvent } = useContext(AppEventContext);
 
   const [users, setUsers] = useState<UserProps[]>(dummyUsers);
 

@@ -9,28 +9,35 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { dummyChallenges } from '../utils/dummyChallenges';
 import { AppEvent, AppEventContext } from './AppEventContext';
 
 /**
  * Each challenge will have a name, helper
  */
-type Challenge = {
+export type Challenge = {
   name: string;
-  finishEventName: string; //the event name that will cause the challenge to finish
+  acceptFinish: (appEvent: AppEvent) => boolean;
   helperMessage: string;
+};
+
+const defaultChallenge = {
+  name: '',
+  acceptFinish: () => {
+    return true;
+  },
+  helperMessage: '',
 };
 
 type ChallengeContextProps = {
   challenge: Challenge;
-  nextChallenge: () => void;
 };
 
 export const ChallengeContext = createContext<ChallengeContextProps>({
-  challenge: { name: '', finishEventName: '', helperMessage: '' },
-  nextChallenge: () => {
-    console.log('hello');
-  },
+  challenge: defaultChallenge,
 });
+
+const allChallenges = dummyChallenges;
 
 export const ChallengeProvider = ({
   children,
@@ -40,33 +47,18 @@ export const ChallengeProvider = ({
   // The challenge handler is able to detect new events
   const { appEvents } = useContext(AppEventContext);
 
-  const [challenge, setChallenge] = useState<Challenge>({
-    name: 'unknown',
-    finishEventName: '',
-    helperMessage: '',
-  });
-
-  const nextChallenge = () => {
-    console.log('hello again');
-    setChallenge({
-      name: 'next-challenge',
-      finishEventName: '',
-      helperMessage: '',
-    });
-  };
+  const [challengeIndex, setChallengeIndex] = useState(0);
+  const challenge = allChallenges[challengeIndex];
 
   const onNewEvent = (event: AppEvent) => {
     // This is called
-    if (event.name === challenge.finishEventName) {
+    if (challenge.acceptFinish(event)) {
       console.log('Completed challenge!');
+      setChallengeIndex(challengeIndex + 1); // Proceed to next challenge
     }
   };
 
   useEffect(() => {
-    console.log('new events!');
-    console.log(appEvents);
-
-    // The idea is that
     const latestAppEvent = appEvents[appEvents.length - 1];
     if (latestAppEvent) {
       onNewEvent(latestAppEvent);
@@ -75,7 +67,6 @@ export const ChallengeProvider = ({
 
   const context = {
     challenge,
-    nextChallenge,
   };
 
   return (
