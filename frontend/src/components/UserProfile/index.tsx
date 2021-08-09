@@ -1,5 +1,6 @@
 import { Avatar, Chip, Divider, Modal } from '@material-ui/core';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppEventContext } from '../../contexts/AppEventContext';
 import { UserProps } from '../../utils/types';
 import * as Styled from './UserProfile.styled';
 
@@ -11,6 +12,7 @@ type UserProfileProps = {
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user, onToggleIsFriend, onClose } = props;
+  const { addAppEvent } = useContext(AppEventContext);
 
   const handleClose = () => {
     onClose();
@@ -72,13 +74,23 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
           </Styled.UserText>
           {!user.isFriendsWithUser ? (
             <Styled.UserAddFriendContainer>
-              <Styled.UserAddFriendButton onClick={onToggleIsFriend}>
+              <Styled.UserAddFriendButton
+                onClick={() => {
+                  onToggleIsFriend();
+                  addAppEvent({ name: 'click-add-friend-button' });
+                }}
+              >
                 Add Friend
               </Styled.UserAddFriendButton>
             </Styled.UserAddFriendContainer>
           ) : (
             <Styled.UserAddFriendContainer>
-              <Styled.UserAddFriendButton onClick={onToggleIsFriend}>
+              <Styled.UserAddFriendButton
+                onClick={() => {
+                  onToggleIsFriend();
+                  addAppEvent({ name: 'click-remove-friend-button' });
+                }}
+              >
                 Remove Friend
               </Styled.UserAddFriendButton>
             </Styled.UserAddFriendContainer>

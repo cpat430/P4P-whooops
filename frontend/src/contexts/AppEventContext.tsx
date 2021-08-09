@@ -7,13 +7,13 @@ export type AppEvent = {
 
 type AppEventContextProps = {
   appEvents: AppEvent[];
-  addEvent: (event: AppEvent) => void;
+  addAppEvent: (event: AppEvent) => void;
 };
 
 export const AppEventContext = createContext<AppEventContextProps>({
   appEvents: [],
-  addEvent: () => {
-    console.log('pmo');
+  addAppEvent: () => {
+    return undefined;
   },
 });
 
@@ -24,15 +24,14 @@ export const AppEventProvider = ({
 }): JSX.Element => {
   const [appEvents, setAppEvents] = useState([{ name: 'init-event' }]);
 
-  const addEvent = (appEvent: AppEvent) => {
-    console.log(appEvent);
-    trackEvent(appEvent.name, { lol: 'lol!' }); // TODO
+  const addAppEvent = (appEvent: AppEvent) => {
+    trackEvent(appEvent.name); // TODO
     setAppEvents(appEvents.concat(appEvent));
   };
 
   const context = {
     appEvents,
-    addEvent,
+    addAppEvent,
   };
 
   return (
