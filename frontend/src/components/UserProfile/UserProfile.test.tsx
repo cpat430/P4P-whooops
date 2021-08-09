@@ -25,8 +25,15 @@ describe('User Profile', () => {
       isFriendsWithUser: false,
     };
     const setUserToNull = jest.fn();
+    const toggleIsFriend = jest.fn();
 
-    render(<UserProfile user={user} onClose={setUserToNull} />);
+    render(
+      <UserProfile
+        user={user}
+        onClose={setUserToNull}
+        onToggleIsFriend={toggleIsFriend}
+      />
+    );
 
     const userProfile = screen.getByTestId('user-profile');
     const userHeader = screen.getByTestId('user-header');
