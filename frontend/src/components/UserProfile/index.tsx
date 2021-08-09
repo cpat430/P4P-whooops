@@ -5,11 +5,12 @@ import * as Styled from './UserProfile.styled';
 
 type UserProfileProps = {
   user: UserProps | null;
+  onToggleIsFriend: () => void;
   onClose: () => void;
 };
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
-  const { user, onClose } = props;
+  const { user, onToggleIsFriend, onClose } = props;
 
   const handleClose = () => {
     onClose();
@@ -69,6 +70,19 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
           <Styled.UserText>
             Are you friends?: {user.isFriendsWithUser ? '👍' : '👎'}
           </Styled.UserText>
+          {!user.isFriendsWithUser ? (
+            <Styled.UserAddFriendContainer>
+              <Styled.UserAddFriendButton onClick={onToggleIsFriend}>
+                Add Friend
+              </Styled.UserAddFriendButton>
+            </Styled.UserAddFriendContainer>
+          ) : (
+            <Styled.UserAddFriendContainer>
+              <Styled.UserAddFriendButton onClick={onToggleIsFriend}>
+                Remove Friend
+              </Styled.UserAddFriendButton>
+            </Styled.UserAddFriendContainer>
+          )}
         </Styled.ProfileDetailsContainer>
       ) : (
         // If no user, return empty. This won't be seen anyway
