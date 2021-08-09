@@ -105,6 +105,7 @@ const MapPage = (): JSX.Element => {
               user={user}
               displayInterestBadge={true}
               onClick={() => {
+                addEvent({ name: 'click-user-profile' });
                 setCurrentUser(user);
               }}
             />
