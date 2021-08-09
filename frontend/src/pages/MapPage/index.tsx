@@ -1,10 +1,13 @@
 import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
+import { ChallengeButton } from '../../components/ChallengeButton';
+import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
 import { ChooseInterestsModal } from '../../components/ChooseInterests';
 import { FriendsModal } from '../../components/FriendsModal';
 import UserMapMarker from '../../components/UserMapMarker';
 import { UserProfile } from '../../components/UserProfile';
 import { AppEventContext } from '../../contexts/AppEventContext';
+import { ChallengeContext } from '../../contexts/ChallengeContext';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { dummyUsers } from '../../utils/dummyUsers';
 import { Interest, UserProps } from '../../utils/types';
@@ -46,11 +49,16 @@ const MapPage = (): JSX.Element => {
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
     useState(false);
   const [openFriendsModal, setOpenFriendsModal] = useState(false);
+  const [openChallengeHelperModal, setOpenChallengeHelperModal] =
+    useState(false);
+
   const [interests, setInterests] = useState<Interest[]>(
     dummyInterests.filter(() => {
       return Math.random() < 0.5;
     })
   );
+
+  const { challenge } = useContext(ChallengeContext);
 
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
@@ -118,6 +126,17 @@ const MapPage = (): JSX.Element => {
         Friends
       </FriendsFab>
 
+      <ChallengeButton
+        onClick={() => {
+          setOpenChallengeHelperModal(true);
+        }}
+        style={{
+          position: 'absolute',
+          bottom: '1rem',
+          right: '11rem',
+        }}
+      />
+
       <ChooseInterestsModal
         open={openChooseInterestsModal}
         handleClose={() => {
@@ -150,6 +169,14 @@ const MapPage = (): JSX.Element => {
         openChooseInterestsModal={openChooseInterestsModal}
         setOpenChooseInterestModal={setOpenChooseInterestsModal}
       ></FriendsModal>
+
+      <ChallengeHelperModal
+        open={openChallengeHelperModal}
+        handleClose={() => {
+          setOpenChallengeHelperModal(false);
+        }}
+        helperMessage={challenge.helperMessage}
+      ></ChallengeHelperModal>
     </MapDiv>
   );
 };
