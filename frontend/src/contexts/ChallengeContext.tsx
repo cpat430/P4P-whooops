@@ -9,13 +9,15 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { EventContext } from './EventContext';
+import { AppEvent, AppEventContext } from './AppEventContext';
 
 /**
  * Each challenge will have a name, helper
  */
 type Challenge = {
   name: string;
+  finishEventName: string; //the event name that will cause the challenge to finish
+  helperMessage: string;
 };
 
 type ChallengeContextProps = {
@@ -24,7 +26,7 @@ type ChallengeContextProps = {
 };
 
 export const ChallengeContext = createContext<ChallengeContextProps>({
-  challenge: { name: 'welcome' },
+  challenge: { name: '', finishEventName: '', helperMessage: '' },
   nextChallenge: () => {
     console.log('hello');
   },
@@ -36,18 +38,40 @@ export const ChallengeProvider = ({
   children?: ReactNode;
 }): JSX.Element => {
   // The challenge handler is able to detect new events
-  const { events } = useContext(EventContext);
+  const { appEvents } = useContext(AppEventContext);
 
-  const [challenge, setChallenge] = useState({ name: 'unknown' });
+  const [challenge, setChallenge] = useState<Challenge>({
+    name: 'unknown',
+    finishEventName: '',
+    helperMessage: '',
+  });
+
   const nextChallenge = () => {
     console.log('hello again');
-    setChallenge({ name: 'next-challenge' });
+    setChallenge({
+      name: 'next-challenge',
+      finishEventName: '',
+      helperMessage: '',
+    });
+  };
+
+  const onNewEvent = (event: AppEvent) => {
+    // This is called
+    if (event.name === challenge.finishEventName) {
+      console.log('Completed challenge!');
+    }
   };
 
   useEffect(() => {
     console.log('new events!');
-    console.log(events);
-  }, [events]);
+    console.log(appEvents);
+
+    // The idea is that
+    const latestAppEvent = appEvents[appEvents.length - 1];
+    if (latestAppEvent) {
+      onNewEvent(latestAppEvent);
+    }
+  }, [appEvents]);
 
   const context = {
     challenge,
