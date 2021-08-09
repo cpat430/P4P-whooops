@@ -6,8 +6,8 @@ import {
   Switch,
 } from 'react-router-dom';
 import './App.css';
+import { AppEventProvider } from './contexts/AppEventContext';
 import { ChallengeProvider } from './contexts/ChallengeContext';
-import { EventProvider } from './contexts/EventContext';
 import { UserProvider } from './contexts/UserContext';
 import { HomePage } from './pages/HomePage';
 import MapPage from './pages/MapPage';
@@ -15,7 +15,7 @@ import MapPage from './pages/MapPage';
 function App(): JSX.Element {
   return (
     <UserProvider>
-      <EventProvider>
+      <AppEventProvider>
         <ChallengeProvider>
           <Router>
             <Switch>
@@ -29,7 +29,7 @@ function App(): JSX.Element {
             </Switch>
           </Router>
         </ChallengeProvider>
-      </EventProvider>
+      </AppEventProvider>
     </UserProvider>
   );
 }

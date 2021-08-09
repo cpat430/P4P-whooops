@@ -4,7 +4,7 @@ import { ChooseInterestsModal } from '../../components/ChooseInterests';
 import { FriendsModal } from '../../components/FriendsModal';
 import UserMapMarker from '../../components/UserMapMarker';
 import { UserProfile } from '../../components/UserProfile';
-import { EventContext } from '../../contexts/EventContext';
+import { AppEventContext } from '../../contexts/AppEventContext';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { dummyUsers } from '../../utils/dummyUsers';
 import { Interest, UserProps } from '../../utils/types';
@@ -20,7 +20,7 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 };
 
 const MapPage = (): JSX.Element => {
-  const { addEvent } = useContext(EventContext);
+  const { addEvent } = useContext(AppEventContext);
 
   /**
    * currentUser is the current profile that is open.
