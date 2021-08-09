@@ -22,6 +22,21 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 const MapPage = (): JSX.Element => {
   const { addEvent } = useContext(AppEventContext);
 
+  const [users, setUsers] = useState<UserProps[]>(dummyUsers);
+
+  const handleToggleIsFriend = (user: UserProps | null): void => {
+    if (!user) return;
+
+    setUsers(
+      users.map((u) => {
+        if (u.id === user.id) {
+          u.isFriendsWithUser = !u.isFriendsWithUser;
+        }
+        return u;
+      })
+    );
+  };
+
   /**
    * currentUser is the current profile that is open.
    * If currentUser === null, the modal is not open
@@ -55,6 +70,9 @@ const MapPage = (): JSX.Element => {
     <MapDiv data-testid={'map-page'}>
       <UserProfile
         user={currentUser}
+        onToggleIsFriend={() => {
+          handleToggleIsFriend(currentUser);
+        }}
         onClose={() => {
           // to close the modal, set the current user to null
           setCurrentUser(null);
