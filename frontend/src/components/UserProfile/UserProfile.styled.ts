@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@material-ui/core';
+import { IconButton, Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import { colours } from '../../utils/colours';
 import { FriendButton } from '../FriendButton';
@@ -10,6 +10,7 @@ export const ProfileDetailsPaper = styled(Paper)`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: #eee;
   }
 `;
 
@@ -30,8 +31,19 @@ export const StyledFriendButton = styled(FriendButton)`
     color: ${(props) => (props.isFriend ? 'white' : colours.primary)};
     border-color: ${(props) => (props.isFriend ? 'white' : colours.primary)};
     :hover {
-      background-color: ${(props) =>
-        props.isFriend ? colours.warning : 'none'};
+      background-color: ${(props) => (props.isFriend ? colours.error : 'none')};
     }
+  }
+`;
+
+export const CloseIconButton = styled(IconButton)`
+  &&& {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(40%, -40%);
+    background-color: ${colours.error};
+    color: white;
+    padding: 5px;
   }
 `;
