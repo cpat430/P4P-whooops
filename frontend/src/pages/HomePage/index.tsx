@@ -52,12 +52,7 @@ export const HomePage = (): JSX.Element => {
   };
 
   return (
-    <PageBackgroundGrid
-      container
-      justifyContent="center"
-      alignItems="center"
-      data-testid="home-page"
-    >
+    <PageBackgroundGrid container justifyContent="center" alignItems="center">
       <Grid item>
         <PageCard>
           <Grid

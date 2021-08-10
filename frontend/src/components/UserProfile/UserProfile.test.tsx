@@ -36,12 +36,10 @@ describe('User Profile', () => {
     );
 
     const userProfile = screen.getByTestId('user-profile');
-    const userHeader = screen.getByTestId('user-header');
     const userName = screen.getByTestId('user-name');
     const userInterests = screen.getByTestId('user-interests');
     expect(userProfile).toBeInTheDocument();
-    expect(userHeader).toBeInTheDocument();
-    expect(userName.innerHTML).toBe('john');
+    expect(userName.innerHTML).toBe('john stockman');
     expect(userInterests).toBeInTheDocument();
   });
 });
