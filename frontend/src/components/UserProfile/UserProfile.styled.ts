@@ -1,6 +1,7 @@
-import { Button, Paper, Typography } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import { colours } from '../../utils/colours';
+import { FriendButton } from '../FriendButton';
 
 export const ProfileDetailsPaper = styled(Paper)`
   &&& {
@@ -23,9 +24,14 @@ export const UserNameTypography = styled(Typography)`
   text-transform: capitalize;
 `;
 
-export const UserFriendButton = styled(Button)`
+export const StyledFriendButton = styled(FriendButton)`
   &&& {
-    color: white;
-    background-color: ${colours.primary};
+    background-color: ${(props) => (props.isFriend ? colours.primary : 'none')};
+    color: ${(props) => (props.isFriend ? 'white' : colours.primary)};
+    border-color: ${(props) => (props.isFriend ? 'white' : colours.primary)};
+    :hover {
+      background-color: ${(props) =>
+        props.isFriend ? colours.warning : 'none'};
+    }
   }
 `;
