@@ -1,3 +1,5 @@
+import EditIcon from '@material-ui/icons/Edit';
+import GroupIcon from '@material-ui/icons/Group';
 import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
@@ -24,9 +26,10 @@ import {
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
   return {
+    clickableIcons: false, // The user cannot click on objects in the map
+    fullscreenControl: false,
     zoomControlOptions: {
       position: maps.ControlPosition.RIGHT_CENTER,
-      style: maps.ZoomControlStyle.SMALL,
     },
   };
 };
@@ -138,14 +141,20 @@ const MapPage = (): JSX.Element => {
           setOpenChooseInterestsModal(true);
         }}
       >
-        Edit Interest
+        <EditIcon />
       </EditInterestFab>
-
-      <FriendsFab onClick={() => setOpenFriendsModal(true)}>Friends</FriendsFab>
 
       <FeedbackFab onClick={() => setOpenFeedbackModal(true)}>
         Give Feedback
       </FeedbackFab>
+
+      <FriendsFab
+        onClick={() => {
+          setOpenFriendsModal(true);
+        }}
+      >
+        <GroupIcon />
+      </FriendsFab>
 
       <StyledChallengeButton
         className="challenge-button"
