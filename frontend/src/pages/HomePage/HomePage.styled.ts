@@ -1,38 +1,44 @@
-import { TextField, Typography } from '@material-ui/core';
+import { Button, Card, Grid, TextField, Typography } from '@material-ui/core';
 import styled from 'styled-components';
-
-export const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-export const PageTitle = styled(Typography)``;
-
-export const PageHeader = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-export const PageContent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
-
-export const PageFooter = styled.div`
-  position: absolute;
-  bottom: 0;
-`;
+import { colours } from '../../utils/colours';
 
 export const PageForm = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 export const PageTextField = styled(TextField)`
-  padding-bottom: 2rem;
   height: 4rem;
+`;
+
+export const PageBackgroundGrid = styled(Grid)`
+  &&& {
+    background-color: ${colours.primary};
+    height: 100vh;
+  }
+`;
+
+export const RegisterTextField = styled(Typography)`
+  &&& {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+`;
+
+export const PageCard = styled(Card)`
+  &&& {
+    width: 90%;
+    max-width: 20rem;
+    height: 90%;
+    max-height: 40rem;
+    display: flex;
+    padding: 10%;
+  }
+`;
+
+export const SubmitButton = styled(Button)`
+  &&& {
+    background-color: ${colours.primary};
+    color: white;
+  }
 `;
