@@ -1,28 +1,21 @@
-import React from 'react';
-import { Modal } from '@material-ui/core';
-import {
-  FriendsModalAppBar,
-  FriendsModalContainer,
-  TuneIcon,
-  FriendsModalHeader,
-  FriendsModalHeadingText,
-  FriendsModalTab,
-  FriendsModalTabs,
-  FriendsModalUserPill,
-  FriendsModalUsersContainer,
-  FriendsPaper,
-  FriendsContainer,
-  PillAvatar,
-  PillText,
-  PillEmojis,
-} from './FriendsModal.styled';
-import { useState } from 'react';
+import { Avatar, Grid, Modal, Typography } from '@material-ui/core';
+import TuneIcon from '@material-ui/icons/Tune';
+import React, { useState } from 'react';
+import { dummyInterests } from '../../utils/dummyInterests';
 import { dummyUsers } from '../../utils/dummyUsers';
+import { getEmojis } from '../../utils/getEmojis';
+import { interestInCommon } from '../../utils/interestInCommon';
 import { Interest, UserProps } from '../../utils/types';
 import { ChooseInterestsModal } from '../ChooseInterests';
-import { dummyInterests } from '../../utils/dummyInterests';
-import { interestInCommon } from '../../utils/interestInCommon';
-import { getEmojis } from '../../utils/getEmojis';
+import {
+  FriendPillButton,
+  FriendsModalAppBar,
+  FriendsModalContainer,
+  FriendsModalTab,
+  FriendsModalTabs,
+  FriendsPaper,
+  FriendsTuneFab,
+} from './FriendsModal.styled';
 
 type FriendsModalProps = {
   open: boolean;
@@ -51,7 +44,7 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
   };
 
   return (
-    <FriendsContainer>
+    <>
       <Modal
         open={open}
         onClose={handleClose}
@@ -60,38 +53,46 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
         disableRestoreFocus
       >
         <FriendsPaper>
+          <FriendsModalAppBar>
+            <FriendsModalTabs value={currentTab} onChange={handleChange}>
+              <FriendsModalTab label="All Users"></FriendsModalTab>
+              <FriendsModalTab label="Friends"></FriendsModalTab>
+            </FriendsModalTabs>
+          </FriendsModalAppBar>
+
+          <FriendsTuneFab
+            onClick={() => {
+              setOpenChooseInterestsModal(true);
+            }}
+          >
+            <TuneIcon />
+          </FriendsTuneFab>
+
           <FriendsModalContainer>
-            <FriendsModalHeader>
-              <FriendsModalHeadingText>Users</FriendsModalHeadingText>
-            </FriendsModalHeader>
-            <FriendsModalAppBar>
-              <FriendsModalTabs value={currentTab} onChange={handleChange}>
-                <FriendsModalTab label="Nearby Users"></FriendsModalTab>
-                <FriendsModalTab label="Friends"></FriendsModalTab>
-              </FriendsModalTabs>
-              <TuneIcon
-                onClick={() => setOpenChooseInterestsModal(true)}
-              ></TuneIcon>
-            </FriendsModalAppBar>
-            <FriendsModalUsersContainer>
-              {dummyUsers.map(
-                (user, index) =>
-                  interestInCommon(user.interests, selectedInterests) &&
-                  (currentTab === 0 ||
-                    (currentTab === 1 && user.isFriendsWithUser)) && (
-                    <FriendsModalUserPill
-                      onClick={() => setCurrentUser(user)}
-                      key={index}
-                    >
-                      <PillAvatar src={user.image} />
-                      <PillText>{`${user.firstName} ${user.lastName}`}</PillText>
-                      <PillEmojis variant="h5">
-                        {getEmojis(user.interests)}
-                      </PillEmojis>
-                    </FriendsModalUserPill>
-                  )
-              )}
-            </FriendsModalUsersContainer>
+            {dummyUsers.map(
+              (user, index) =>
+                interestInCommon(user.interests, selectedInterests) &&
+                (currentTab === 0 ||
+                  (currentTab === 1 && user.isFriendsWithUser)) && (
+                  <FriendPillButton
+                    fullWidth
+                    onClick={() => setCurrentUser(user)}
+                    key={index}
+                  >
+                    <Grid container justifyContent="center" alignItems="center">
+                      <Grid item xs={3}>
+                        <Avatar src={user.image} />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography>{`${user.firstName} ${user.lastName}`}</Typography>
+                      </Grid>
+                      <Grid item xs={3}>
+                        <Typography>{getEmojis(user.interests)}</Typography>
+                      </Grid>
+                    </Grid>
+                  </FriendPillButton>
+                )
+            )}
           </FriendsModalContainer>
         </FriendsPaper>
       </Modal>
@@ -115,6 +116,6 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
           setSelectedInterests(value);
         }}
       ></ChooseInterestsModal>
-    </FriendsContainer>
+    </>
   );
 };
