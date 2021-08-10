@@ -6,9 +6,11 @@ import {
   Modal,
   Typography,
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
 import { UserProps } from '../../utils/types';
 import {
+  CloseIconButton,
   ProfileDetailsPaper,
   StyledFriendButton,
   UserAvatar,
@@ -38,6 +40,9 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
     >
       {user ? (
         <ProfileDetailsPaper data-testid={'profile-details-container'}>
+          <CloseIconButton onClick={handleClose}>
+            <CloseIcon />
+          </CloseIconButton>
           <Grid
             container
             justifyContent="center"
