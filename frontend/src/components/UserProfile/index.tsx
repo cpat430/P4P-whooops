@@ -100,7 +100,7 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
               >
                 Interests
               </Typography>
-              <Grid container spacing={1}>
+              <Grid container spacing={1} data-testid={'user-interests'}>
                 {user.interests &&
                   user.interests.map((interest) => (
                     <Grid item key={interest.id}>
