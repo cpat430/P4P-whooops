@@ -1,9 +1,9 @@
 import faker from 'faker';
 import _ from 'lodash';
+import { v4 as uuid } from 'uuid';
 import { images } from '../user-profiles';
 import { dummyInterests } from './dummyInterests';
 import { UserProps } from './types';
-import { v4 as uuid } from 'uuid';
 
 // Determines where the users will be located: +- delta from the sky tower
 const skyTowerPos = {
@@ -37,7 +37,7 @@ const generateDummyUsers = (numUsers: number, seed: number) => {
       firstName: firstName,
       lastName: lastName,
       email: faker.internet.email(firstName, lastName),
-      description: faker.lorem.paragraphs(1),
+      description: faker.lorem.lines(2),
       image: images[faker.datatype.number({ min: 0, max: images.length - 1 })],
       interests: dummyInterests.filter(() => {
         return faker.datatype.number({ min: 1, max: 2 }) === 1;
