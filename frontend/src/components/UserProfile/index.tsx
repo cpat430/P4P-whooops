@@ -6,16 +6,12 @@ import {
   Modal,
   Typography,
 } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/Check';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import RemoveIcon from '@material-ui/icons/Remove';
-import React, { useContext, useState } from 'react';
-import { AppEventContext } from '../../contexts/AppEventContext';
+import React from 'react';
 import { UserProps } from '../../utils/types';
 import {
   ProfileDetailsPaper,
+  StyledFriendButton,
   UserAvatar,
-  UserFriendButton,
   UserNameTypography,
 } from './UserProfile.styled';
 
@@ -27,8 +23,6 @@ type UserProfileProps = {
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user, onToggleIsFriend, onClose } = props;
-  const { addAppEvent } = useContext(AppEventContext);
-  const [isMouseOverFriendButton, setIsMouseOverFriendButton] = useState(false);
 
   const handleClose = () => {
     onClose();
@@ -65,37 +59,11 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
             </Grid>
 
             <Grid item xs={8}>
-              <UserFriendButton
-                fullWidth
-                onClick={() => {
-                  onToggleIsFriend();
-                  addAppEvent({ name: 'click-add-friend-button' });
-                }}
-                onMouseOver={() => {
-                  setIsMouseOverFriendButton(true);
-                }}
-                onMouseOut={() => {
-                  setIsMouseOverFriendButton(false);
-                }}
-                endIcon={
-                  user.isFriendsWithUser ? (
-                    isMouseOverFriendButton ? (
-                      <RemoveIcon />
-                    ) : (
-                      <CheckIcon />
-                    )
-                  ) : (
-                    <PersonAddIcon />
-                  )
-                }
-                variant="contained"
-              >
-                {user.isFriendsWithUser
-                  ? isMouseOverFriendButton
-                    ? 'unfriend'
-                    : 'friends'
-                  : 'add friend'}
-              </UserFriendButton>
+              <StyledFriendButton
+                className="styled-friend-button"
+                isFriend={user.isFriendsWithUser}
+                toggleIsFriend={onToggleIsFriend}
+              />
             </Grid>
 
             <Grid item xs={12}>
