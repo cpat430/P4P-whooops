@@ -2,59 +2,28 @@ import { Button, Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import { colours } from '../../utils/colours';
 
-export const ProfileDetailsContainer = styled(Paper)`
+export const ProfileDetailsPaper = styled(Paper)`
   &&& {
-    background-color: rgba(211, 211, 211, 0.95);
-    width: 50%;
-    height: 60%;
+    width: 25rem;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 1%;
-    overflow: scroll;
   }
 `;
 
-export const UserHeader = styled.div`
-  height: 33%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
 export const UserAvatar = styled.img`
-  height: 75%;
+  height: 8rem;
   border-radius: 50%;
+  border: 2px solid black;
 `;
 
-export const UserName = styled(Typography)`
-  width: 100%;
+export const UserNameTypography = styled(Typography)`
   text-align: center;
   text-transform: capitalize;
 `;
 
-export const UserDescription = styled.p`
-  text-wrap: wrap;
-`;
-
-export const UserText = styled(Typography)`
-  padding-top: 1%;
-`;
-
-export const UserInterests = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-`;
-
-export const UserAddFriendContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-export const UserAddFriendButton = styled(Button)`
+export const UserFriendButton = styled(Button)`
   &&& {
     color: white;
     background-color: ${colours.primary};
