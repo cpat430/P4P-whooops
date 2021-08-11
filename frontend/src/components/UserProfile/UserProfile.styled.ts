@@ -1,4 +1,4 @@
-import { IconButton, Paper, Typography } from '@material-ui/core';
+import { Chip, Grid, IconButton, Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import { colours } from '../../utils/colours';
 import { FriendButton } from '../FriendButton';
@@ -59,5 +59,17 @@ export const CloseIconButton = styled(IconButton)`
     background-color: ${colours.error};
     color: white;
     padding: 5px;
+  }
+`;
+
+export const CapitalisedChip = styled(Chip)`
+  &&& {
+    text-transform: capitalize;
+  }
+`;
+
+export const ProfileGrid = styled(Grid)`
+  &&& {
+    padding: 5%;
   }
 `;

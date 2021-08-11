@@ -1,17 +1,12 @@
-import {
-  Avatar,
-  Chip,
-  Divider,
-  Grid,
-  Modal,
-  Typography,
-} from '@material-ui/core';
+import { Avatar, Divider, Grid, Modal, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
 import { UserProps } from '../../utils/types';
 import {
+  CapitalisedChip,
   CloseIconButton,
   ProfileDetailsPaper,
+  ProfileGrid,
   StyledFriendButton,
   UserAvatar,
   UserNameTypography,
@@ -43,11 +38,10 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
           <CloseIconButton onClick={handleClose}>
             <CloseIcon />
           </CloseIconButton>
-          <Grid
+          <ProfileGrid
             container
             justifyContent="center"
             alignItems="center"
-            style={{ padding: '5%' }}
             spacing={1}
           >
             <Grid item>
@@ -104,7 +98,7 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
                 {user.interests &&
                   user.interests.map((interest) => (
                     <Grid item key={interest.id}>
-                      <Chip
+                      <CapitalisedChip
                         avatar={<Avatar>{interest.emoji}</Avatar>}
                         label={interest.name}
                         variant="outlined"
@@ -115,7 +109,7 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
                   ))}
               </Grid>
             </Grid>
-          </Grid>
+          </ProfileGrid>
         </ProfileDetailsPaper>
       ) : (
         // If no user, return empty. This won't be seen anyway
