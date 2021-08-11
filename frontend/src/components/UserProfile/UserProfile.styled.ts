@@ -25,13 +25,27 @@ export const UserNameTypography = styled(Typography)`
   text-transform: capitalize;
 `;
 
+const isFriendStyles = `
+  background-color: ${colours.primary};
+  color: white;
+`;
+
+const addFriendStyles = `
+  background-color: none;
+  color: ${colours.primary};
+  border: 1px solid ${colours.primary};
+`;
+
+const unfriendStyles = `
+  background-color: ${colours.error};
+  color: white;
+`;
+
 export const StyledFriendButton = styled(FriendButton)`
   &&& {
-    background-color: ${(props) => (props.isFriend ? colours.primary : 'none')};
-    color: ${(props) => (props.isFriend ? 'white' : colours.primary)};
-    border-color: ${(props) => (props.isFriend ? 'white' : colours.primary)};
+    ${(props) => (props.isFriend ? isFriendStyles : addFriendStyles)}
     :hover {
-      background-color: ${(props) => (props.isFriend ? colours.error : 'none')};
+      ${(props) => (props.isFriend ? unfriendStyles : '')}
     }
   }
 `;
