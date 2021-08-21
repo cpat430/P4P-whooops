@@ -23,6 +23,14 @@ export const FriendsFab = styled(Fab)`
   }
 `;
 
+export const FeedbackFab = styled(Fab)`
+  &&& {
+    position: absolute;
+    right: 16rem;
+    bottom: 1rem;
+  }
+`;
+
 export const StyledChallengeButton = styled(ChallengeButton)`
   &&& {
     position: absolute;
