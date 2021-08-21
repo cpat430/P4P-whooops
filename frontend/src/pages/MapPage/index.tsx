@@ -2,16 +2,21 @@ import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
 import { ChooseInterestsModal } from '../../components/ChooseInterests';
+import { FeedbackModal } from '../../components/FeedbackModal';
 import { FriendsModal } from '../../components/FriendsModal';
 import UserMapMarker from '../../components/UserMapMarker';
 import { UserProfile } from '../../components/UserProfile';
 import { AppEventContext } from '../../contexts/AppEventContext';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
+import { UserContext } from '../../contexts/UserContext';
+import { createFeedback } from '../../utils/createFeedback';
 import { dummyInterests } from '../../utils/dummyInterests';
+import { getRandomQuestion } from '../../utils/dummyQuestions';
 import { dummyUsers } from '../../utils/dummyUsers';
 import { Interest, UserProps } from '../../utils/types';
 import {
   EditInterestFab,
+  FeedbackFab,
   FriendsFab,
   MapDiv,
   StyledChallengeButton,
@@ -28,6 +33,7 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 
 const MapPage = (): JSX.Element => {
   const { addAppEvent: addEvent } = useContext(AppEventContext);
+  const { user } = useContext(UserContext);
 
   const [users, setUsers] = useState<UserProps[]>(dummyUsers);
 
@@ -51,10 +57,11 @@ const MapPage = (): JSX.Element => {
   const [currentUser, setCurrentUser] = useState<UserProps | null>(null);
 
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
-    useState(false);
-  const [openFriendsModal, setOpenFriendsModal] = useState(false);
+    useState<boolean>(false);
+  const [openFriendsModal, setOpenFriendsModal] = useState<boolean>(false);
   const [openChallengeHelperModal, setOpenChallengeHelperModal] =
-    useState(false);
+    useState<boolean>(false);
+  const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false);
 
   const [interests, setInterests] = useState<Interest[]>(
     dummyInterests.filter(() => {
@@ -76,6 +83,17 @@ const MapPage = (): JSX.Element => {
       lng: 174.7715,
     },
     zoom: 14,
+  };
+
+  const onFeedbackSubmit = (
+    question: string,
+    rating: number,
+    answer?: string
+  ) => {
+    const { id, email } = user;
+
+    createFeedback({ id, email, question, answer, rating });
+    setOpenFeedbackModal(false);
   };
 
   return (
@@ -123,19 +141,15 @@ const MapPage = (): JSX.Element => {
         Edit Interest
       </EditInterestFab>
 
-      <FriendsFab
-        onClick={() => {
-          setOpenFriendsModal(true);
-        }}
-      >
-        Friends
-      </FriendsFab>
+      <FriendsFab onClick={() => setOpenFriendsModal(true)}>Friends</FriendsFab>
+
+      <FeedbackFab onClick={() => setOpenFeedbackModal(true)}>
+        Give Feedback
+      </FeedbackFab>
 
       <StyledChallengeButton
         className="challenge-button"
-        onClick={() => {
-          setOpenChallengeHelperModal(true);
-        }}
+        onClick={() => setOpenChallengeHelperModal(true)}
       />
 
       <ChooseInterestsModal
@@ -178,6 +192,13 @@ const MapPage = (): JSX.Element => {
         }}
         helperMessage={challenge.helperMessage}
       ></ChallengeHelperModal>
+
+      <FeedbackModal
+        open={openFeedbackModal}
+        handleClose={() => setOpenFeedbackModal(false)}
+        question={getRandomQuestion()}
+        onSubmit={onFeedbackSubmit}
+      ></FeedbackModal>
     </MapDiv>
   );
 };
