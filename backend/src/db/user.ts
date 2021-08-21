@@ -12,6 +12,10 @@ export type User = {
  * Gives us flexibility in what to track
  */
 const userSchema = new Schema({
+  id: {
+    type: String,
+    required: true,
+  },
   firstName: {
     type: String,
     required: true,
