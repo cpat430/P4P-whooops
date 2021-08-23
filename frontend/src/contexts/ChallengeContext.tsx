@@ -16,17 +16,15 @@ import { AppEvent, AppEventContext } from './AppEventContext';
  * Each challenge will have a name, helper
  */
 export type Challenge = {
-  name: string;
-  acceptFinish: (appEvent: AppEvent) => boolean;
-  helperMessage: string;
+  id: string;
+  init?: () => void; // called at the very start
+  acceptFinish?: (appEvent: AppEvent) => boolean;
+  cleanup?: () => void; // called at the very end
+  modalContent?: JSX.Element; // object to be shown in the modal
 };
 
 const defaultChallenge = {
-  name: '',
-  acceptFinish: () => {
-    return true;
-  },
-  helperMessage: '',
+  id: 'default-dummy',
 };
 
 type ChallengeContextProps = {
@@ -48,12 +46,11 @@ export const ChallengeProvider = ({
   const { appEvents } = useContext(AppEventContext);
 
   const [challengeIndex, setChallengeIndex] = useState(0);
-  const challenge = allChallenges[challengeIndex];
+  const challenge = allChallenges[challengeIndex]; // This is assumed to be always valid! The last challenge of allChallenges should be never accepting
 
   const onNewEvent = (event: AppEvent) => {
-    // This is called
-    if (challenge.acceptFinish(event)) {
-      console.log('Completed challenge!');
+    // When the context received a new event, it checks if the challenge has been completed
+    if (challenge.acceptFinish && challenge.acceptFinish(event)) {
       setChallengeIndex(challengeIndex + 1); // Proceed to next challenge
     }
   };

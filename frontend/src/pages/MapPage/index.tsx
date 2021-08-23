@@ -137,7 +137,7 @@ const MapPage = (): JSX.Element => {
       {/* Temporary way to open edit interests modal */}
       <EditInterestFab
         onClick={() => {
-          addEvent({ name: 'Edit interest clicked' });
+          addEvent({ name: 'click-edit-interest' });
           setOpenChooseInterestsModal(true);
         }}
       >
@@ -199,8 +199,9 @@ const MapPage = (): JSX.Element => {
         handleClose={() => {
           setOpenChallengeHelperModal(false);
         }}
-        helperMessage={challenge.helperMessage}
-      ></ChallengeHelperModal>
+      >
+        {challenge.modalContent}
+      </ChallengeHelperModal>
 
       <FeedbackModal
         open={openFeedbackModal}
