@@ -2,7 +2,11 @@ import React, { createContext, ReactNode, useState } from 'react';
 import { trackEvent } from '../utils/trackEvent';
 
 export type AppEvent = {
-  name: string;
+  name:
+    | 'init-app'
+    | 'click-add-friend-button'
+    | 'click-user-profile'
+    | 'click-edit-interest';
 };
 
 type AppEventContextProps = {
@@ -22,7 +26,9 @@ export const AppEventProvider = ({
 }: {
   children?: ReactNode;
 }): JSX.Element => {
-  const [appEvents, setAppEvents] = useState([{ name: 'init-event' }]);
+  const [appEvents, setAppEvents] = useState<AppEvent[]>([
+    { name: 'init-app' },
+  ]);
 
   const addAppEvent = (appEvent: AppEvent) => {
     trackEvent(appEvent.name); // TODO

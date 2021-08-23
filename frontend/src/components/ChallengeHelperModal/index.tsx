@@ -1,20 +1,17 @@
-import { Grid, Modal, Typography } from '@material-ui/core';
+import { Modal } from '@material-ui/core';
 import React from 'react';
-import {
-  ChallengeHelperGrid,
-  ChallengeHelperPaper,
-} from './ChallengeHelperModal.styled';
+import { ChallengeHelperPaper } from './ChallengeHelperModal.styled';
 
 type ChallengeHelperModalProps = {
   open: boolean;
   handleClose: () => void;
-  helperMessage: string;
+  children?: JSX.Element;
 };
 
 export const ChallengeHelperModal = (
   props: ChallengeHelperModalProps
 ): JSX.Element => {
-  const { open, handleClose, helperMessage } = props;
+  const { open, handleClose, children } = props;
 
   return (
     <Modal
@@ -24,21 +21,7 @@ export const ChallengeHelperModal = (
       disableEnforceFocus
       disableRestoreFocus
     >
-      <ChallengeHelperPaper>
-        <ChallengeHelperGrid
-          container
-          justifyContent="center"
-          alignItems="center"
-          spacing={1}
-        >
-          <Grid item xs={12}>
-            <Typography variant="h6">Current Task</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography>{helperMessage}</Typography>
-          </Grid>
-        </ChallengeHelperGrid>
-      </ChallengeHelperPaper>
+      <ChallengeHelperPaper>{children}</ChallengeHelperPaper>
     </Modal>
   );
 };
