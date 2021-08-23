@@ -2,6 +2,7 @@ import { Avatar, Grid, Modal, Typography } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import React, { useContext, useState } from 'react';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
+import { UserContext } from '../../contexts/UserContext';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { getEmojis } from '../../utils/getEmojis';
 import { interestInCommon } from '../../utils/interestInCommon';
@@ -14,7 +15,7 @@ import {
   FriendsModalTab,
   FriendsModalTabs,
   FriendsPaper,
-  FriendsTuneFab
+  FriendsTuneFab,
 } from './FriendsModal.styled';
 
 type FriendsModalProps = {
@@ -32,8 +33,11 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
     useState<boolean>(false);
 
-  const { challenge } = useContext(ChallengeContext);
-  const { dummyUsers } = challenge;
+  const { user } = useContext(UserContext);
+
+  const {
+    challenge: { otherUsers },
+  } = useContext(ChallengeContext);
 
   const handleChange = (
     event: React.ChangeEvent<unknown>,
@@ -72,25 +76,28 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
           </FriendsTuneFab>
 
           <FriendsModalContainer>
-            {dummyUsers.map(
-              (user, index) =>
+            {otherUsers.map(
+              (otherUser, index) =>
                 interestInCommon(user.interests, selectedInterests) &&
                 (currentTab === 0 ||
-                  (currentTab === 1 && user.isFriendsWithUser)) && (
+                  (currentTab === 1 &&
+                    user.friendIds.includes(otherUser.id))) && (
                   <FriendPillButton
                     fullWidth
-                    onClick={() => setCurrentUser(user)}
+                    onClick={() => setCurrentUser(otherUser)}
                     key={index}
                   >
                     <Grid container justifyContent="center" alignItems="center">
                       <Grid item xs={3}>
-                        <Avatar src={user.image} />
+                        <Avatar src={otherUser.image} />
                       </Grid>
                       <Grid item xs={6}>
-                        <Typography>{`${user.firstName} ${user.lastName}`}</Typography>
+                        <Typography>{`${otherUser.firstName} ${otherUser.lastName}`}</Typography>
                       </Grid>
                       <Grid item xs={3}>
-                        <Typography>{getEmojis(user.interests)}</Typography>
+                        <Typography>
+                          {getEmojis(otherUser.interests)}
+                        </Typography>
                       </Grid>
                     </Grid>
                   </FriendPillButton>

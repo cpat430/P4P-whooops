@@ -1,9 +1,8 @@
 import React, { createContext, ReactNode, useState } from 'react';
 import { UserProps } from '../utils/types';
 
-const defaultUser = {
+const defaultUser: UserProps = {
   id: '',
-  index: -1,
   lat: -1,
   lng: -1,
   firstName: 'Default',
@@ -12,7 +11,7 @@ const defaultUser = {
   image: '',
   description: '',
   interests: [],
-  isFriendsWithUser: false,
+  friendIds: [],
 };
 
 type UserContextProps = {

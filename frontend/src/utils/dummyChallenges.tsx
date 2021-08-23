@@ -2,7 +2,7 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { AppEvent } from '../contexts/AppEventContext';
 import { Challenge } from '../contexts/ChallengeContext';
-import { generateDummyUsers } from './dummyUsers';
+import { generateOtherUsers } from './dummyUsers';
 import { quadPos, sparkArenaPos } from './locations';
 
 // I can set the Challenge to have an on start - which is like an initialisation phase, on end (clean up), and helperCard, which is a MUI Card object that contains what you want
@@ -15,7 +15,7 @@ export const dummyChallenges: Challenge[] = [
       center: quadPos,
       zoom: 15,
     },
-    dummyUsers: generateDummyUsers(quadPos, 0.1, 100, Math.random()),
+    otherUsers: generateOtherUsers(quadPos, 0.1, 100, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },
@@ -36,7 +36,7 @@ export const dummyChallenges: Challenge[] = [
       center: sparkArenaPos,
       zoom: 10,
     },
-    dummyUsers: generateDummyUsers(sparkArenaPos, 0.1, 20, Math.random()),
+    otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },
@@ -57,7 +57,7 @@ export const dummyChallenges: Challenge[] = [
       center: sparkArenaPos,
       zoom: 10,
     },
-    dummyUsers: generateDummyUsers(sparkArenaPos, 0.1, 20, Math.random()),
+    otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },
@@ -78,7 +78,7 @@ export const dummyChallenges: Challenge[] = [
       center: sparkArenaPos,
       zoom: 10,
     },
-    dummyUsers: generateDummyUsers(sparkArenaPos, 0.1, 20, Math.random()),
+    otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-user-profile'; // TODO check the user also has basketball
     },
@@ -99,7 +99,7 @@ export const dummyChallenges: Challenge[] = [
       center: sparkArenaPos,
       zoom: 10,
     },
-    dummyUsers: generateDummyUsers(sparkArenaPos, 0.1, 20, Math.random()),
+    otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
 
     modalContent: <Grid>Finish!</Grid>,
   },
