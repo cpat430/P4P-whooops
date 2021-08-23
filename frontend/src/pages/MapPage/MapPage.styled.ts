@@ -28,18 +28,20 @@ export const FriendsFab = styled(Fab)`
   }
 `;
 
-export const FeedbackFab = styled(Fab)`
-  &&& {
-    position: absolute;
-    right: 16rem;
-    bottom: 1rem;
-  }
-`;
-
 export const StyledChallengeButton = styled(ChallengeButton)`
   &&& {
     position: absolute;
     top: 11rem;
+    right: 1rem;
+    background-color: ${colours.primary};
+    color: white;
+  }
+`;
+
+export const FeedbackFab = styled(Fab)`
+  &&& {
+    position: absolute;
+    top: 16rem;
     right: 1rem;
     background-color: ${colours.primary};
     color: white;
