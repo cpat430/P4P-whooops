@@ -20,7 +20,7 @@ import {
   FeedbackFab,
   FriendsFab,
   MapDiv,
-  StyledChallengeButton,
+  StyledChallengeButton
 } from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
@@ -58,7 +58,7 @@ const MapPage = (): JSX.Element => {
   const [currentUser, setCurrentUser] = useState<UserProps | null>(null);
 
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
-    useState<boolean>(false);
+    useState<boolean>(true); // initially, choose interests modal is open
   const [openFriendsModal, setOpenFriendsModal] = useState<boolean>(false);
   const [openChallengeHelperModal, setOpenChallengeHelperModal] =
     useState<boolean>(false);

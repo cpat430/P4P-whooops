@@ -2,8 +2,7 @@ import { Divider, Grid, Typography } from '@material-ui/core';
 import { default as React, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
-import { createUser, NoIdUserProps } from '../../utils/createUser';
-import { updateUser } from '../../utils/updateUser';
+import { createUser } from '../../utils/createUser';
 import {
   PageBackgroundGrid,
   PageCard,
@@ -36,18 +35,19 @@ export const HomePage = (): JSX.Element => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // means we can do what we like.
-    const userDetails = {
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      email: formValues.email,
-    } as NoIdUserProps;
 
-    const id = await createUser(userDetails);
-    const userDetailsWithId = {
+    const { firstName, lastName, email } = formValues;
+
+    const id = await createUser({ firstName, lastName, email });
+
+    setUser({
+      ...user,
       id,
-      ...userDetails,
-    };
-    updateUser({ userDetails: userDetailsWithId, user, setUser });
+      firstName,
+      lastName,
+      email,
+    });
+
     history.push('/map');
   };
 
