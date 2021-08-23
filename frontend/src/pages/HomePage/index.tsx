@@ -10,7 +10,7 @@ import {
   PageForm,
   PageTextField,
   RegisterTextField,
-  SubmitButton
+  SubmitButton,
 } from './HomePage.styled';
 
 const defaultValues = {
