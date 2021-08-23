@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { dummyChallenges } from '../utils/dummyChallenges';
-import { generateOtherUsers } from '../utils/dummyUsers';
+import { generateOtherUsers } from '../utils/users';
 import { sparkArenaPos } from '../utils/locations';
 import { UserProps } from '../utils/types';
 import { AppEvent, AppEventContext } from './AppEventContext';

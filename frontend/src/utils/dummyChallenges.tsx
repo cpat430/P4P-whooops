@@ -2,7 +2,7 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { AppEvent } from '../contexts/AppEventContext';
 import { Challenge } from '../contexts/ChallengeContext';
-import { generateOtherUsers } from './dummyUsers';
+import { generateOtherUsers } from './users';
 import { quadPos, sparkArenaPos } from './locations';
 
 // I can set the Challenge to have an on start - which is like an initialisation phase, on end (clean up), and helperCard, which is a MUI Card object that contains what you want
