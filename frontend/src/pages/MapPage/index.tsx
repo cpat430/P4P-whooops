@@ -98,10 +98,11 @@ const MapPage = (): JSX.Element => {
       />
       <GoogleMapReact
         bootstrapURLKeys={{ key: mapKey || '' }}
+        options={mapOptions}
         defaultCenter={mapProps.center}
         defaultZoom={mapProps.zoom}
-        options={mapOptions}
         center={mapProps.center}
+        zoom={mapProps.zoom}
       >
         {dummyUsers.map((user, userIndex) => {
           return (

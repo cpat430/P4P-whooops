@@ -5,14 +5,10 @@ import { images } from '../user-profiles';
 import { dummyInterests } from './dummyInterests';
 import { UserProps } from './types';
 
-// Determines where the users will be located: +- delta from the sky tower
-const skyTowerPos = {
-  lat: -36.8484,
-  lng: 174.7622,
-};
-const delta = 0.1;
-
+// Determines where the users will be located: +- delta from centerPos
 export const generateDummyUsers = (
+  centerPos: { lat: number; lng: number },
+  delta: number,
   numUsers: number,
   seed: number
 ): UserProps[] => {
@@ -28,13 +24,13 @@ export const generateDummyUsers = (
       id: uuid(),
       index: userIndex,
       lat: faker.datatype.number({
-        min: skyTowerPos.lat - delta,
-        max: skyTowerPos.lat + delta,
+        min: centerPos.lat - delta,
+        max: centerPos.lat + delta,
         precision: 0.00001,
       }),
       lng: faker.datatype.number({
-        min: skyTowerPos.lng - delta,
-        max: skyTowerPos.lng + delta,
+        min: centerPos.lng - delta,
+        max: centerPos.lng + delta,
         precision: 0.00001,
       }),
       firstName: firstName,
