@@ -1,7 +1,7 @@
 import EditIcon from '@material-ui/icons/Edit';
 import GroupIcon from '@material-ui/icons/Group';
 import GoogleMapReact from 'google-map-react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
 import { ChooseInterestsModal } from '../../components/ChooseInterests';
 import { FeedbackModal } from '../../components/FeedbackModal';
@@ -14,7 +14,6 @@ import { UserContext } from '../../contexts/UserContext';
 import { createFeedback } from '../../utils/createFeedback';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { getRandomQuestion } from '../../utils/dummyQuestions';
-import { dummyUsers } from '../../utils/dummyUsers';
 import { Interest, UserProps } from '../../utils/types';
 import {
   EditInterestFab,
@@ -37,22 +36,17 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 const MapPage = (): JSX.Element => {
   const { addAppEvent: addEvent } = useContext(AppEventContext);
   const { user } = useContext(UserContext);
-
-  const [users, setUsers] = useState<UserProps[]>(dummyUsers);
+  const {
+    challenge: { dummyUsers, mapProps },
+  } = useContext(ChallengeContext);
 
   const handleToggleIsFriend = (user: UserProps | null): void => {
-    if (!user) return;
-
-    setUsers(
-      users.map((u) => {
-        if (u.id === user.id) {
-          u.isFriendsWithUser = !u.isFriendsWithUser;
-        }
-        return u;
-      })
-    );
+    // TODO!
   };
 
+  useEffect(() => {
+    console.log('Dummy users changed');
+  }, [dummyUsers]);
   /**
    * currentUser is the current profile that is open.
    * If currentUser === null, the modal is not open
@@ -79,15 +73,6 @@ const MapPage = (): JSX.Element => {
     console.error('Map key is undefined');
   }
 
-  const defaultProps = {
-    // OGGB
-    center: {
-      lat: -36.8531,
-      lng: 174.7715,
-    },
-    zoom: 14,
-  };
-
   const onFeedbackSubmit = (
     question: string,
     rating: number,
@@ -113,9 +98,10 @@ const MapPage = (): JSX.Element => {
       />
       <GoogleMapReact
         bootstrapURLKeys={{ key: mapKey || '' }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
+        defaultCenter={mapProps.center}
+        defaultZoom={mapProps.zoom}
         options={mapOptions}
+        center={mapProps.center}
       >
         {dummyUsers.map((user, userIndex) => {
           return (

@@ -2,6 +2,7 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { AppEvent } from '../contexts/AppEventContext';
 import { Challenge } from '../contexts/ChallengeContext';
+import { generateDummyUsers } from './dummyUsers';
 
 // I can set the Challenge to have an on start - which is like an initialisation phase, on end (clean up), and helperCard, which is a MUI Card object that contains what you want
 
@@ -9,6 +10,14 @@ export const dummyChallenges: Challenge[] = [
   // TODO add exploration 'NATURAL' phase
   {
     id: 'add-friend-o-week',
+    mapProps: {
+      center: {
+        lat: -36.8531,
+        lng: 174.7715,
+      },
+      zoom: 15,
+    },
+    dummyUsers: generateDummyUsers(20, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },
@@ -25,6 +34,14 @@ export const dummyChallenges: Challenge[] = [
   },
   {
     id: 'add-friend-music-festival',
+    mapProps: {
+      center: {
+        lat: -30.8531,
+        lng: 172.7715,
+      },
+      zoom: 10,
+    },
+    dummyUsers: generateDummyUsers(20, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },
@@ -41,6 +58,14 @@ export const dummyChallenges: Challenge[] = [
   },
   {
     id: 'dilemma-concert-ticket',
+    mapProps: {
+      center: {
+        lat: -36.8531,
+        lng: 174.7715,
+      },
+      zoom: 14,
+    },
+    dummyUsers: generateDummyUsers(20, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },
@@ -57,6 +82,14 @@ export const dummyChallenges: Challenge[] = [
   },
   {
     id: 'measurement-same-interest',
+    mapProps: {
+      center: {
+        lat: -36.8531,
+        lng: 174.7715,
+      },
+      zoom: 14,
+    },
+    dummyUsers: generateDummyUsers(20, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-user-profile'; // TODO check the user also has basketball
     },
@@ -73,6 +106,14 @@ export const dummyChallenges: Challenge[] = [
 
   {
     id: 'end-dummy',
+    mapProps: {
+      center: {
+        lat: -36.8531,
+        lng: 174.7715,
+      },
+      zoom: 14,
+    },
+    dummyUsers: generateDummyUsers(20, Math.random()),
 
     modalContent: <Grid>Finish!</Grid>,
   },

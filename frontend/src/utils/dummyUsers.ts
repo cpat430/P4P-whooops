@@ -12,7 +12,10 @@ const skyTowerPos = {
 };
 const delta = 0.1;
 
-const generateDummyUsers = (numUsers: number, seed: number) => {
+export const generateDummyUsers = (
+  numUsers: number,
+  seed: number
+): UserProps[] => {
   // The seed allows us to reproduce the random values/names, as long as it's generated from faker
   faker.seed(seed);
 
@@ -46,5 +49,3 @@ const generateDummyUsers = (numUsers: number, seed: number) => {
     } as UserProps;
   });
 };
-
-export const dummyUsers = generateDummyUsers(20, 1);

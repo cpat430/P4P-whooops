@@ -1,7 +1,3 @@
-// The idea is the user get challenges/prompts.
-// E.g. the user can be prompted: Have a look around. Choose the user with the most interests with you.
-// When will this user be prompted?
-
 import React, {
   createContext,
   ReactNode,
@@ -10,6 +6,8 @@ import React, {
   useState,
 } from 'react';
 import { dummyChallenges } from '../utils/dummyChallenges';
+import { generateDummyUsers } from '../utils/dummyUsers';
+import { UserProps } from '../utils/types';
 import { AppEvent, AppEventContext } from './AppEventContext';
 
 /**
@@ -17,14 +15,27 @@ import { AppEvent, AppEventContext } from './AppEventContext';
  */
 export type Challenge = {
   id: string;
+
+  mapProps: { center: { lat: number; lng: number }; zoom: number };
+  dummyUsers: UserProps[];
+
   init?: () => void; // called at the very start
   acceptFinish?: (appEvent: AppEvent) => boolean;
   cleanup?: () => void; // called at the very end
+
   modalContent?: JSX.Element; // object to be shown in the modal
 };
 
 const defaultChallenge = {
   id: 'default-dummy',
+  mapProps: {
+    center: {
+      lat: -36.8531,
+      lng: 174.7715,
+    },
+    zoom: 14,
+  },
+  dummyUsers: generateDummyUsers(20, Math.random()),
 };
 
 type ChallengeContextProps = {
@@ -46,21 +57,20 @@ export const ChallengeProvider = ({
   const { appEvents } = useContext(AppEventContext);
 
   const [challengeIndex, setChallengeIndex] = useState(0);
-  const challenge = allChallenges[challengeIndex]; // This is assumed to be always valid! The last challenge of allChallenges should be never accepting
-
-  const onNewEvent = (event: AppEvent) => {
-    // When the context received a new event, it checks if the challenge has been completed
-    if (challenge.acceptFinish && challenge.acceptFinish(event)) {
-      setChallengeIndex(challengeIndex + 1); // Proceed to next challenge
-    }
-  };
+  const [challenge, setChallenge] = useState<Challenge>(defaultChallenge);
 
   useEffect(() => {
     const latestAppEvent = appEvents[appEvents.length - 1];
     if (latestAppEvent) {
-      onNewEvent(latestAppEvent);
+      if (challenge.acceptFinish && challenge.acceptFinish(latestAppEvent)) {
+        setChallengeIndex(challengeIndex + 1); // Proceed to next challenge
+      }
     }
   }, [appEvents]);
+
+  useEffect(() => {
+    setChallenge(allChallenges[challengeIndex]);
+  }, [challengeIndex]);
 
   const context = {
     challenge,
