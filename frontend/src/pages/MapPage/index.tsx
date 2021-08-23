@@ -1,7 +1,7 @@
 import EditIcon from '@material-ui/icons/Edit';
 import GroupIcon from '@material-ui/icons/Group';
 import GoogleMapReact from 'google-map-react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
 import { ChooseInterestsModal } from '../../components/ChooseInterests';
 import { FeedbackModal } from '../../components/FeedbackModal';
@@ -35,18 +35,22 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 
 const MapPage = (): JSX.Element => {
   const { addAppEvent: addEvent } = useContext(AppEventContext);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const {
-    challenge: { dummyUsers, mapProps },
+    challenge: { otherUsers, mapProps },
   } = useContext(ChallengeContext);
 
-  const handleToggleIsFriend = (user: UserProps | null): void => {
-    // TODO!
+  const handleToggleIsFriend = (otherUser: UserProps | null): void => {
+    if (!otherUser) return;
+
+    const newFriendIds = user.friendIds.includes(otherUser.id)
+      ? user.friendIds.filter((id) => {
+          return id !== otherUser.id;
+        })
+      : user.friendIds.concat(otherUser.id);
+    setUser({ ...user, friendIds: newFriendIds });
   };
 
-  useEffect(() => {
-    console.log('Dummy users changed');
-  }, [dummyUsers]);
   /**
    * currentUser is the current profile that is open.
    * If currentUser === null, the modal is not open
@@ -59,12 +63,6 @@ const MapPage = (): JSX.Element => {
   const [openChallengeHelperModal, setOpenChallengeHelperModal] =
     useState<boolean>(false);
   const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false);
-
-  const [interests, setInterests] = useState<Interest[]>(
-    dummyInterests.filter(() => {
-      return Math.random() < 0.5;
-    })
-  );
 
   const { challenge } = useContext(ChallengeContext);
 
@@ -87,7 +85,7 @@ const MapPage = (): JSX.Element => {
   return (
     <MapDiv data-testid={'map-page'}>
       <UserProfile
-        user={currentUser}
+        profileUser={currentUser}
         onToggleIsFriend={() => {
           handleToggleIsFriend(currentUser);
         }}
@@ -104,7 +102,7 @@ const MapPage = (): JSX.Element => {
         center={mapProps.center}
         zoom={mapProps.zoom}
       >
-        {dummyUsers.map((user, userIndex) => {
+        {otherUsers.map((user, userIndex) => {
           return (
             <UserMapMarker
               key={userIndex}
@@ -154,7 +152,7 @@ const MapPage = (): JSX.Element => {
           setOpenChooseInterestsModal(false);
         }}
         allInterests={dummyInterests}
-        value={interests}
+        value={user.interests}
         onChange={(value: Interest[]) => {
           // handle setting interests
           console.log(
@@ -167,7 +165,7 @@ const MapPage = (): JSX.Element => {
           );
 
           // update the user's interests
-          setInterests(value);
+          setUser({ ...user, interests: value });
         }}
       ></ChooseInterestsModal>
 

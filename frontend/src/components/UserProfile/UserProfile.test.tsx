@@ -6,7 +6,6 @@ describe('User Profile', () => {
   it('should render user profile', () => {
     const user = {
       id: '1',
-      index: 1,
       // Sky Tower
       lat: -36.8484,
       lng: 174.7622,
@@ -22,14 +21,14 @@ describe('User Profile', () => {
           emoji: '🏀',
         },
       ],
-      isFriendsWithUser: false,
+      friendIds: [],
     };
     const setUserToNull = jest.fn();
     const toggleIsFriend = jest.fn();
 
     render(
       <UserProfile
-        user={user}
+        profileUser={user}
         onClose={setUserToNull}
         onToggleIsFriend={toggleIsFriend}
       />

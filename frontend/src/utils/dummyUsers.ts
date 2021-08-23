@@ -6,7 +6,7 @@ import { dummyInterests } from './dummyInterests';
 import { UserProps } from './types';
 
 // Determines where the users will be located: +- delta from centerPos
-export const generateDummyUsers = (
+export const generateOtherUsers = (
   centerPos: { lat: number; lng: number },
   delta: number,
   numUsers: number,
@@ -16,13 +16,12 @@ export const generateDummyUsers = (
   faker.seed(seed);
 
   // Returns a list of length numUsers of a randomly generated person
-  return _.range(numUsers).map((userIndex) => {
+  return _.range(numUsers).map(() => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
 
     return {
       id: uuid(),
-      index: userIndex,
       lat: faker.datatype.number({
         min: centerPos.lat - delta,
         max: centerPos.lat + delta,
@@ -41,7 +40,7 @@ export const generateDummyUsers = (
       interests: dummyInterests.filter(() => {
         return faker.datatype.number({ min: 1, max: 2 }) === 1;
       }),
-      isFriendsWithUser: faker.datatype.boolean(),
-    } as UserProps;
+      friendIds: [],
+    };
   });
 };

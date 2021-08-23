@@ -6,7 +6,6 @@ export type Interest = {
 
 export type UserProps = {
   id: string;
-  index: number;
   lat: number;
   lng: number;
   firstName: string;
@@ -15,5 +14,5 @@ export type UserProps = {
   image: string;
   description: string;
   interests: Interest[];
-  isFriendsWithUser: boolean;
+  friendIds: string[];
 };

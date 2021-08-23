@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { dummyChallenges } from '../utils/dummyChallenges';
-import { generateDummyUsers } from '../utils/dummyUsers';
+import { generateOtherUsers } from '../utils/dummyUsers';
 import { sparkArenaPos } from '../utils/locations';
 import { UserProps } from '../utils/types';
 import { AppEvent, AppEventContext } from './AppEventContext';
@@ -18,7 +18,7 @@ export type Challenge = {
   id: string;
 
   mapProps: { center: { lat: number; lng: number }; zoom: number };
-  dummyUsers: UserProps[];
+  otherUsers: UserProps[];
 
   init?: () => void; // called at the very start
   acceptFinish?: (appEvent: AppEvent) => boolean;
@@ -33,7 +33,7 @@ const defaultChallenge = {
     center: sparkArenaPos,
     zoom: 10,
   },
-  dummyUsers: generateDummyUsers(sparkArenaPos, 0.1, 20, Math.random()),
+  otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
 };
 
 type ChallengeContextProps = {

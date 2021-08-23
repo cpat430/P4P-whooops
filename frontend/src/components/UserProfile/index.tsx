@@ -1,6 +1,7 @@
 import { Avatar, Divider, Grid, Modal, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import { UserProps } from '../../utils/types';
 import {
   CapitalisedChip,
@@ -9,17 +10,18 @@ import {
   ProfileGrid,
   StyledFriendButton,
   UserAvatar,
-  UserNameTypography,
+  UserNameTypography
 } from './UserProfile.styled';
 
 type UserProfileProps = {
-  user: UserProps | null;
+  profileUser: UserProps | null;
   onToggleIsFriend: () => void;
   onClose: () => void;
 };
 
 export const UserProfile = (props: UserProfileProps): JSX.Element => {
-  const { user, onToggleIsFriend, onClose } = props;
+  const { profileUser, onToggleIsFriend, onClose } = props;
+  const { user } = useContext(UserContext);
 
   const handleClose = () => {
     onClose();
@@ -27,13 +29,13 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
 
   return (
     <Modal
-      open={user !== null}
+      open={profileUser !== null}
       disableAutoFocus
       disableEnforceFocus
       onClose={handleClose}
       data-testid={'user-profile'}
     >
-      {user ? (
+      {profileUser ? (
         <ProfileDetailsPaper data-testid={'profile-details-container'}>
           <CloseIconButton onClick={handleClose}>
             <CloseIcon />
@@ -46,21 +48,21 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
           >
             <Grid item>
               <UserAvatar
-                alt={user.firstName}
-                src={user.image}
+                alt={profileUser.firstName}
+                src={profileUser.image}
                 data-testid={'user-avatar'}
               />
             </Grid>
             <Grid item xs={12}>
               <UserNameTypography variant="h6" data-testid={'user-name'}>
-                {user.firstName + ' ' + user.lastName}
+                {profileUser.firstName + ' ' + profileUser.lastName}
               </UserNameTypography>
             </Grid>
 
             <Grid item xs={8}>
               <StyledFriendButton
                 className="styled-friend-button"
-                isFriend={user.isFriendsWithUser}
+                isFriend={user.friendIds.includes(profileUser.id)}
                 toggleIsFriend={onToggleIsFriend}
               />
             </Grid>
@@ -78,7 +80,7 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
                 Bio
               </Typography>
               <Typography data-testid={'user-description'}>
-                {user.description}
+                {profileUser.description}
               </Typography>
             </Grid>
 
@@ -95,8 +97,8 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
                 Interests
               </Typography>
               <Grid container spacing={1} data-testid={'user-interests'}>
-                {user.interests &&
-                  user.interests.map((interest) => (
+                {profileUser.interests &&
+                  profileUser.interests.map((interest) => (
                     <Grid item key={interest.id}>
                       <CapitalisedChip
                         avatar={<Avatar>{interest.emoji}</Avatar>}
