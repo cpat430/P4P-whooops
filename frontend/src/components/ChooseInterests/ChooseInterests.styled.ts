@@ -22,7 +22,7 @@ export const UnselectedChip = styled(Chip)`
 
 export const CaptionTypography = styled(Typography)`
   &&& {
-    font-size: 0.8rem;
+    font-weight: 500;
   }
 `;
 

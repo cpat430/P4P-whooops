@@ -4,12 +4,15 @@ import {
   Chip,
   Divider,
   Grid,
+  IconButton,
   Modal,
   Typography,
 } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import SaveIcon from '@material-ui/icons/Save';
 import { default as React, useState } from 'react';
+import { images } from '../../user-profiles';
+import { colours } from '../../utils/colours';
 import { Interest } from '../../utils/types';
 import {
   CaptionTypography,
@@ -62,6 +65,7 @@ export const ChooseInterestsModal = ({
   onChange: (value: Interest[]) => void;
 }): JSX.Element => {
   const [selectedInterests, setSelectedInterests] = useState<Interest[]>(value);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleSubmit = () => {
     onChange(selectedInterests);
@@ -77,24 +81,24 @@ export const ChooseInterestsModal = ({
       disableRestoreFocus
     >
       <ChooseInterestPaper>
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography>Choose Interests</Typography>
+            <Typography variant="h5">Personalise</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
           </Grid>
           <Grid item xs={12}>
             <CaptionTypography>
               What are your interests and hobbies?
             </CaptionTypography>
           </Grid>
-          <Grid item xs={12}>
-            <Divider />
-          </Grid>
+
           <Grid item>
             <Grid
               container
-              justifyContent="center"
-              alignItems="center"
               spacing={1}
+              style={{ border: '1px solid #ccc', borderRadius: '1rem' }}
             >
               {allInterests.map((interest, index) => {
                 const userInterestIndex = selectedInterests.findIndex(
@@ -122,6 +126,44 @@ export const ChooseInterestsModal = ({
                         }
                       }}
                     />
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
+
+          <Grid item xs={12}>
+            <CaptionTypography>Choose profile image</CaptionTypography>
+          </Grid>
+          <Grid item>
+            <Grid
+              container
+              justifyContent="center"
+              spacing={1}
+              style={{
+                border: '1px solid #ccc',
+                borderRadius: '1rem',
+                height: '20vh',
+                overflow: 'scroll',
+              }}
+            >
+              {images.map((image, index) => {
+                return (
+                  <Grid item key={index}>
+                    <IconButton
+                      style={{
+                        backgroundColor:
+                          image === selectedImage ? colours.primary : undefined,
+                      }}
+                      onClick={() => {
+                        setSelectedImage(image);
+                      }}
+                    >
+                      <img src={image} alt="" style={{ height: '2rem' }} />
+                    </IconButton>
                   </Grid>
                 );
               })}
