@@ -3,24 +3,25 @@ import GroupIcon from '@material-ui/icons/Group';
 import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
-import { PersonaliseModal } from '../../components/PersonaliseModal';
 import { FeedbackModal } from '../../components/FeedbackModal';
 import { FriendsModal } from '../../components/FriendsModal';
+import { PersonaliseModal } from '../../components/PersonaliseModal';
 import UserMapMarker from '../../components/UserMapMarker';
 import { UserProfile } from '../../components/UserProfile';
 import { AppEventContext } from '../../contexts/AppEventContext';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
 import { UserContext } from '../../contexts/UserContext';
+import { images } from '../../user-profiles';
 import { createFeedback } from '../../utils/createFeedback';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { getRandomQuestion } from '../../utils/dummyQuestions';
-import { Interest, UserProps } from '../../utils/types';
+import { UserProps } from '../../utils/types';
 import {
   EditInterestFab,
   FeedbackFab,
   FriendsFab,
   MapDiv,
-  StyledChallengeButton
+  StyledChallengeButton,
 } from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
@@ -37,7 +38,7 @@ const MapPage = (): JSX.Element => {
   const { addAppEvent: addEvent } = useContext(AppEventContext);
   const { user, setUser } = useContext(UserContext);
   const {
-    challenge: { otherUsers, mapProps },
+    challenge: { otherUsers, mapProps, modalContent },
   } = useContext(ChallengeContext);
 
   const handleToggleIsFriend = (otherUser: UserProps | null): void => {
@@ -51,11 +52,9 @@ const MapPage = (): JSX.Element => {
     setUser({ ...user, friendIds: newFriendIds });
   };
 
-  /**
-   * currentUser is the current profile that is open.
-   * If currentUser === null, the modal is not open
-   */
-  const [currentUser, setCurrentUser] = useState<UserProps | null>(null);
+  const [openUserProfile, setOpenUserProfile] = useState<UserProps | null>(
+    null
+  );
 
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
     useState<boolean>(true); // initially, choose interests modal is open
@@ -63,8 +62,6 @@ const MapPage = (): JSX.Element => {
   const [openChallengeHelperModal, setOpenChallengeHelperModal] =
     useState<boolean>(false);
   const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false);
-
-  const { challenge } = useContext(ChallengeContext);
 
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
@@ -85,13 +82,13 @@ const MapPage = (): JSX.Element => {
   return (
     <MapDiv data-testid={'map-page'}>
       <UserProfile
-        profileUser={currentUser}
+        profileUser={openUserProfile}
         onToggleIsFriend={() => {
-          handleToggleIsFriend(currentUser);
+          handleToggleIsFriend(openUserProfile);
         }}
         onClose={() => {
           // to close the modal, set the current user to null
-          setCurrentUser(null);
+          setOpenUserProfile(null);
         }}
       />
       <GoogleMapReact
@@ -102,21 +99,32 @@ const MapPage = (): JSX.Element => {
         center={mapProps.center}
         zoom={mapProps.zoom}
       >
-        {otherUsers.map((user, userIndex) => {
+        {otherUsers.map((otherUser, userIndex) => {
           return (
             <UserMapMarker
               key={userIndex}
-              lat={user.lat}
-              lng={user.lng}
-              user={user}
+              lat={otherUser.lat}
+              lng={otherUser.lng}
+              user={otherUser}
               displayInterestBadge={true}
               onClick={() => {
                 addEvent({ name: 'click-user-profile' });
-                setCurrentUser(user);
+                setOpenUserProfile(otherUser);
               }}
             />
           );
         })}
+        <UserMapMarker
+          key={-1}
+          lat={user.lat}
+          lng={user.lng}
+          user={user}
+          displayInterestBadge={true}
+          onClick={() => {
+            addEvent({ name: 'click-user-profile' });
+            setOpenUserProfile(user);
+          }}
+        />
       </GoogleMapReact>
 
       {/* Temporary way to open edit interests modal */}
@@ -151,21 +159,14 @@ const MapPage = (): JSX.Element => {
         handleClose={() => {
           setOpenChooseInterestsModal(false);
         }}
+        allImages={images}
         allInterests={dummyInterests}
-        value={user.interests}
-        onChange={(value: Interest[]) => {
-          // handle setting interests
-          console.log(
-            'Chose interests: ' +
-              value
-                .map((v) => {
-                  return v.name;
-                })
-                .join(',')
-          );
+        value={user}
+        onChange={(value) => {
+          const { interests, image } = value;
 
-          // update the user's interests
-          setUser({ ...user, interests: value });
+          // update the user's interests and image
+          setUser({ ...user, interests, image });
         }}
       ></PersonaliseModal>
 
@@ -174,7 +175,7 @@ const MapPage = (): JSX.Element => {
         handleClose={() => {
           setOpenFriendsModal(false);
         }}
-        setCurrentUser={setCurrentUser}
+        setCurrentUser={setOpenUserProfile}
         openChooseInterestsModal={openChooseInterestsModal}
         setOpenChooseInterestModal={setOpenChooseInterestsModal}
       ></FriendsModal>
@@ -185,7 +186,7 @@ const MapPage = (): JSX.Element => {
           setOpenChallengeHelperModal(false);
         }}
       >
-        {challenge.modalContent}
+        {modalContent}
       </ChallengeHelperModal>
 
       <FeedbackModal

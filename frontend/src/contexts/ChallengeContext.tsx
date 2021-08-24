@@ -6,10 +6,11 @@ import React, {
   useState,
 } from 'react';
 import { dummyChallenges } from '../utils/dummyChallenges';
-import { generateOtherUsers } from '../utils/users';
 import { sparkArenaPos } from '../utils/locations';
 import { UserProps } from '../utils/types';
+import { generateOtherUsers } from '../utils/users';
 import { AppEvent, AppEventContext } from './AppEventContext';
+import { UserContext } from './UserContext';
 
 /**
  * Each challenge will have a name, helper
@@ -19,6 +20,8 @@ export type Challenge = {
 
   mapProps: { center: { lat: number; lng: number }; zoom: number };
   otherUsers: UserProps[];
+
+  userLocation: { lat: number; lng: number };
 
   init?: () => void; // called at the very start
   acceptFinish?: (appEvent: AppEvent) => boolean;
@@ -33,7 +36,8 @@ const defaultChallenge = {
     center: sparkArenaPos,
     zoom: 10,
   },
-  otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
+  otherUsers: [],
+  userLocation: sparkArenaPos,
 };
 
 type ChallengeContextProps = {
@@ -51,6 +55,7 @@ export const ChallengeProvider = ({
 }: {
   children?: ReactNode;
 }): JSX.Element => {
+  const { user, setUser } = useContext(UserContext);
   // The challenge handler is able to detect new events
   const { appEvents } = useContext(AppEventContext);
 
@@ -69,6 +74,12 @@ export const ChallengeProvider = ({
   useEffect(() => {
     setChallenge(allChallenges[challengeIndex]);
   }, [challengeIndex]);
+
+  useEffect(() => {
+    // on a new challenge, reset the user's location
+    const { lat, lng } = challenge.userLocation;
+    setUser({ ...user, lat, lng });
+  }, [challenge]);
 
   const context = {
     challenge,
