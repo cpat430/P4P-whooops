@@ -12,8 +12,6 @@ export const FriendsPaper = styled(Paper)`
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-
-    background-color: ${colours.paperBackground};
   }
 `;
 
@@ -61,5 +59,18 @@ export const FriendPillButton = styled(Button)`
     background-color: #dddddd;
     text-transform: none;
     margin-top: 1%;
+  }
+`;
+
+export const FilterInterestPaper = styled(Paper)`
+  &&& {
+    width: 25rem;
+    max-width: 90%;
+    border-radius: 0.3rem;
+
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
   }
 `;

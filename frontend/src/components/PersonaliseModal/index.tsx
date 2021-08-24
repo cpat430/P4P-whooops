@@ -1,55 +1,22 @@
 import {
-  Avatar,
   Button,
-  Chip,
   Divider,
   Grid,
   IconButton,
   Modal,
   Typography,
 } from '@material-ui/core';
-import DoneIcon from '@material-ui/icons/Done';
 import SaveIcon from '@material-ui/icons/Save';
 import { default as React, useState } from 'react';
 import { images } from '../../user-profiles';
 import { colours } from '../../utils/colours';
 import { Interest } from '../../utils/types';
+import { InterestChip } from '../InterestChip';
 import {
   CaptionTypography,
   FlexGrid,
   PersonalisePaper,
-  UnselectedChip,
 } from './PersonaliseModal.styled';
-
-const InterestChip = ({
-  interest,
-  checked,
-  onClick,
-}: {
-  interest: Interest;
-  checked?: boolean;
-  onClick?: () => void;
-}) => {
-  // TODO does the button look better with constant size (but empty space), or changing size?
-  return checked ? (
-    <Chip
-      avatar={<Avatar>{interest.emoji}</Avatar>}
-      label={interest.name}
-      color="primary"
-      clickable
-      onClick={onClick}
-      onDelete={onClick}
-      deleteIcon={<DoneIcon />}
-    />
-  ) : (
-    <UnselectedChip
-      avatar={<Avatar>{interest.emoji}</Avatar>}
-      label={interest.name}
-      clickable
-      onClick={onClick}
-    />
-  );
-};
 
 type InterestsAndImage = {
   interests: Interest[];
