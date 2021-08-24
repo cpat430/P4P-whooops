@@ -2,8 +2,8 @@ import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { AppEvent } from '../contexts/AppEventContext';
 import { Challenge } from '../contexts/ChallengeContext';
-import { generateOtherUsers } from './users';
 import { quadPos, sparkArenaPos } from './locations';
+import { generateOtherUsers } from './users';
 
 // I can set the Challenge to have an on start - which is like an initialisation phase, on end (clean up), and helperCard, which is a MUI Card object that contains what you want
 
@@ -14,9 +14,9 @@ export const dummyChallenges: Challenge[] = [
     userLocation: quadPos,
     mapProps: {
       center: quadPos,
-      zoom: 15,
+      zoom: 20,
     },
-    otherUsers: generateOtherUsers(quadPos, 0.1, 100, Math.random()),
+    otherUsers: generateOtherUsers(quadPos, 0.001, 100, Math.random()),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },

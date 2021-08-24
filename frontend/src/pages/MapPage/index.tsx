@@ -2,6 +2,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import GroupIcon from '@material-ui/icons/Group';
 import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
+import { ChallengeButton } from '../../components/ChallengeButton';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
 import { FeedbackModal } from '../../components/FeedbackModal';
 import { FriendsModal } from '../../components/FriendsModal';
@@ -21,7 +22,6 @@ import {
   FeedbackFab,
   FriendsFab,
   MapDiv,
-  StyledChallengeButton,
 } from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
@@ -149,10 +149,7 @@ const MapPage = (): JSX.Element => {
         <GroupIcon />
       </FriendsFab>
 
-      <StyledChallengeButton
-        className="challenge-button"
-        onClick={() => setOpenChallengeHelperModal(true)}
-      />
+      <ChallengeButton onClick={() => setOpenChallengeHelperModal(true)} />
 
       <PersonaliseModal
         open={openChooseInterestsModal}

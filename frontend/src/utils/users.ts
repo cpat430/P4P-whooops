@@ -20,6 +20,11 @@ export const generateOtherUsers = (
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
 
+    const numInterests = faker.datatype.number({ min: 1, max: 5 });
+    const interests = faker.helpers
+      .shuffle(dummyInterests)
+      .slice(0, numInterests);
+
     return {
       id: uuid(),
       lat: faker.datatype.number({
@@ -37,9 +42,7 @@ export const generateOtherUsers = (
       email: faker.internet.email(firstName, lastName),
       description: faker.lorem.lines(2),
       image: images[faker.datatype.number({ min: 0, max: images.length - 1 })],
-      interests: dummyInterests.filter(() => {
-        return faker.datatype.number({ min: 1, max: 2 }) === 1;
-      }),
+      interests,
       friendIds: [],
     };
   });

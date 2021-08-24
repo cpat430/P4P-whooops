@@ -1,15 +1,13 @@
-import { Fab } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 import React, { useContext, useEffect, useState } from 'react';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
+import { ChallengeFab } from './ChallengeButton.styled';
 
 type ChallengeButtonProps = {
-  className: string;
   onClick: () => void;
 };
 export const ChallengeButton = ({
-  className,
   onClick,
 }: ChallengeButtonProps): JSX.Element => {
   const [clicked, setClicked] = useState(false);
@@ -20,14 +18,14 @@ export const ChallengeButton = ({
   }, [challenge]);
 
   return (
-    <Fab
-      className={className}
+    <ChallengeFab
+      $clicked={clicked}
       onClick={() => {
         setClicked(true);
         onClick();
       }}
     >
       {clicked ? <AssignmentIcon /> : <AssignmentLateIcon />}
-    </Fab>
+    </ChallengeFab>
   );
 };
