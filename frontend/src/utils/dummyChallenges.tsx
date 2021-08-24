@@ -11,6 +11,7 @@ export const dummyChallenges: Challenge[] = [
   // TODO add exploration 'NATURAL' phase
   {
     id: 'add-friend-o-week',
+    userLocation: quadPos,
     mapProps: {
       center: quadPos,
       zoom: 15,
@@ -32,6 +33,7 @@ export const dummyChallenges: Challenge[] = [
   },
   {
     id: 'add-friend-music-festival',
+    userLocation: quadPos,
     mapProps: {
       center: sparkArenaPos,
       zoom: 10,
@@ -53,6 +55,7 @@ export const dummyChallenges: Challenge[] = [
   },
   {
     id: 'dilemma-concert-ticket',
+    userLocation: quadPos,
     mapProps: {
       center: sparkArenaPos,
       zoom: 10,
@@ -74,6 +77,7 @@ export const dummyChallenges: Challenge[] = [
   },
   {
     id: 'measurement-same-interest',
+    userLocation: quadPos,
     mapProps: {
       center: sparkArenaPos,
       zoom: 10,
@@ -95,6 +99,7 @@ export const dummyChallenges: Challenge[] = [
 
   {
     id: 'end-dummy',
+    userLocation: quadPos,
     mapProps: {
       center: sparkArenaPos,
       zoom: 10,

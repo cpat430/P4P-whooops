@@ -106,26 +106,6 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
           </FriendsModalContainer>
         </FriendsPaper>
       </Modal>
-      <PersonaliseModal
-        open={openChooseInterestsModal}
-        handleClose={handleInterestClose}
-        allInterests={dummyInterests}
-        value={selectedInterests}
-        onChange={(value: Interest[]) => {
-          // handle setting interests
-          console.log(
-            'Chosen filter interests: ' +
-              value
-                .map((v) => {
-                  return v.name;
-                })
-                .join(',')
-          );
-
-          // update the user's interests
-          setSelectedInterests(value);
-        }}
-      ></PersonaliseModal>
     </>
   );
 };

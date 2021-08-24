@@ -16,8 +16,8 @@ import { colours } from '../../utils/colours';
 import { Interest } from '../../utils/types';
 import {
   CaptionTypography,
-  PersonalisePaper,
   FlexGrid,
+  PersonalisePaper,
   UnselectedChip,
 } from './PersonaliseModal.styled';
 
@@ -51,24 +51,31 @@ const InterestChip = ({
   );
 };
 
+type InterestsAndImage = {
+  interests: Interest[];
+  image: string;
+};
+
 export const PersonaliseModal = ({
   open,
   handleClose,
   allInterests,
-  value,
+  value: { interests, image },
   onChange,
 }: {
   open: boolean;
   handleClose: () => void;
   allInterests: Interest[];
-  value: Interest[];
-  onChange: (value: Interest[]) => void;
+  allImages: string[];
+  value: InterestsAndImage;
+  onChange: ({ interests, image }: InterestsAndImage) => void;
 }): JSX.Element => {
-  const [selectedInterests, setSelectedInterests] = useState<Interest[]>(value);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedInterests, setSelectedInterests] =
+    useState<Interest[]>(interests);
+  const [selectedImage, setSelectedImage] = useState<string>(image);
 
   const handleSubmit = () => {
-    onChange(selectedInterests);
+    onChange({ interests: selectedInterests, image: selectedImage });
     handleClose();
   };
 
@@ -176,10 +183,10 @@ export const PersonaliseModal = ({
           <FlexGrid item />
           <Grid item>
             <Button
-              variant="outlined"
+              variant="contained"
               onClick={handleSubmit}
-              color="primary"
               endIcon={<SaveIcon />}
+              style={{ backgroundColor: colours.primary, color: 'white' }}
             >
               save
             </Button>
