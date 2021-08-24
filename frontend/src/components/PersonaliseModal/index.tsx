@@ -16,10 +16,10 @@ import { colours } from '../../utils/colours';
 import { Interest } from '../../utils/types';
 import {
   CaptionTypography,
-  ChooseInterestPaper,
+  PersonalisePaper,
   FlexGrid,
   UnselectedChip,
-} from './ChooseInterests.styled';
+} from './PersonaliseModal.styled';
 
 const InterestChip = ({
   interest,
@@ -51,7 +51,7 @@ const InterestChip = ({
   );
 };
 
-export const ChooseInterestsModal = ({
+export const PersonaliseModal = ({
   open,
   handleClose,
   allInterests,
@@ -80,7 +80,7 @@ export const ChooseInterestsModal = ({
       disableEnforceFocus
       disableRestoreFocus
     >
-      <ChooseInterestPaper>
+      <PersonalisePaper>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h5">Personalise</Typography>
@@ -185,7 +185,7 @@ export const ChooseInterestsModal = ({
             </Button>
           </Grid>
         </Grid>
-      </ChooseInterestPaper>
+      </PersonalisePaper>
     </Modal>
   );
 };

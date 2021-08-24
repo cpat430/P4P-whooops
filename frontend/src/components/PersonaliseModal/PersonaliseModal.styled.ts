@@ -1,7 +1,7 @@
 import { Chip, Grid, Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
-export const ChooseInterestPaper = styled(Paper)`
+export const PersonalisePaper = styled(Paper)`
   &&& {
     width: 30rem;
     max-width: 90%;
