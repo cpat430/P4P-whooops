@@ -14,9 +14,9 @@ export const dummyChallenges: Challenge[] = [
     userLocation: quadPos,
     mapProps: {
       center: quadPos,
-      zoom: 20,
+      zoom: 19,
     },
-    otherUsers: generateOtherUsers(quadPos, 0.001, 100, Math.random()),
+    otherUsers: generateOtherUsers(quadPos, 0.001, 20, 1),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },
@@ -32,35 +32,13 @@ export const dummyChallenges: Challenge[] = [
     ),
   },
   {
-    id: 'add-friend-music-festival',
-    userLocation: quadPos,
-    mapProps: {
-      center: sparkArenaPos,
-      zoom: 10,
-    },
-    otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
-    acceptFinish: (appEvent: AppEvent): boolean => {
-      return appEvent.name === 'click-add-friend-button';
-    },
-    modalContent: (
-      <Grid container>
-        <Grid item>
-          <Typography>
-            You are at a music festival. Choose <b>1</b> other person to
-            befriend.
-          </Typography>
-        </Grid>
-      </Grid>
-    ),
-  },
-  {
     id: 'dilemma-concert-ticket',
-    userLocation: quadPos,
+    userLocation: sparkArenaPos,
     mapProps: {
       center: sparkArenaPos,
-      zoom: 10,
+      zoom: 19,
     },
-    otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
+    otherUsers: generateOtherUsers(sparkArenaPos, 0.001, 20, 2),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-add-friend-button';
     },
@@ -80,9 +58,9 @@ export const dummyChallenges: Challenge[] = [
     userLocation: quadPos,
     mapProps: {
       center: sparkArenaPos,
-      zoom: 10,
+      zoom: 19,
     },
-    otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
+    otherUsers: generateOtherUsers(sparkArenaPos, 0.001, 20, 3),
     acceptFinish: (appEvent: AppEvent): boolean => {
       return appEvent.name === 'click-user-profile'; // TODO check the user also has basketball
     },
@@ -102,7 +80,7 @@ export const dummyChallenges: Challenge[] = [
     userLocation: quadPos,
     mapProps: {
       center: sparkArenaPos,
-      zoom: 10,
+      zoom: 19,
     },
     otherUsers: generateOtherUsers(sparkArenaPos, 0.1, 20, Math.random()),
 

@@ -1,14 +1,14 @@
-import { Avatar, Grid, Modal, Typography } from '@material-ui/core';
+import { Avatar, Divider, Grid, Modal, Typography } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import React, { useContext, useState } from 'react';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
 import { UserContext } from '../../contexts/UserContext';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { getEmojis } from '../../utils/getEmojis';
-import { interestInCommon } from '../../utils/interestInCommon';
 import { Interest, UserProps } from '../../utils/types';
-import { PersonaliseModal } from '../PersonaliseModal';
+import { InterestChip } from '../InterestChip';
 import {
+  FilterInterestPaper,
   FriendPillButton,
   FriendsModalAppBar,
   FriendsModalContainer,
@@ -26,18 +26,19 @@ type FriendsModalProps = {
   setOpenChooseInterestModal: (openChooseInterestModal: boolean) => void;
 };
 
-export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
-  const { open, handleClose, setCurrentUser } = props;
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const [selectedInterests, setSelectedInterests] = useState<Interest[]>([]);
-  const [openChooseInterestsModal, setOpenChooseInterestsModal] =
-    useState<boolean>(false);
-
+export const FriendsModal = ({
+  open,
+  handleClose,
+  setCurrentUser,
+}: FriendsModalProps): JSX.Element => {
   const { user } = useContext(UserContext);
-
   const {
     challenge: { otherUsers },
   } = useContext(ChallengeContext);
+
+  const [currentTab, setCurrentTab] = useState<number>(0);
+  const [filterInterests, setFilterInterests] = useState<Interest[]>([]);
+  const [openInterestFilterModal, setOpenInterestFilterModal] = useState(false);
 
   const handleChange = (
     event: React.ChangeEvent<unknown>,
@@ -47,8 +48,28 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
   };
 
   const handleInterestClose = () => {
-    setOpenChooseInterestsModal(false);
+    setOpenInterestFilterModal(false);
   };
+
+  // All users or only friends
+  const relevantUsers =
+    currentTab === 0
+      ? otherUsers
+      : otherUsers.filter((otherUser) => {
+          return user.friendIds.includes(otherUser.id);
+        });
+
+  // Filter by interest
+  const displayUsers =
+    filterInterests.length === 0
+      ? relevantUsers
+      : relevantUsers.filter((relevantUser) => {
+          return filterInterests.find((filterInterest) => {
+            return relevantUser.interests.find((relevantUserInterest) => {
+              return filterInterest.id === relevantUserInterest.id;
+            });
+          });
+        });
 
   return (
     <>
@@ -69,42 +90,81 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
 
           <FriendsTuneFab
             onClick={() => {
-              setOpenChooseInterestsModal(true);
+              setOpenInterestFilterModal(true);
             }}
           >
             <TuneIcon />
           </FriendsTuneFab>
 
           <FriendsModalContainer>
-            {otherUsers.map(
-              (otherUser, index) =>
-                interestInCommon(user.interests, selectedInterests) &&
-                (currentTab === 0 ||
-                  (currentTab === 1 &&
-                    user.friendIds.includes(otherUser.id))) && (
-                  <FriendPillButton
-                    fullWidth
-                    onClick={() => setCurrentUser(otherUser)}
-                    key={index}
-                  >
-                    <Grid container justifyContent="center" alignItems="center">
-                      <Grid item xs={3}>
-                        <Avatar src={otherUser.image} />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Typography>{`${otherUser.firstName} ${otherUser.lastName}`}</Typography>
-                      </Grid>
-                      <Grid item xs={3}>
-                        <Typography>
-                          {getEmojis(otherUser.interests)}
-                        </Typography>
-                      </Grid>
+            {displayUsers.map((otherUser, index) => {
+              return (
+                <FriendPillButton
+                  fullWidth
+                  onClick={() => setCurrentUser(otherUser)}
+                  key={index}
+                >
+                  <Grid container justifyContent="center" alignItems="center">
+                    <Grid item xs={3}>
+                      <Avatar src={otherUser.image} />
                     </Grid>
-                  </FriendPillButton>
-                )
-            )}
+                    <Grid item xs={6}>
+                      <Typography>{`${otherUser.firstName} ${otherUser.lastName}`}</Typography>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Typography>{getEmojis(otherUser.interests)}</Typography>
+                    </Grid>
+                  </Grid>
+                </FriendPillButton>
+              );
+            })}
           </FriendsModalContainer>
         </FriendsPaper>
+      </Modal>
+      <Modal
+        open={openInterestFilterModal}
+        onClose={handleInterestClose}
+        disableAutoFocus
+        disableEnforceFocus
+        disableRestoreFocus
+      >
+        <FilterInterestPaper>
+          <Grid container spacing={1} style={{ padding: '1rem' }}>
+            <Grid item xs={12}>
+              <Typography>Filter by Interests</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+            {dummyInterests.map((interest, index) => {
+              const filterInterestIndex = filterInterests.findIndex(
+                (filterInterest) => {
+                  return filterInterest.id === interest.id;
+                }
+              );
+
+              return (
+                <Grid item key={index}>
+                  <InterestChip
+                    interest={interest}
+                    checked={filterInterestIndex !== -1}
+                    onClick={() => {
+                      if (filterInterestIndex === -1) {
+                        setFilterInterests(filterInterests.concat(interest));
+                      } else {
+                        setFilterInterests(
+                          filterInterests.filter((_interest, filterIndex) => {
+                            return filterIndex !== filterInterestIndex;
+                          })
+                        );
+                      }
+                    }}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </FilterInterestPaper>
       </Modal>
     </>
   );
