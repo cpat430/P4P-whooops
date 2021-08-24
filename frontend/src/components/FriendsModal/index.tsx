@@ -7,7 +7,7 @@ import { dummyInterests } from '../../utils/dummyInterests';
 import { getEmojis } from '../../utils/getEmojis';
 import { interestInCommon } from '../../utils/interestInCommon';
 import { Interest, UserProps } from '../../utils/types';
-import { ChooseInterestsModal } from '../ChooseInterests';
+import { PersonaliseModal } from '../PersonaliseModal';
 import {
   FriendPillButton,
   FriendsModalAppBar,
@@ -106,7 +106,7 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
           </FriendsModalContainer>
         </FriendsPaper>
       </Modal>
-      <ChooseInterestsModal
+      <PersonaliseModal
         open={openChooseInterestsModal}
         handleClose={handleInterestClose}
         allInterests={dummyInterests}
@@ -125,7 +125,7 @@ export const FriendsModal = (props: FriendsModalProps): JSX.Element => {
           // update the user's interests
           setSelectedInterests(value);
         }}
-      ></ChooseInterestsModal>
+      ></PersonaliseModal>
     </>
   );
 };

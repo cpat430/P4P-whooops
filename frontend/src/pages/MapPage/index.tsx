@@ -3,7 +3,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
-import { ChooseInterestsModal } from '../../components/ChooseInterests';
+import { PersonaliseModal } from '../../components/PersonaliseModal';
 import { FeedbackModal } from '../../components/FeedbackModal';
 import { FriendsModal } from '../../components/FriendsModal';
 import UserMapMarker from '../../components/UserMapMarker';
@@ -146,7 +146,7 @@ const MapPage = (): JSX.Element => {
         onClick={() => setOpenChallengeHelperModal(true)}
       />
 
-      <ChooseInterestsModal
+      <PersonaliseModal
         open={openChooseInterestsModal}
         handleClose={() => {
           setOpenChooseInterestsModal(false);
@@ -167,7 +167,7 @@ const MapPage = (): JSX.Element => {
           // update the user's interests
           setUser({ ...user, interests: value });
         }}
-      ></ChooseInterestsModal>
+      ></PersonaliseModal>
 
       <FriendsModal
         open={openFriendsModal}
