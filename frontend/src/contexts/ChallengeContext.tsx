@@ -5,8 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { dummyChallenges } from '../utils/dummyChallenges';
-import { sparkArenaPos } from '../utils/locations';
+import { defaultChallenge, dummyChallenges } from '../utils/dummyChallenges';
 import { UserProps } from '../utils/types';
 import { AppEvent, AppEventContext } from './AppEventContext';
 import { UserContext } from './UserContext';
@@ -19,7 +18,6 @@ export type Challenge = {
 
   mapProps: { center: { lat: number; lng: number }; zoom: number };
   otherUsers: UserProps[];
-
   userLocation: { lat: number; lng: number };
 
   init?: () => void; // called at the very start
@@ -27,16 +25,9 @@ export type Challenge = {
   cleanup?: () => void; // called at the very end
 
   modalContent?: JSX.Element; // object to be shown in the modal
-};
 
-const defaultChallenge = {
-  id: 'default-dummy',
-  mapProps: {
-    center: sparkArenaPos,
-    zoom: 10,
-  },
-  otherUsers: [],
-  userLocation: sparkArenaPos,
+  startTime?: number;
+  endTime?: number;
 };
 
 type ChallengeContextProps = {
@@ -71,6 +62,11 @@ export const ChallengeProvider = ({
   }, [appEvents]);
 
   useEffect(() => {
+    challenge.cleanup && challenge.cleanup();
+
+    const nextChallenge = allChallenges[challengeIndex];
+    nextChallenge.init && nextChallenge.init();
+
     setChallenge(allChallenges[challengeIndex]);
   }, [challengeIndex]);
 
