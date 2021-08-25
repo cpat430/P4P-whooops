@@ -6,7 +6,8 @@ export type AppEvent = {
     | 'init-app'
     | 'click-add-friend-button'
     | 'click-user-profile'
-    | 'click-edit-interest';
+    | 'click-edit-interest'
+    | 'submit-survey';
 };
 
 type AppEventContextProps = {

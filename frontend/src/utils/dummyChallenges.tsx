@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
+import { FeedbackPanel } from '../components/FeedbackPanel';
 import { AppEvent } from '../contexts/AppEventContext';
 import { Challenge } from '../contexts/ChallengeContext';
 import { quadPos, sparkArenaPos } from './locations';
@@ -105,16 +106,15 @@ export const dummyChallenges: Challenge[] = [
     otherUsers: generateOtherUsers(sparkArenaPos, 0.001, 20, 3),
     acceptFinish: (appEvent: AppEvent): boolean => {
       // TODO submit form
-      return appEvent.name === 'click-user-profile'; // TODO check the user also has basketball
+      return appEvent.name === 'submit-survey'; // TODO check the user also has basketball
     },
     modalContent: (
-      <Grid container>
-        <Grid item>
-          <Typography>
-            Open a user profile who also likes [basketball]
-          </Typography>
-        </Grid>
-      </Grid>
+      <FeedbackPanel
+        question="What do you think of this?"
+        onSubmit={() => {
+          console.log('handle survey'); // TODO
+        }}
+      />
     ),
   },
   {
