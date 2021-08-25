@@ -1,18 +1,20 @@
 import { Router } from 'express';
-import { UserModel } from '../../db/user';
+import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { FeedbackModel } from '../../db/feedback';
+import { UserModel } from '../../db/user';
 
 const router = Router();
 
 router.post('/user', (request, response) => {
   const { firstName, lastName, email } = request.body;
   const id = uuid();
+  const group = _.random(1, 3); // TODO get the least chosen
 
   UserModel.create({ id, firstName, lastName, email })
     .then(() => {
       console.log(`✅ Successfully created user ${id}`);
-      response.status(200).send(id);
+      response.status(200).send({ id, group });
     })
     .catch(() => {
       console.log('🛑 Did not track event successfully');

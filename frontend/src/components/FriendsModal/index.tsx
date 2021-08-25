@@ -3,8 +3,8 @@ import TuneIcon from '@material-ui/icons/Tune';
 import React, { useContext, useState } from 'react';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
 import { UserContext } from '../../contexts/UserContext';
-import { dummyInterests } from '../../utils/dummyInterests';
 import { getEmojis } from '../../utils/getEmojis';
+import { dummyInterests } from '../../utils/dummyInterests';
 import { Interest, UserProps } from '../../utils/types';
 import { InterestChip } from '../InterestChip';
 import {
@@ -112,7 +112,13 @@ export const FriendsModal = ({
                       <Typography>{`${otherUser.firstName} ${otherUser.lastName}`}</Typography>
                     </Grid>
                     <Grid item xs={3}>
-                      <Typography>{getEmojis(otherUser.interests)}</Typography>
+                      <Typography>
+                        {getEmojis(
+                          user.interests,
+                          otherUser.interests,
+                          user.group
+                        )}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </FriendPillButton>

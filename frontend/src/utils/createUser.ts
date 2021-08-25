@@ -6,10 +6,10 @@ export type NoIdUserProps = {
   email: string;
 };
 
-export const createUser = async (props: NoIdUserProps): Promise<string> => {
+export const createUser = async (
+  props: NoIdUserProps
+): Promise<{ id: string; group: number }> => {
   const { firstName, lastName, email } = props;
-
-  console.log(`Creating user: ${firstName} ${lastName}`);
 
   const { data } = await axios.post('/services/api/user', {
     firstName,
@@ -17,5 +17,7 @@ export const createUser = async (props: NoIdUserProps): Promise<string> => {
     email,
   });
 
-  return data;
+  const { id, group } = data;
+  console.log(`Created user: ${firstName} ${lastName}, Group: ${group}`);
+  return { id, group };
 };
