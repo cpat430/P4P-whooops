@@ -4,7 +4,6 @@ import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
 import { ChallengeButton } from '../../components/ChallengeButton';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
-import { FeedbackModal } from '../../components/FeedbackModal';
 import { FriendsModal } from '../../components/FriendsModal';
 import { PersonaliseModal } from '../../components/PersonaliseModal';
 import UserMapMarker from '../../components/UserMapMarker';
@@ -13,16 +12,9 @@ import { AppEventContext } from '../../contexts/AppEventContext';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
-import { createFeedback } from '../../utils/createFeedback';
 import { dummyInterests } from '../../utils/dummyInterests';
-import { getRandomQuestion } from '../../utils/dummyQuestions';
 import { UserProps } from '../../utils/types';
-import {
-  EditInterestFab,
-  FeedbackFab,
-  FriendsFab,
-  MapDiv,
-} from './MapPage.styled';
+import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
   return {
@@ -61,23 +53,11 @@ const MapPage = (): JSX.Element => {
   const [openFriendsModal, setOpenFriendsModal] = useState<boolean>(false);
   const [openChallengeHelperModal, setOpenChallengeHelperModal] =
     useState<boolean>(false);
-  const [openFeedbackModal, setOpenFeedbackModal] = useState<boolean>(false);
 
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
     console.error('Map key is undefined');
   }
-
-  const onFeedbackSubmit = (
-    question: string,
-    rating: number,
-    answer?: string
-  ) => {
-    const { id, email } = user;
-
-    createFeedback({ id, email, question, answer, rating });
-    setOpenFeedbackModal(false);
-  };
 
   return (
     <MapDiv data-testid={'map-page'}>
@@ -135,10 +115,6 @@ const MapPage = (): JSX.Element => {
         <EditIcon />
       </EditInterestFab>
 
-      <FeedbackFab onClick={() => setOpenFeedbackModal(true)}>
-        Give Feedback
-      </FeedbackFab>
-
       <FriendsFab
         onClick={() => {
           setOpenFriendsModal(true);
@@ -183,13 +159,6 @@ const MapPage = (): JSX.Element => {
       >
         {modalContent}
       </ChallengeHelperModal>
-
-      <FeedbackModal
-        open={openFeedbackModal}
-        handleClose={() => setOpenFeedbackModal(false)}
-        question={getRandomQuestion()}
-        onSubmit={onFeedbackSubmit}
-      ></FeedbackModal>
     </MapDiv>
   );
 };
