@@ -5,11 +5,51 @@ import { Challenge } from '../contexts/ChallengeContext';
 import { quadPos, sparkArenaPos } from './locations';
 import { generateOtherUsers } from './users';
 
-// I can set the Challenge to have an on start - which is like an initialisation phase, on end (clean up), and helperCard, which is a MUI Card object that contains what you want
+export const defaultChallenge: Challenge = {
+  id: 'default-challenge',
+  mapProps: {
+    center: sparkArenaPos,
+    zoom: 19,
+  },
+  otherUsers: [],
+  userLocation: sparkArenaPos,
+  init: function () {
+    this.startTime = Date.now();
+  },
+  cleanup: function () {
+    this.endTime = Date.now();
+  },
+};
 
 export const dummyChallenges: Challenge[] = [
-  // TODO add exploration 'NATURAL' phase
   {
+    ...defaultChallenge,
+    id: 'wait-10-seconds',
+    userLocation: quadPos,
+    mapProps: {
+      center: quadPos,
+      zoom: 19,
+    },
+    otherUsers: generateOtherUsers(quadPos, 0.001, 20, 1),
+    acceptFinish: function (): boolean {
+      const waitTime = 10000; // 10 seconds
+      if (this.startTime) {
+        return Date.now() - this.startTime >= waitTime;
+      }
+      return false;
+    },
+    modalContent: (
+      <Grid container>
+        <Grid item>
+          <Typography>
+            Play around! A new task will appear after 10 seconds
+          </Typography>
+        </Grid>
+      </Grid>
+    ),
+  },
+  {
+    ...defaultChallenge,
     id: 'add-friend-o-week',
     userLocation: quadPos,
     mapProps: {
@@ -32,6 +72,7 @@ export const dummyChallenges: Challenge[] = [
     ),
   },
   {
+    ...defaultChallenge,
     id: 'dilemma-concert-ticket',
     userLocation: sparkArenaPos,
     mapProps: {
@@ -54,6 +95,30 @@ export const dummyChallenges: Challenge[] = [
     ),
   },
   {
+    ...defaultChallenge,
+    id: 'quick-survey',
+    userLocation: quadPos,
+    mapProps: {
+      center: sparkArenaPos,
+      zoom: 19,
+    },
+    otherUsers: generateOtherUsers(sparkArenaPos, 0.001, 20, 3),
+    acceptFinish: (appEvent: AppEvent): boolean => {
+      // TODO submit form
+      return appEvent.name === 'click-user-profile'; // TODO check the user also has basketball
+    },
+    modalContent: (
+      <Grid container>
+        <Grid item>
+          <Typography>
+            Open a user profile who also likes [basketball]
+          </Typography>
+        </Grid>
+      </Grid>
+    ),
+  },
+  {
+    ...defaultChallenge,
     id: 'measurement-same-interest',
     userLocation: quadPos,
     mapProps: {
@@ -76,6 +141,7 @@ export const dummyChallenges: Challenge[] = [
   },
 
   {
+    ...defaultChallenge,
     id: 'end-dummy',
     userLocation: quadPos,
     mapProps: {
