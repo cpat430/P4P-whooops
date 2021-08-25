@@ -15,4 +15,5 @@ export type UserProps = {
   description: string;
   interests: Interest[];
   friendIds: string[];
+  group: number; // which A/B/N group they are in
 };

@@ -8,7 +8,6 @@ import React, {
 import { dummyChallenges } from '../utils/dummyChallenges';
 import { sparkArenaPos } from '../utils/locations';
 import { UserProps } from '../utils/types';
-import { generateOtherUsers } from '../utils/users';
 import { AppEvent, AppEventContext } from './AppEventContext';
 import { UserContext } from './UserContext';
 

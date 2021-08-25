@@ -12,6 +12,7 @@ const defaultUser: UserProps = {
   description: '',
   interests: [],
   friendIds: [],
+  group: 0, // 0 means no group!
 };
 
 type UserContextProps = {

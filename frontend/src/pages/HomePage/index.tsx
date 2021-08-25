@@ -38,7 +38,8 @@ export const HomePage = (): JSX.Element => {
 
     const { firstName, lastName, email } = formValues;
 
-    const id = await createUser({ firstName, lastName, email });
+    const { id, group } = await createUser({ firstName, lastName, email });
+    // get group id
 
     setUser({
       ...user,
@@ -46,6 +47,7 @@ export const HomePage = (): JSX.Element => {
       firstName,
       lastName,
       email,
+      group,
     });
 
     history.push('/map');
