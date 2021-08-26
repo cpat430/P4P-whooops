@@ -1,5 +1,5 @@
 import { Divider, Grid, Typography } from '@material-ui/core';
-import { default as React, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
 import { createUser } from '../../utils/createUser';

@@ -1,4 +1,4 @@
-import { Button, Fab, Paper, Tab, Tabs } from '@material-ui/core';
+import { Button, Fab, Grid, Paper, Tab, Tabs } from '@material-ui/core';
 import styled from 'styled-components';
 import { colours } from '../../utils/colours';
 
@@ -72,5 +72,11 @@ export const FilterInterestPaper = styled(Paper)`
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
+  }
+`;
+
+export const InterestGrid = styled(Grid)`
+  &&& {
+    padding: 1rem;
   }
 `;

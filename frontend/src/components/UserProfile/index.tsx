@@ -10,7 +10,7 @@ import {
   ProfileGrid,
   StyledFriendButton,
   UserAvatar,
-  UserNameTypography
+  UserNameTypography,
 } from './UserProfile.styled';
 
 type UserProfileProps = {
@@ -104,7 +104,6 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
                         avatar={<Avatar>{interest.emoji}</Avatar>}
                         label={interest.name}
                         variant="outlined"
-                        style={{ textTransform: 'capitalize' }}
                         data-testid={'interest-chip'}
                       />
                     </Grid>
