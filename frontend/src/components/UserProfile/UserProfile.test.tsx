@@ -22,6 +22,7 @@ describe('User Profile', () => {
         },
       ],
       friendIds: [],
+      group: 0,
     };
     const setUserToNull = jest.fn();
     const toggleIsFriend = jest.fn();
