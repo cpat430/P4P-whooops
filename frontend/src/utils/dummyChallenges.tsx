@@ -110,9 +110,9 @@ export const dummyChallenges: Challenge[] = [
     },
     modalContent: (
       <FeedbackPanel
-        question="What do you think of this?"
+        question="Did seeing the user's interests influence your decision?"
         onSubmit={() => {
-          console.log('handle survey'); // TODO
+          console.log('TODO handle survey'); // TODO
         }}
       />
     ),

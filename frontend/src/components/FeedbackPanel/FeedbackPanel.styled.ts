@@ -1,5 +1,6 @@
-import { Divider, Paper, TextField } from '@material-ui/core';
+import { Button, Paper, TextField } from '@material-ui/core';
 import styled from 'styled-components';
+import { colours } from '../../utils/colours';
 
 export const FeedbackPaper = styled(Paper)`
   &&& {
@@ -20,17 +21,9 @@ export const FeedbackAnswerField = styled(TextField)`
   }
 `;
 
-export const FeedbackContent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-export const FeedbackDivider = styled(Divider)`
+export const SubmitButton = styled(Button)`
   &&& {
-    width: 100%;
-    margin-bottom: 1rem;
-    margin-top: 0.5rem;
+    background-color: ${(props) => (props.disabled ? 'grey' : colours.primary)};
+    color: white;
   }
 `;
