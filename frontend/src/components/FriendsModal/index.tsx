@@ -3,8 +3,8 @@ import TuneIcon from '@material-ui/icons/Tune';
 import React, { useContext, useState } from 'react';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
 import { UserContext } from '../../contexts/UserContext';
-import { getEmojis } from '../../utils/getEmojis';
 import { dummyInterests } from '../../utils/dummyInterests';
+import { getEmojis } from '../../utils/getEmojis';
 import { Interest, UserProps } from '../../utils/types';
 import { InterestChip } from '../InterestChip';
 import {
@@ -16,6 +16,7 @@ import {
   FriendsModalTabs,
   FriendsPaper,
   FriendsTuneFab,
+  InterestGrid,
 } from './FriendsModal.styled';
 
 type FriendsModalProps = {
@@ -135,7 +136,7 @@ export const FriendsModal = ({
         disableRestoreFocus
       >
         <FilterInterestPaper>
-          <Grid container spacing={1} style={{ padding: '1rem' }}>
+          <InterestGrid container spacing={1}>
             <Grid item xs={12}>
               <Typography>Filter by Interests</Typography>
             </Grid>
@@ -169,7 +170,7 @@ export const FriendsModal = ({
                 </Grid>
               );
             })}
-          </Grid>
+          </InterestGrid>
         </FilterInterestPaper>
       </Modal>
     </>

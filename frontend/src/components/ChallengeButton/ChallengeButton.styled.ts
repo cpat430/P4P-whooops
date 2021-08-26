@@ -28,7 +28,7 @@ export const ChallengeFab = styled(Fab)<ChallengeButtonProps>`
 
     70% {
       transform: scale(1);
-      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+      box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0);
     }
 
     100% {

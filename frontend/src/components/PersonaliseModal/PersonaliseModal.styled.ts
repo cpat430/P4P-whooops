@@ -1,5 +1,6 @@
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, IconButton, Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
+import { colours } from '../../utils/colours';
 
 export const PersonalisePaper = styled(Paper)`
   &&& {
@@ -24,4 +25,33 @@ export const FlexGrid = styled(Grid)`
   &&& {
     flex: 1;
   }
+`;
+
+export const InterestGrid = styled(Grid)`
+  &&& {
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    height: 20vh;
+    overflow: scroll;
+  }
+`;
+
+export const ImagesGrid = styled(Grid)`
+  &&& {
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    height: 20vh;
+    overflow: scroll;
+  }
+`;
+
+export const ImageIconButton = styled(IconButton)<{ $selected: boolean }>`
+  &&& {
+    background-color: ${(props) =>
+      props.$selected ? colours.primary : undefined};
+  }
+`;
+
+export const UserImage = styled.img`
+  height: 2rem;
 `;

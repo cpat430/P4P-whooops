@@ -1,21 +1,16 @@
-import {
-  Button,
-  Divider,
-  Grid,
-  IconButton,
-  Modal,
-  Typography,
-} from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
-import { default as React, useState } from 'react';
+import { Divider, Grid, Modal, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { images } from '../../user-profiles';
-import { colours } from '../../utils/colours';
 import { Interest } from '../../utils/types';
 import { InterestChip } from '../InterestChip';
 import {
   CaptionTypography,
   FlexGrid,
+  ImageIconButton,
+  ImagesGrid,
+  InterestGrid,
   PersonalisePaper,
+  UserImage,
 } from './PersonaliseModal.styled';
 
 type InterestsAndImage = {
@@ -41,10 +36,9 @@ export const PersonaliseModal = ({
     useState<Interest[]>(interests);
   const [selectedImage, setSelectedImage] = useState<string>(image);
 
-  const handleSubmit = () => {
+  useEffect(() => {
     onChange({ interests: selectedInterests, image: selectedImage });
-    handleClose();
-  };
+  }, [selectedInterests, selectedImage]);
 
   return (
     <Modal
@@ -69,11 +63,7 @@ export const PersonaliseModal = ({
           </Grid>
 
           <Grid item>
-            <Grid
-              container
-              spacing={1}
-              style={{ border: '1px solid #ccc', borderRadius: '1rem' }}
-            >
+            <InterestGrid container spacing={1}>
               {allInterests.map((interest, index) => {
                 const userInterestIndex = selectedInterests.findIndex(
                   (userInterest) => {
@@ -103,7 +93,7 @@ export const PersonaliseModal = ({
                   </Grid>
                 );
               })}
-            </Grid>
+            </InterestGrid>
           </Grid>
           <Grid item xs={12}>
             <Divider />
@@ -113,51 +103,28 @@ export const PersonaliseModal = ({
             <CaptionTypography>Choose profile image</CaptionTypography>
           </Grid>
           <Grid item>
-            <Grid
-              container
-              justifyContent="center"
-              spacing={1}
-              style={{
-                border: '1px solid #ccc',
-                borderRadius: '1rem',
-                height: '20vh',
-                overflow: 'scroll',
-              }}
-            >
+            <ImagesGrid container justifyContent="center" spacing={1}>
               {images.map((image, index) => {
                 return (
                   <Grid item key={index}>
-                    <IconButton
-                      style={{
-                        backgroundColor:
-                          image === selectedImage ? colours.primary : undefined,
-                      }}
+                    <ImageIconButton
+                      $selected={image === selectedImage}
                       onClick={() => {
                         setSelectedImage(image);
                       }}
                     >
-                      <img src={image} alt="" style={{ height: '2rem' }} />
-                    </IconButton>
+                      <UserImage src={image} alt="" />
+                    </ImageIconButton>
                   </Grid>
                 );
               })}
-            </Grid>
+            </ImagesGrid>
           </Grid>
           <Grid item xs={12}>
             <Divider />
           </Grid>
 
           <FlexGrid item />
-          <Grid item>
-            <Button
-              variant="contained"
-              onClick={handleSubmit}
-              endIcon={<SaveIcon />}
-              style={{ backgroundColor: colours.primary, color: 'white' }}
-            >
-              save
-            </Button>
-          </Grid>
         </Grid>
       </PersonalisePaper>
     </Modal>
