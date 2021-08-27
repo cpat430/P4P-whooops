@@ -1,5 +1,6 @@
-import { Divider, Grid, Modal, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { Button, Divider, Grid, Modal, Typography } from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
+import React, { useState } from 'react';
 import { images } from '../../user-profiles';
 import { Interest } from '../../utils/types';
 import { InterestChip } from '../InterestChip';
@@ -36,9 +37,10 @@ export const PersonaliseModal = ({
     useState<Interest[]>(interests);
   const [selectedImage, setSelectedImage] = useState<string>(image);
 
-  useEffect(() => {
+  const handleSave = () => {
     onChange({ interests: selectedInterests, image: selectedImage });
-  }, [selectedInterests, selectedImage]);
+    handleClose();
+  };
 
   return (
     <Modal
@@ -125,6 +127,16 @@ export const PersonaliseModal = ({
           </Grid>
 
           <FlexGrid item />
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              endIcon={<SaveIcon />}
+              onClick={handleSave}
+            >
+              Save
+            </Button>
+          </Grid>
         </Grid>
       </PersonalisePaper>
     </Modal>
