@@ -1,5 +1,6 @@
 import { Avatar, IconButton, Typography } from '@material-ui/core';
 import styled from 'styled-components';
+import { colours } from '../../utils/colours';
 
 // Constants that change the style of the marker. All units are in rem
 const triangleWidth = 2.5;
@@ -9,27 +10,33 @@ const triangleColor = '#555';
 const circleRadius = 1.8;
 const circlePadding = 0.5;
 const circleColor = '#555';
+const isUserCircleColor = colours.primary;
 
 const interestHeight = 0.6;
 const interestBackgroundColor = '#666';
 const interestPadding = 0.3;
 const interestFontSize = 0.5;
 
-export const TriangleDiv = styled.div`
+type UserProps = {
+  isUser: boolean;
+};
+
+export const TriangleDiv = styled.div<UserProps>`
   position: absolute;
   transform: translate(-50%, -50%);
   top: 0;
   left: 0;
   height: 0;
   width: 0;
-  border-top: ${triangleHeight}rem solid ${triangleColor};
+  border-top: ${triangleHeight}rem solid
+    ${(props) => (props.isUser ? isUserCircleColor : triangleColor)};
   border-bottom: ${triangleHeight}rem solid transparent;
 
   border-left: ${triangleWidth / 2}rem solid transparent;
   border-right: ${triangleWidth / 2}rem solid transparent;
 `;
 
-export const ImageIconButton = styled(IconButton)`
+export const ImageIconButton = styled(IconButton)<UserProps>`
   &&& {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -37,7 +44,8 @@ export const ImageIconButton = styled(IconButton)`
     left: 0;
     height: ${circleRadius * 2}rem;
     width: ${circleRadius * 2}rem;
-    background-color: ${circleColor};
+    background-color: ${(props) =>
+      props.isUser ? isUserCircleColor : circleColor};
     padding: ${circlePadding}rem;
   }
 `;

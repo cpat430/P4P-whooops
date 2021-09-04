@@ -17,9 +17,9 @@ type UserMapMarkerProps = {
   onClick: () => void;
 };
 const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
-  const {
-    user: { interests, group },
-  } = useContext(UserContext);
+  const { user: currentUser } = useContext(UserContext);
+
+  const { interests, group } = currentUser;
 
   const handleClick = (event: React.MouseEvent) => {
     onClick();
@@ -31,10 +31,10 @@ const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
   return (
     <>
       {/* triangle that points towards the location */}
-      <TriangleDiv />
+      <TriangleDiv isUser={user === currentUser} />
 
       {/* button that contains the profile image */}
-      <ImageIconButton onClick={handleClick}>
+      <ImageIconButton isUser={user === currentUser} onClick={handleClick}>
         {/* profile image */}
         <ImageAvatar src={user.image} />
       </ImageIconButton>
