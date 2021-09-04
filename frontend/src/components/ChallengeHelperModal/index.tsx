@@ -1,6 +1,8 @@
 import { Modal } from '@material-ui/core';
 import React from 'react';
+import { CloseIconButton } from '../UserProfile/UserProfile.styled';
 import { ChallengeHelperPaper } from './ChallengeHelperModal.styled';
+import CloseIcon from '@material-ui/icons/Close';
 
 type ChallengeHelperModalProps = {
   open: boolean;
@@ -21,7 +23,12 @@ export const ChallengeHelperModal = (
       disableEnforceFocus
       disableRestoreFocus
     >
-      <ChallengeHelperPaper>{children}</ChallengeHelperPaper>
+      <ChallengeHelperPaper>
+        <CloseIconButton onClick={handleClose}>
+          <CloseIcon />
+        </CloseIconButton>
+        {children}
+      </ChallengeHelperPaper>
     </Modal>
   );
 };
