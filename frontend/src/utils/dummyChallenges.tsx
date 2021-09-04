@@ -33,7 +33,7 @@ export const dummyChallenges: Challenge[] = [
     },
     otherUsers: generateOtherUsers(quadPos, 0.001, 20, 1),
     acceptFinish: function (): boolean {
-      const waitTime = 10000; // 10 seconds
+      const waitTime = 10 * 1000; // 10 seconds
       if (this.startTime) {
         return Date.now() - this.startTime >= waitTime;
       }
