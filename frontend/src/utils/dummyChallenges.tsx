@@ -19,6 +19,9 @@ export const defaultChallenge: Challenge = {
   },
   cleanup: function () {
     this.endTime = Date.now();
+    console.log(
+      `Challenge took: ${(this.endTime - (this.startTime || 0)) / 1000}s`
+    );
   },
 };
 
