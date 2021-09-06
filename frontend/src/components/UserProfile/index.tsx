@@ -98,16 +98,22 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
               </Typography>
               <Grid container spacing={1} data-testid={'user-interests'}>
                 {profileUser.interests &&
-                  profileUser.interests.map((interest) => (
-                    <Grid item key={interest.id}>
-                      <CapitalisedChip
-                        avatar={<Avatar>{interest.emoji}</Avatar>}
-                        label={interest.name}
-                        variant="outlined"
-                        data-testid={'interest-chip'}
-                      />
-                    </Grid>
-                  ))}
+                  profileUser.interests.map((interest) => {
+                    const inCommon = user.interests.some((userInterest) => {
+                      return userInterest.id === interest.id;
+                    });
+                    return (
+                      <Grid item key={interest.id}>
+                        <CapitalisedChip
+                          $inCommon={inCommon}
+                          avatar={<Avatar>{interest.emoji}</Avatar>}
+                          label={interest.name}
+                          variant="outlined"
+                          data-testid={'interest-chip'}
+                        />
+                      </Grid>
+                    );
+                  })}
               </Grid>
             </Grid>
           </ProfileGrid>
