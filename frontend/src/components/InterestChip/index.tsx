@@ -1,4 +1,5 @@
 import { Avatar, Chip } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import DoneIcon from '@material-ui/icons/Done';
 import React from 'react';
 import { Interest } from '../../utils/types';
@@ -30,6 +31,8 @@ export const InterestChip = ({
       label={interest.name}
       clickable
       onClick={onClick}
+      onDelete={onClick}
+      deleteIcon={<AddIcon />}
     />
   );
 };
