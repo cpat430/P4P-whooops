@@ -59,13 +59,15 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
               </UserNameTypography>
             </Grid>
 
-            <Grid item xs={8}>
-              <StyledFriendButton
-                className="styled-friend-button"
-                isFriend={user.friendIds.includes(profileUser.id)}
-                toggleIsFriend={onToggleIsFriend}
-              />
-            </Grid>
+            {user.id !== profileUser.id && (
+              <Grid item xs={8}>
+                <StyledFriendButton
+                  className="styled-friend-button"
+                  isFriend={user.friendIds.includes(profileUser.id)}
+                  toggleIsFriend={onToggleIsFriend}
+                />
+              </Grid>
+            )}
 
             <Grid item xs={12}>
               <Divider />
