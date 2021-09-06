@@ -62,9 +62,17 @@ export const CloseIconButton = styled(IconButton)`
   }
 `;
 
-export const CapitalisedChip = styled(Chip)`
+type CapitalisedChipProps = {
+  $inCommon: boolean;
+};
+export const CapitalisedChip = styled(Chip)<CapitalisedChipProps>`
   &&& {
     text-transform: capitalize;
+
+    border-color: ${(props) =>
+      props.$inCommon ? colours.primary : 'undefined'};
+    background-color: ${(props) => (props.$inCommon ? '#bfc2d9' : 'undefined')};
+    border-width: 0.1rem;
   }
 `;
 
