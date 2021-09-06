@@ -1,7 +1,9 @@
 import { Divider, Grid, Typography } from '@material-ui/core';
+import _ from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
+import { images } from '../../user-profiles';
 import { createUser } from '../../utils/createUser';
 import {
   PageBackgroundGrid,
@@ -43,6 +45,7 @@ export const HomePage = (): JSX.Element => {
 
     setUser({
       ...user,
+      image: images[_.random(0, images.length - 1)],
       id,
       firstName,
       lastName,
