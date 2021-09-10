@@ -17,11 +17,16 @@ export const defaultChallenge: Challenge = {
   init: function () {
     this.startTime = Date.now();
   },
+  totalTime: function () {
+    // Returns the total time, in seconds
+    if (!this.startTime || !this.endTime) {
+      return -1;
+    }
+    return (this.endTime - this.startTime) / 1000;
+  },
   cleanup: function () {
     this.endTime = Date.now();
-    console.log(
-      `Challenge took: ${(this.endTime - (this.startTime || 0)) / 1000}s`
-    );
+    console.log(`Challenge took: ${this.totalTime()}s`);
   },
 };
 
