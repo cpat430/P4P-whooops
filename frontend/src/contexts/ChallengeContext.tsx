@@ -22,6 +22,7 @@ export type Challenge = {
 
   init?: () => void; // called at the very start
   acceptFinish?: (appEvent: AppEvent) => boolean;
+  totalTime: () => number; // total time to complete challenge, in seconds
   cleanup?: () => void; // called at the very end
 
   modalContent?: JSX.Element; // object to be shown in the modal
