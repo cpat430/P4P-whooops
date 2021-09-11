@@ -6,7 +6,7 @@ import { ChallengeButton } from '../../components/ChallengeButton';
 import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
 import { FriendsModal } from '../../components/FriendsModal';
 import { PersonaliseModal } from '../../components/PersonaliseModal';
-import UserMapMarker from '../../components/UserMapMarker';
+import UserMapMarker from '../../components/MapMarker/UserMarker';
 import { UserProfile } from '../../components/UserProfile';
 import { AppEventContext } from '../../contexts/AppEventContext';
 import { ChallengeContext } from '../../contexts/ChallengeContext';
@@ -15,6 +15,12 @@ import { images } from '../../user-profiles';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { UserProps } from '../../utils/types';
 import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
+import LocationMapMarker from '../../components/MapMarker/LocationMarker';
+import {
+  albertStreetCountdown,
+  quayStreetCountdown,
+  vicStreetCountdown,
+} from '../../utils/locations';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
   return {
@@ -102,6 +108,27 @@ const MapPage = (): JSX.Element => {
             addEvent({ name: 'click-user-profile' });
             setOpenUserProfile(user);
           }}
+        />
+        <LocationMapMarker
+          key={-2}
+          lat={quayStreetCountdown.lat}
+          lng={quayStreetCountdown.lng}
+          locationLetter="A"
+          onClick={() => console.log('location')}
+        />
+        <LocationMapMarker
+          key={-3}
+          lat={vicStreetCountdown.lat}
+          lng={vicStreetCountdown.lng}
+          locationLetter="B"
+          onClick={() => console.log('location')}
+        />
+        <LocationMapMarker
+          key={-4}
+          lat={albertStreetCountdown.lat}
+          lng={albertStreetCountdown.lng}
+          locationLetter="C"
+          onClick={() => console.log('location')}
         />
       </GoogleMapReact>
 
