@@ -7,7 +7,8 @@ export type AppEvent = {
     | 'click-add-friend-button'
     | 'click-user-profile'
     | 'click-edit-interest'
-    | 'submit-survey';
+    | 'submit-survey'
+    | 'click-location-marker';
 };
 
 type AppEventContextProps = {
@@ -31,8 +32,8 @@ export const AppEventProvider = ({
     { name: 'init-app' },
   ]);
 
-  const addAppEvent = (appEvent: AppEvent) => {
-    trackEvent(appEvent.name); // TODO
+  const addAppEvent = (appEvent: AppEvent, args?: unknown) => {
+    trackEvent(appEvent.name, args); // TODO
     setAppEvents(appEvents.concat(appEvent));
   };
 
