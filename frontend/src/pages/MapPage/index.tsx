@@ -114,21 +114,27 @@ const MapPage = (): JSX.Element => {
           lat={quayStreetCountdown.lat}
           lng={quayStreetCountdown.lng}
           locationLetter="A"
-          onClick={() => console.log('location')}
+          onClick={() => {
+            addEvent({ name: 'click-location-marker' });
+          }}
         />
         <LocationMapMarker
           key={-3}
           lat={vicStreetCountdown.lat}
           lng={vicStreetCountdown.lng}
           locationLetter="B"
-          onClick={() => console.log('location')}
+          onClick={() => {
+            addEvent({ name: 'click-location-marker' });
+          }}
         />
         <LocationMapMarker
           key={-4}
           lat={albertStreetCountdown.lat}
           lng={albertStreetCountdown.lng}
           locationLetter="C"
-          onClick={() => console.log('location')}
+          onClick={() => {
+            addEvent({ name: 'click-location-marker' });
+          }}
         />
       </GoogleMapReact>
 
