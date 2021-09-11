@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
-import { getEmojis } from '../../utils/getEmojis';
-import { UserProps } from '../../utils/types';
-import {
-  ImageAvatar,
-  ImageIconButton,
-  InterestTypography,
-  TriangleDiv,
-} from './UserMapMarker.styled';
+import { UserContext } from '../../../contexts/UserContext';
+import { getEmojis } from '../../../utils/getEmojis';
+import { UserProps } from '../../../utils/types';
+import { ImageIconButton, TriangleDiv } from '../MapMarker.styled';
+import { ImageAvatar, InterestTypography } from './UserMapMarker.styled';
 
 type UserMapMarkerProps = {
   lat: number;
@@ -16,7 +12,9 @@ type UserMapMarkerProps = {
   user: UserProps;
   onClick: () => void;
 };
-const UserMapMarker = ({ user, onClick }: UserMapMarkerProps): JSX.Element => {
+
+const UserMapMarker = (props: UserMapMarkerProps): JSX.Element => {
+  const { user, onClick } = props;
   const { user: currentUser } = useContext(UserContext);
 
   const { interests, group } = currentUser;
