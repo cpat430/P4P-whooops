@@ -1,7 +1,7 @@
 import { Avatar, Divider, Grid, Modal, Typography } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import React, { useContext, useState } from 'react';
-import { ChallengeContext } from '../../contexts/ChallengeContext';
+import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
 import { dummyInterests } from '../../utils/dummyInterests';
 import { getEmojis } from '../../utils/getEmojis';
@@ -33,9 +33,7 @@ export const FriendsModal = ({
   setCurrentUser,
 }: FriendsModalProps): JSX.Element => {
   const { user } = useContext(UserContext);
-  const {
-    challenge: { otherUsers },
-  } = useContext(ChallengeContext);
+  const { otherUsers } = useContext(EnvironmentContext);
 
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [filterInterests, setFilterInterests] = useState<Interest[]>([]);

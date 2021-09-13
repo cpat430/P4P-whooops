@@ -2,25 +2,23 @@ import EditIcon from '@material-ui/icons/Edit';
 import GroupIcon from '@material-ui/icons/Group';
 import GoogleMapReact from 'google-map-react';
 import React, { useContext, useState } from 'react';
-import { ChallengeButton } from '../../components/ChallengeButton';
-import { ChallengeHelperModal } from '../../components/ChallengeHelperModal';
 import { FriendsModal } from '../../components/FriendsModal';
-import { PersonaliseModal } from '../../components/PersonaliseModal';
+import LocationMapMarker from '../../components/MapMarker/LocationMarker';
 import UserMapMarker from '../../components/MapMarker/UserMarker';
+import { PersonaliseModal } from '../../components/PersonaliseModal';
 import { UserProfile } from '../../components/UserProfile';
 import { AppEventContext } from '../../contexts/AppEventContext';
-import { ChallengeContext } from '../../contexts/ChallengeContext';
+import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
 import { dummyInterests } from '../../utils/dummyInterests';
-import { UserProps } from '../../utils/types';
-import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
-import LocationMapMarker from '../../components/MapMarker/LocationMarker';
 import {
   albertStreetCountdown,
   quayStreetCountdown,
   vicStreetCountdown,
 } from '../../utils/locations';
+import { UserProps } from '../../utils/types';
+import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
   return {
@@ -35,9 +33,7 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 const MapPage = (): JSX.Element => {
   const { addAppEvent: addEvent } = useContext(AppEventContext);
   const { user, setUser } = useContext(UserContext);
-  const {
-    challenge: { otherUsers, mapProps, modalContent },
-  } = useContext(ChallengeContext);
+  const { userLocation, otherUsers, mapProps } = useContext(EnvironmentContext);
 
   const handleToggleIsFriend = (otherUser: UserProps | null): void => {
     if (!otherUser) return;
@@ -57,13 +53,12 @@ const MapPage = (): JSX.Element => {
   const [openChooseInterestsModal, setOpenChooseInterestsModal] =
     useState<boolean>(true); // initially, choose interests modal is open
   const [openFriendsModal, setOpenFriendsModal] = useState<boolean>(false);
-  const [openChallengeHelperModal, setOpenChallengeHelperModal] =
-    useState<boolean>(false);
 
   const mapKey = process.env.REACT_APP_MAP_KEY;
   if (mapKey === undefined) {
     console.error('Map key is undefined');
   }
+  console.log(user);
 
   return (
     <MapDiv data-testid={'map-page'}>
@@ -101,8 +96,8 @@ const MapPage = (): JSX.Element => {
         })}
         <UserMapMarker
           key={-1}
-          lat={user.lat}
-          lng={user.lng}
+          lat={userLocation.lat}
+          lng={userLocation.lng}
           user={user}
           onClick={() => {
             addEvent({ name: 'click-user-profile' });
@@ -156,8 +151,6 @@ const MapPage = (): JSX.Element => {
         <GroupIcon />
       </FriendsFab>
 
-      <ChallengeButton onClick={() => setOpenChallengeHelperModal(true)} />
-
       <PersonaliseModal
         open={openChooseInterestsModal}
         handleClose={() => {
@@ -183,15 +176,6 @@ const MapPage = (): JSX.Element => {
         openChooseInterestsModal={openChooseInterestsModal}
         setOpenChooseInterestModal={setOpenChooseInterestsModal}
       ></FriendsModal>
-
-      <ChallengeHelperModal
-        open={openChallengeHelperModal}
-        handleClose={() => {
-          setOpenChallengeHelperModal(false);
-        }}
-      >
-        {modalContent}
-      </ChallengeHelperModal>
     </MapDiv>
   );
 };
