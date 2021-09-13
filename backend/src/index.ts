@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
+import { Server } from 'socket.io';
 import { connectCloudDB } from './db/connect';
 import { services } from './services';
 
@@ -28,8 +29,13 @@ const main = () => {
   app.use(express.static(buildPath));
   app.get('*', (req, res) => res.sendFile(indexPath));
 
-  app.listen(port, () => {
+  const server = app.listen(port, () => {
     console.log(`🚀 Server listening on port ${port}!`);
+  });
+
+  const io = new Server(server);
+  io.on('connection', (socket) => {
+    console.log('User connected!');
   });
 };
 
