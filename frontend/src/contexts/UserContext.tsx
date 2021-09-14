@@ -42,7 +42,9 @@ export const UserProvider = ({
 
   useEffect(() => {
     io.on('update-testing-group', (testingGroup: TestingGroup) => {
-      setUser({ ...user, testingGroup });
+      setUser((user) => {
+        return { ...user, testingGroup };
+      });
     });
   }, []);
 
