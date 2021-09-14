@@ -39,6 +39,9 @@ const main = () => {
     socket.on('change-env', (environment: unknown) => {
       io.emit('update-env', environment);
     });
+    socket.on('change-testing-group', (testingGroup: unknown) => {
+      io.emit('update-testing-group', testingGroup);
+    });
   });
 };
 

@@ -44,7 +44,7 @@ export const generateOtherUsers = (
       image: images[faker.datatype.number({ min: 0, max: images.length - 1 })],
       interests,
       friendIds: [],
-      group: 0,
+      testingGroup: 'no-interest-badge',
     };
   });
 };

@@ -115,7 +115,7 @@ export const FriendsModal = ({
                         {getEmojis(
                           user.interests,
                           otherUser.interests,
-                          user.group
+                          user.testingGroup
                         )}
                       </Typography>
                     </Grid>

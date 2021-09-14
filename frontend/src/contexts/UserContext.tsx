@@ -1,5 +1,12 @@
-import React, { createContext, ReactNode, useState } from 'react';
-import { UserProps } from '../utils/types';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { TestingGroup, UserProps } from '../utils/types';
+import { SocketIoContext } from './SocketIoContext';
 
 const defaultUser: UserProps = {
   id: '',
@@ -12,7 +19,7 @@ const defaultUser: UserProps = {
   description: '',
   interests: [],
   friendIds: [],
-  group: 0, // 0 means no group!
+  testingGroup: 'no-interest-badge',
 };
 
 type UserContextProps = {
@@ -31,6 +38,13 @@ export const UserProvider = ({
   children?: ReactNode;
 }): JSX.Element => {
   const [user, setUser] = useState<UserProps>(defaultUser);
+  const io = useContext(SocketIoContext);
+
+  useEffect(() => {
+    io.on('update-testing-group', (testingGroup: TestingGroup) => {
+      setUser({ ...user, testingGroup });
+    });
+  }, []);
 
   const context = {
     user,

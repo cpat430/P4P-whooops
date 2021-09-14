@@ -4,6 +4,11 @@ export type Interest = {
   emoji: string;
 };
 
+export type TestingGroup =
+  | 'no-interest-badge'
+  | 'similar-interests'
+  | 'all-interests';
+
 export type UserProps = {
   id: string;
   lat: number;
@@ -15,5 +20,5 @@ export type UserProps = {
   description: string;
   interests: Interest[];
   friendIds: string[];
-  group: number; // which A/B/N group they are in
+  testingGroup: TestingGroup;
 };

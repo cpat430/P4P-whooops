@@ -16,15 +16,14 @@ type UserMapMarkerProps = {
 const UserMapMarker = (props: UserMapMarkerProps): JSX.Element => {
   const { user, onClick } = props;
   const { user: currentUser } = useContext(UserContext);
-
-  const { interests, group } = currentUser;
+  const { interests, testingGroup } = currentUser;
 
   const handleClick = (event: React.MouseEvent) => {
     onClick();
     event.stopPropagation();
   };
 
-  const displayEmojis = getEmojis(interests, user.interests, group);
+  const displayEmojis = getEmojis(interests, user.interests, testingGroup);
 
   return (
     <>

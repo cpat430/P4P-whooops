@@ -39,9 +39,7 @@ export const HomePage = (): JSX.Element => {
     event.preventDefault(); // means we can do what we like.
 
     const { firstName, lastName, email } = formValues;
-
-    const { id, group } = await createUser({ firstName, lastName, email });
-    // get group id
+    const { id } = await createUser({ firstName, lastName, email });
 
     setUser({
       ...user,
@@ -50,7 +48,6 @@ export const HomePage = (): JSX.Element => {
       firstName,
       lastName,
       email,
-      group,
     });
 
     history.push('/map');

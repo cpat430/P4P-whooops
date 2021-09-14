@@ -5,6 +5,7 @@ import {
   Environment,
 } from '../../contexts/EnvironmentContext';
 import { SocketIoContext } from '../../contexts/SocketIoContext';
+import { TestingGroup } from '../../utils/types';
 
 export const ControlPage = (): JSX.Element => {
   const io = useContext(SocketIoContext);
@@ -33,6 +34,24 @@ export const ControlPage = (): JSX.Element => {
                   }}
                 >
                   {environment.name}
+                </Button>
+              </Grid>
+            );
+          })}
+
+          {(
+            ['no-interest-badge', 'similar-interests', 'all-interests'] as const
+          ).map((testingGroup: TestingGroup, i: number) => {
+            return (
+              <Grid item key={i}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    io.emit('change-testing-group', testingGroup);
+                  }}
+                >
+                  Testing Group {testingGroup}
                 </Button>
               </Grid>
             );
