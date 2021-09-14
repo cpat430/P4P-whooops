@@ -36,6 +36,9 @@ const main = () => {
   const io = new Server(server);
   io.on('connection', (socket) => {
     console.log('User connected!');
+    socket.on('change-env', (environment: unknown) => {
+      io.emit('update-env', environment);
+    });
   });
 };
 

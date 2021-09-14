@@ -1,21 +1,52 @@
-import React, { createContext, ReactNode, useState } from 'react';
-import { quadPos } from '../utils/locations';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
+import {
+  biologyBuilding,
+  coffeeShop1,
+  coffeeShop2,
+  coffeeShop3,
+  kateEdger,
+  oggbBuilding,
+  quadPos
+} from '../utils/locations';
 import { UserProps } from '../utils/types';
+import { generateOtherUsers } from '../utils/users';
+import { SocketIoContext } from './SocketIoContext';
 
-/**
- * Each environment will have a name, helper
- */
 export type Environment = {
-  mapProps: { center: { lat: number; lng: number }; zoom: number };
+  name: string;
+  startingLocation: { lat: number; lng: number };
   otherUsers: UserProps[];
-  userLocation: { lat: number; lng: number };
+  locationMarkerLocations: { lat: number; lng: number }[];
 };
 
-const defaultEnvironment = {
-  mapProps: { center: quadPos, zoom: 19 },
+const defaultEnvironment: Environment = {
+  name: '',
+  startingLocation: quadPos,
   otherUsers: [],
-  userLocation: quadPos,
+  locationMarkerLocations: [],
 };
+
+const coffeeEnvironment: Environment = {
+  name: 'Coffee',
+  startingLocation: quadPos,
+  otherUsers: generateOtherUsers(coffeeShop2, 0.001, 30, 1),
+  locationMarkerLocations: [coffeeShop1, coffeeShop2, coffeeShop3],
+};
+
+const goingToLectureEnvironment: Environment = {
+  name: 'Going to lecture',
+  startingLocation: kateEdger,
+  otherUsers: generateOtherUsers(oggbBuilding, 0.001, 40, 1),
+  locationMarkerLocations: [biologyBuilding],
+};
+
+export const allEnvironments = [coffeeEnvironment, goingToLectureEnvironment];
 
 export const EnvironmentContext =
   createContext<Environment>(defaultEnvironment);
@@ -25,15 +56,16 @@ export const EnvironmentProvider = ({
 }: {
   children?: ReactNode;
 }): JSX.Element => {
-  /**
-   * The Environment Context is the environment around the participant.
-   * Includes:
-   * - people
-   * - where they are
-   * - what map they initially see
-   */
   const [environment, setEnvironment] =
     useState<Environment>(defaultEnvironment);
+  const io = useContext(SocketIoContext);
+
+  useEffect(() => {
+    io.on('update-env', (environment: Environment) => {
+      console.log('Received updates to cahnge env:', environment);
+      setEnvironment(environment);
+    });
+  }, []);
 
   return (
     <EnvironmentContext.Provider value={environment}>

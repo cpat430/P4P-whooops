@@ -5,15 +5,13 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import { io } from 'socket.io-client';
 import './App.css';
 import { AppEventProvider } from './contexts/AppEventContext';
 import { EnvironmentProvider } from './contexts/EnvironmentContext';
 import { UserProvider } from './contexts/UserContext';
+import { ControlPage } from './pages/ControlPage';
 import { HomePage } from './pages/HomePage';
 import MapPage from './pages/MapPage';
-
-const singletonIo = io();
 
 function App(): JSX.Element {
   return (
@@ -27,6 +25,9 @@ function App(): JSX.Element {
               </Route>
               <Route path="/map">
                 <MapPage />
+              </Route>
+              <Route path="/control">
+                <ControlPage />
               </Route>
               <Redirect from="*" to="/home" />
             </Switch>

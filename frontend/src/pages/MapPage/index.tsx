@@ -12,11 +12,6 @@ import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
 import { dummyInterests } from '../../utils/dummyInterests';
-import {
-  albertStreetCountdown,
-  quayStreetCountdown,
-  vicStreetCountdown,
-} from '../../utils/locations';
 import { UserProps } from '../../utils/types';
 import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
 
@@ -33,7 +28,8 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 const MapPage = (): JSX.Element => {
   const { addAppEvent: addEvent } = useContext(AppEventContext);
   const { user, setUser } = useContext(UserContext);
-  const { userLocation, otherUsers, mapProps } = useContext(EnvironmentContext);
+  const { startingLocation, otherUsers, locationMarkerLocations } =
+    useContext(EnvironmentContext);
 
   const handleToggleIsFriend = (otherUser: UserProps | null): void => {
     if (!otherUser) return;
@@ -58,7 +54,6 @@ const MapPage = (): JSX.Element => {
   if (mapKey === undefined) {
     console.error('Map key is undefined');
   }
-  console.log(user);
 
   return (
     <MapDiv data-testid={'map-page'}>
@@ -75,10 +70,8 @@ const MapPage = (): JSX.Element => {
       <GoogleMapReact
         bootstrapURLKeys={{ key: mapKey || '' }}
         options={mapOptions}
-        defaultCenter={mapProps.center}
-        defaultZoom={mapProps.zoom}
-        center={mapProps.center}
-        zoom={mapProps.zoom}
+        center={startingLocation}
+        zoom={20}
       >
         {otherUsers.map((otherUser, userIndex) => {
           return (
@@ -94,41 +87,27 @@ const MapPage = (): JSX.Element => {
             />
           );
         })}
+        {locationMarkerLocations.map((locationMarkerLocation, index) => {
+          return (
+            <LocationMapMarker
+              key={-2 - index}
+              lat={locationMarkerLocation.lat}
+              lng={locationMarkerLocation.lng}
+              locationLetter="A"
+              onClick={() => {
+                addEvent({ name: 'click-location-marker' });
+              }}
+            />
+          );
+        })}
         <UserMapMarker
           key={-1}
-          lat={userLocation.lat}
-          lng={userLocation.lng}
+          lat={startingLocation.lat}
+          lng={startingLocation.lng}
           user={user}
           onClick={() => {
             addEvent({ name: 'click-user-profile' });
             setOpenUserProfile(user);
-          }}
-        />
-        <LocationMapMarker
-          key={-2}
-          lat={quayStreetCountdown.lat}
-          lng={quayStreetCountdown.lng}
-          locationLetter="A"
-          onClick={() => {
-            addEvent({ name: 'click-location-marker' });
-          }}
-        />
-        <LocationMapMarker
-          key={-3}
-          lat={vicStreetCountdown.lat}
-          lng={vicStreetCountdown.lng}
-          locationLetter="B"
-          onClick={() => {
-            addEvent({ name: 'click-location-marker' });
-          }}
-        />
-        <LocationMapMarker
-          key={-4}
-          lat={albertStreetCountdown.lat}
-          lng={albertStreetCountdown.lng}
-          locationLetter="C"
-          onClick={() => {
-            addEvent({ name: 'click-location-marker' });
           }}
         />
       </GoogleMapReact>

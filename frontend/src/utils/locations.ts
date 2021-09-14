@@ -32,3 +32,33 @@ export const albertStreetCountdown = {
   lat: -36.8431351455885,
   lng: 174.7653208149553,
 };
+
+export const coffeeShop1 = {
+  lat: -36.85147512048642,
+  lng: 174.76858735084534,
+};
+
+export const coffeeShop2 = {
+  lat: -36.853024722227836,
+  lng: 174.76896822452548,
+};
+
+export const coffeeShop3 = {
+  lat: -36.8511531771255,
+  lng: 174.77148950099948,
+};
+
+export const kateEdger = {
+  lat: -36.85191725382584,
+  lng: 174.769955277443,
+};
+
+export const biologyBuilding = {
+  lat: -36.85106303274148,
+  lng: 174.7706687450409,
+};
+
+export const oggbBuilding = {
+  lat: -36.853128749999996,
+  lng: 174.7712888303203,
+};
