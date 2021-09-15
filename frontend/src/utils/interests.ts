@@ -1,7 +1,7 @@
 import { Interest } from './types';
 
 // All interests and emojis
-const allInterests = [
+export const allInterests = [
   { emoji: '🏀', name: 'Basketball' },
   { emoji: '🏊', name: 'Swimming' },
   { emoji: '🥋', name: 'Karate' },
@@ -20,8 +20,6 @@ const allInterests = [
   { emoji: '✂️', name: 'DIY' },
   { emoji: '🏎', name: 'Auto' },
   { emoji: '🎵', name: 'Music' },
-];
-
-export const dummyInterests = allInterests.map((interest, interestIndex) => {
+].map((interest, interestIndex) => {
   return { id: interestIndex, ...interest } as Interest;
 });

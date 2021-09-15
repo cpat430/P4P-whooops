@@ -2,7 +2,7 @@ import faker from 'faker';
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { images } from '../user-profiles';
-import { dummyInterests } from './dummyInterests';
+import { allInterests } from './interests';
 import { UserProps } from './types';
 
 // Determines where the users will be located: +- delta from centerPos
@@ -22,7 +22,7 @@ export const generateOtherUsers = (
 
     const numInterests = faker.datatype.number({ min: 1, max: 5 });
     const interests = faker.helpers
-      .shuffle(dummyInterests)
+      .shuffle(allInterests)
       .slice(0, numInterests);
 
     return {

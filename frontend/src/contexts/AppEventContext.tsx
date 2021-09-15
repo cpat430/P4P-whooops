@@ -1,5 +1,4 @@
 import React, { createContext, ReactNode, useState } from 'react';
-import { trackEvent } from '../utils/trackEvent';
 
 export type AppEvent = {
   name:
@@ -33,7 +32,7 @@ export const AppEventProvider = ({
   ]);
 
   const addAppEvent = (appEvent: AppEvent, args?: unknown) => {
-    trackEvent(appEvent.name, args); // TODO
+    // TODO what to do with this event?
     setAppEvents(appEvents.concat(appEvent));
   };
 

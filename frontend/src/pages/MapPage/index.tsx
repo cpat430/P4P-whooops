@@ -11,7 +11,7 @@ import { AppEventContext } from '../../contexts/AppEventContext';
 import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
-import { dummyInterests } from '../../utils/dummyInterests';
+import { allInterests } from '../../utils/interests';
 import { UserProps } from '../../utils/types';
 import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
 
@@ -136,7 +136,7 @@ const MapPage = (): JSX.Element => {
           setOpenChooseInterestsModal(false);
         }}
         allImages={images}
-        allInterests={dummyInterests}
+        allInterests={allInterests}
         value={user}
         onChange={(value) => {
           const { interests, image } = value;

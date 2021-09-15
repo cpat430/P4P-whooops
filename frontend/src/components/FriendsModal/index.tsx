@@ -3,7 +3,7 @@ import TuneIcon from '@material-ui/icons/Tune';
 import React, { useContext, useState } from 'react';
 import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
-import { dummyInterests } from '../../utils/dummyInterests';
+import { allInterests } from '../../utils/interests';
 import { getEmojis } from '../../utils/getEmojis';
 import { Interest, UserProps } from '../../utils/types';
 import { InterestChip } from '../InterestChip';
@@ -141,7 +141,7 @@ export const FriendsModal = ({
             <Grid item xs={12}>
               <Divider />
             </Grid>
-            {dummyInterests.map((interest, index) => {
+            {allInterests.map((interest, index) => {
               const filterInterestIndex = filterInterests.findIndex(
                 (filterInterest) => {
                   return filterInterest.id === interest.id;

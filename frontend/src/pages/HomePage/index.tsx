@@ -4,7 +4,6 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
-import { createUser } from '../../utils/createUser';
 import {
   PageBackgroundGrid,
   PageCard,
@@ -39,12 +38,9 @@ export const HomePage = (): JSX.Element => {
     event.preventDefault(); // means we can do what we like.
 
     const { firstName, lastName, email } = formValues;
-    const { id } = await createUser({ firstName, lastName, email });
-
     setUser({
       ...user,
       image: images[_.random(0, images.length - 1)],
-      id,
       firstName,
       lastName,
       email,
