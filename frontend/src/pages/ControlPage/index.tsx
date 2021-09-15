@@ -1,15 +1,12 @@
 import { Button, Card, Grid, Typography } from '@material-ui/core';
-import React, { useContext } from 'react';
-import {
-  allEnvironments,
-  Environment,
-} from '../../contexts/EnvironmentContext';
-import { SocketIoContext } from '../../contexts/SocketIoContext';
+import React from 'react';
+import { Environment } from '../../contexts/EnvironmentContext';
+import { allEnvironments } from '../../utils/environments';
+import { getSingletonSocketIo } from '../../utils/singletonSocketIo';
 import { TestingGroup } from '../../utils/types';
 
+const io = getSingletonSocketIo();
 export const ControlPage = (): JSX.Element => {
-  const io = useContext(SocketIoContext);
-
   return (
     <Grid
       container
@@ -17,7 +14,7 @@ export const ControlPage = (): JSX.Element => {
       alignItems="center"
       style={{ height: '100vh', width: '100vw', backgroundColor: '#e5e5e5' }}
     >
-      <Grid item>
+      <Grid item xs={7}>
         <Card style={{ padding: '2rem' }}>
           <Grid
             container
@@ -80,6 +77,21 @@ export const ControlPage = (): JSX.Element => {
                   );
                 })}
               </Grid>
+            </Grid>
+          </Grid>
+        </Card>
+      </Grid>
+
+      <Grid item xs={7}>
+        <Card style={{ padding: '2rem' }}>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid item xs={12}>
+              <Typography variant="h5">Live Events</Typography>
             </Grid>
           </Grid>
         </Card>

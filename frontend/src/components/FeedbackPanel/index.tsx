@@ -5,7 +5,7 @@ import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt'
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import React, { useContext, useState } from 'react';
-import { AppEventContext } from '../../contexts/AppEventContext';
+import { trackEvent } from '../../utils/trackEvent';
 import { Rating } from '../Rating';
 import {
   FeedbackAnswerField,
@@ -22,7 +22,6 @@ export const FeedbackPanel = ({
   question,
   onSubmit,
 }: FeedbackModalProps): JSX.Element => {
-  const { addAppEvent } = useContext(AppEventContext);
   const [answer, setAnswer] = useState<string>('');
   const [ratingValue, setRatingValue] = useState<number | null>(null);
 
@@ -99,8 +98,6 @@ export const FeedbackPanel = ({
             disabled={ratingValue === null}
             onClick={() => {
               if (ratingValue === null) return;
-
-              addAppEvent({ name: 'submit-survey' });
               onSubmit(question, ratingValue, answer);
             }}
             fullWidth

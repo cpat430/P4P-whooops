@@ -3,7 +3,6 @@ import CheckIcon from '@material-ui/icons/Check';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RemoveIcon from '@material-ui/icons/Remove';
 import React, { useContext, useState } from 'react';
-import { AppEventContext } from '../../contexts/AppEventContext';
 
 type FriendButtonProps = {
   className: string;
@@ -16,7 +15,6 @@ export const FriendButton = ({
   toggleIsFriend,
 }: FriendButtonProps): JSX.Element => {
   const [isMouseOver, setIsMouseOver] = useState(false);
-  const { addAppEvent } = useContext(AppEventContext);
 
   const buttonText = isFriend
     ? isMouseOver
@@ -41,7 +39,6 @@ export const FriendButton = ({
       fullWidth
       onClick={() => {
         toggleIsFriend();
-        addAppEvent({ name: 'click-add-friend-button' }); // TODO
       }}
       onMouseOver={() => {
         setIsMouseOver(true);

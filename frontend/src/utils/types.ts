@@ -22,3 +22,13 @@ export type UserProps = {
   friendIds: string[];
   testingGroup: TestingGroup;
 };
+
+export type AppEvent = {
+  name:
+    | 'init-app'
+    | 'click-add-friend-button'
+    | 'click-user-profile'
+    | 'click-edit-interest'
+    | 'submit-survey'
+    | 'click-location-marker';
+};

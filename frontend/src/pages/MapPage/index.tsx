@@ -7,7 +7,6 @@ import LocationMapMarker from '../../components/MapMarker/LocationMarker';
 import UserMapMarker from '../../components/MapMarker/UserMarker';
 import { PersonaliseModal } from '../../components/PersonaliseModal';
 import { UserProfile } from '../../components/UserProfile';
-import { AppEventContext } from '../../contexts/AppEventContext';
 import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
@@ -26,7 +25,6 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 };
 
 const MapPage = (): JSX.Element => {
-  const { addAppEvent: addEvent } = useContext(AppEventContext);
   const { user, setUser } = useContext(UserContext);
   const { startingLocation, otherUsers, locationMarkerLocations } =
     useContext(EnvironmentContext);
@@ -81,7 +79,6 @@ const MapPage = (): JSX.Element => {
               lng={otherUser.lng}
               user={otherUser}
               onClick={() => {
-                addEvent({ name: 'click-user-profile' });
                 setOpenUserProfile(otherUser);
               }}
             />
@@ -95,7 +92,7 @@ const MapPage = (): JSX.Element => {
               lng={locationMarkerLocation.lng}
               locationLetter="A"
               onClick={() => {
-                addEvent({ name: 'click-location-marker' });
+                // TODO
               }}
             />
           );
@@ -106,7 +103,6 @@ const MapPage = (): JSX.Element => {
           lng={startingLocation.lng}
           user={user}
           onClick={() => {
-            addEvent({ name: 'click-user-profile' });
             setOpenUserProfile(user);
           }}
         />
@@ -115,7 +111,6 @@ const MapPage = (): JSX.Element => {
       {/* Temporary way to open edit interests modal */}
       <EditInterestFab
         onClick={() => {
-          addEvent({ name: 'click-edit-interest' });
           setOpenChooseInterestsModal(true);
         }}
       >

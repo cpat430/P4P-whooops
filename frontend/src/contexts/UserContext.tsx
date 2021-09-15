@@ -1,12 +1,7 @@
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
+import { images } from '../user-profiles';
+import { getSingletonSocketIo } from '../utils/singletonSocketIo';
 import { TestingGroup, UserProps } from '../utils/types';
-import { SocketIoContext } from './SocketIoContext';
 
 const defaultUser: UserProps = {
   id: '',
@@ -15,7 +10,7 @@ const defaultUser: UserProps = {
   firstName: 'Default',
   lastName: 'User',
   email: 'test@gmail.com',
-  image: '',
+  image: images[0],
   description: '',
   interests: [],
   friendIds: [],
@@ -32,13 +27,13 @@ export const UserContext = createContext<UserContextProps>({
   setUser: (user: UserProps) => console.warn(`${user}`),
 });
 
+const io = getSingletonSocketIo();
 export const UserProvider = ({
   children,
 }: {
   children?: ReactNode;
 }): JSX.Element => {
   const [user, setUser] = useState<UserProps>(defaultUser);
-  const io = useContext(SocketIoContext);
 
   useEffect(() => {
     io.on('update-testing-group', (testingGroup: TestingGroup) => {
