@@ -37,7 +37,7 @@ const getYesNoInterest = (interests: Interest[]) => {
   return { yesInterest: yesInterest || null, noInterest };
 };
 
-export const getEmptyEnvironment = (interests: Interest[]): Environment => {
+export const getEmptyEnvironment = (): Environment => {
   return {
     name: 'Empty',
     startingLocation: quadPos,
@@ -46,7 +46,7 @@ export const getEmptyEnvironment = (interests: Interest[]): Environment => {
   };
 };
 
-export const getDefaultEnvironment = (interests: Interest[]): Environment => {
+export const getDefaultEnvironment = (): Environment => {
   return {
     name: 'Play around',
     startingLocation: quadPos,
@@ -56,7 +56,7 @@ export const getDefaultEnvironment = (interests: Interest[]): Environment => {
 };
 
 // 3 groups - 1 has more people
-export const getCoffeeEnvironment = (interests: Interest[]): Environment => {
+export const getCoffeeEnvironment = (): Environment => {
   return {
     name: 'Choose Coffee',
     startingLocation: kateEdger,
@@ -117,8 +117,7 @@ export const getUniHallToSymonds = (interests: Interest[]): Environment => {
 };
 
 // 1 group of people
-export const getChooseCountdown = (interests: Interest[]): Environment => {
-  const { yesInterest, noInterest } = getYesNoInterest(interests);
+export const getChooseCountdown = (): Environment => {
   return {
     name: 'Choose Countdown',
     startingLocation: fortSt,

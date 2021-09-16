@@ -16,7 +16,7 @@ import { Environment } from '../utils/types';
 import { UserContext } from './UserContext';
 
 export const EnvironmentContext = createContext<Environment>(
-  getDefaultEnvironment([])
+  getDefaultEnvironment()
 );
 
 const io = singletonIo;
@@ -28,7 +28,7 @@ export const EnvironmentProvider = ({
 }): JSX.Element => {
   const { user } = useContext(UserContext);
   const [environment, setEnvironment] = useState<Environment>(
-    getDefaultEnvironment([])
+    getDefaultEnvironment()
   );
 
   useEffect(() => {
