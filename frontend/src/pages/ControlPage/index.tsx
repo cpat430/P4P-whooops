@@ -1,10 +1,9 @@
 import { Button, Card, Grid, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Environment } from '../../contexts/EnvironmentContext';
-import { AppEvent, StartEnvironmentAppEvent } from '../../utils/appEvent';
-import { allEnvironments } from '../../utils/environments';
+import { AppEvent } from '../../utils/appEvent';
+import { allEnvironmentMakers } from '../../utils/environments';
+import { allInterests } from '../../utils/interests';
 import { singletonIo } from '../../utils/singletonSocketIo';
-import { trackEvent } from '../../utils/trackEvent';
 import { TestingGroup } from '../../utils/types';
 
 const io = singletonIo;
@@ -53,26 +52,24 @@ export const ControlPage = (): JSX.Element => {
                     <Grid item xs={12}>
                       Environments
                     </Grid>
-                    {allEnvironments.map(
-                      (environment: Environment, i: number) => {
-                        return (
-                          <Grid item key={i}>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              onClick={() => {
-                                io.emit('change-env', environment);
-                                trackEvent(
-                                  new StartEnvironmentAppEvent(environment)
-                                );
-                              }}
-                            >
-                              {environment.name}
-                            </Button>
-                          </Grid>
-                        );
-                      }
-                    )}
+                    {allEnvironmentMakers.map((envCaller, i: number) => {
+                      // Most disgusting thing here
+                      const environment = envCaller([allInterests[0]]);
+                      const { name } = environment;
+                      return (
+                        <Grid item key={i}>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                              io.emit('change-env-name', name);
+                            }}
+                          >
+                            {name}
+                          </Button>
+                        </Grid>
+                      );
+                    })}
                   </Grid>
                 </Grid>
 

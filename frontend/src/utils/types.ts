@@ -25,3 +25,10 @@ export type UserProps = {
   friendIds: string[];
   testingGroup: TestingGroup;
 };
+
+export type Environment = {
+  name: string;
+  startingLocation: LatLng;
+  otherUsers: UserProps[];
+  locationMarkerLocations: LatLng[];
+};

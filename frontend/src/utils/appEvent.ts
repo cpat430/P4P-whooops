@@ -1,5 +1,4 @@
-import { Environment } from '../contexts/EnvironmentContext';
-import { LatLng, UserProps } from './types';
+import { Environment, LatLng, UserProps } from './types';
 
 export abstract class AppEvent {
   abstract name: string;

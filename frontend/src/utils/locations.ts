@@ -87,6 +87,10 @@ export const symondsBusStop = {
   lat: -36.85494343764182,
   lng: 174.76742863655093,
 };
+export const symondsIntersection = {
+  lat: -36.854007694306695,
+  lng: 174.7682547569275,
+};
 
 export const symondsWarMemorial = {
   lat: -36.85579332303736,

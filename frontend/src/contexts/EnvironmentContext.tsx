@@ -1,17 +1,23 @@
-import React, { createContext, ReactNode, useEffect, useState } from 'react';
-import { defaultEnvironment } from '../utils/environments';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { StartEnvironmentAppEvent } from '../utils/appEvent';
+import {
+  allEnvironmentMakers,
+  getDefaultEnvironment,
+} from '../utils/environments';
 import { singletonIo } from '../utils/singletonSocketIo';
-import { LatLng, UserProps } from '../utils/types';
+import { trackEvent } from '../utils/trackEvent';
+import { Environment } from '../utils/types';
+import { UserContext } from './UserContext';
 
-export type Environment = {
-  name: string;
-  startingLocation: LatLng;
-  otherUsers: UserProps[];
-  locationMarkerLocations: LatLng[];
-};
-
-export const EnvironmentContext =
-  createContext<Environment>(defaultEnvironment);
+export const EnvironmentContext = createContext<Environment>(
+  getDefaultEnvironment([])
+);
 
 const io = singletonIo;
 
@@ -20,17 +26,26 @@ export const EnvironmentProvider = ({
 }: {
   children?: ReactNode;
 }): JSX.Element => {
-  const [environment, setEnvironment] =
-    useState<Environment>(defaultEnvironment);
+  const { user } = useContext(UserContext);
+  const [environment, setEnvironment] = useState<Environment>(
+    getDefaultEnvironment([])
+  );
 
   useEffect(() => {
-    io.on('update-env', (e: Environment) => {
-      setEnvironment(e);
+    io.on('update-env-name', (environmentName: string) => {
+      const envCaller = allEnvironmentMakers.find((e) => {
+        return e(user.interests).name === environmentName;
+      });
+      if (envCaller === undefined) {
+        throw new Error('Cannot find environment');
+      }
+      trackEvent(new StartEnvironmentAppEvent(envCaller(user.interests)));
+      setEnvironment(envCaller(user.interests));
     });
     return () => {
-      io.off('update-env');
+      io.off('update-env-name');
     };
-  }, []);
+  }, [user.interests]);
 
   return (
     <EnvironmentContext.Provider value={environment}>

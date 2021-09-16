@@ -31,8 +31,8 @@ const main = () => {
   // Init socket listeners
   const io = new Server(server);
   io.on('connection', (socket) => {
-    socket.on('change-env', (environment: unknown) => {
-      io.emit('update-env', environment);
+    socket.on('change-env-name', (envName: string) => {
+      io.emit('update-env-name', envName);
     });
     socket.on('change-testing-group', (testingGroup: unknown) => {
       io.emit('update-testing-group', testingGroup);

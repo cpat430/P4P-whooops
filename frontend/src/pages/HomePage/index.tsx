@@ -44,7 +44,7 @@ export const HomePage = (): JSX.Element => {
       lastName,
     });
 
-    history.push('/map');
+    history.push('/app/map');
   };
 
   return (

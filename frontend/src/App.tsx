@@ -14,24 +14,28 @@ import MapPage from './pages/MapPage';
 
 function App(): JSX.Element {
   return (
-    <UserProvider>
-      <EnvironmentProvider>
-        <Router>
-          <Switch>
-            <Route path="/home">
-              <HomePage />
-            </Route>
-            <Route path="/map">
-              <MapPage />
-            </Route>
-            <Route path="/control">
-              <ControlPage />
-            </Route>
-            <Redirect from="*" to="/home" />
-          </Switch>
-        </Router>
-      </EnvironmentProvider>
-    </UserProvider>
+    <Router>
+      <Switch>
+        <Route path="/app/*">
+          <UserProvider>
+            <EnvironmentProvider>
+              <Switch>
+                <Route exact path="/app">
+                  <HomePage />
+                </Route>
+                <Route path="/app/map">
+                  <MapPage />
+                </Route>
+              </Switch>
+            </EnvironmentProvider>
+          </UserProvider>
+        </Route>
+        <Route path="/control">
+          <ControlPage />
+        </Route>
+        <Redirect from="*" to="/app" />
+      </Switch>
+    </Router>
   );
 }
 
