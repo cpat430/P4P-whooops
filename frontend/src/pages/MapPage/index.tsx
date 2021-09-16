@@ -16,6 +16,7 @@ import {
   ClickLocationMarkerAppEvent,
   ClickRemoveFriendButton,
   ClickUserProfileAppEvent,
+  RemovePathAppEvent,
 } from '../../utils/appEvent';
 import { allInterests } from '../../utils/interests';
 import { trackEvent } from '../../utils/trackEvent';
@@ -61,6 +62,7 @@ const MapPage = (): JSX.Element => {
       if (e.key === 'a' || e.key === 'A') {
         setPath((path) => {
           if (path.length === 1) return path;
+          trackEvent(new RemovePathAppEvent());
           return path.slice(0, path.length - 1);
         });
       }

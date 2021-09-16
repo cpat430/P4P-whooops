@@ -39,14 +39,16 @@ export const HomePage = (): JSX.Element => {
     event.preventDefault(); // means we can do what we like.
 
     const { firstName, lastName } = formValues;
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
 
-    trackEvent(new SubmitDetailsAppEvent(firstName, lastName));
+    trackEvent(new SubmitDetailsAppEvent(trimmedFirstName, trimmedLastName));
 
     setUser({
       ...user,
       image: images[_.random(0, images.length - 1)],
-      firstName,
-      lastName,
+      firstName: trimmedFirstName,
+      lastName: trimmedLastName,
     });
 
     history.push('/app/map');

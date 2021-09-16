@@ -55,6 +55,10 @@ export class AddToPathAppEvent extends AppEvent {
   }
 }
 
+export class RemovePathAppEvent extends AppEvent {
+  name = 'Remove Path';
+}
+
 export class ClickAddFriendButton extends AppEvent {
   name = 'Click Add Friend Button';
   user: UserProps;
