@@ -1,5 +1,4 @@
 import { Environment } from '../contexts/EnvironmentContext';
-
 import {
   biologyBuilding,
   coffeeShop1,

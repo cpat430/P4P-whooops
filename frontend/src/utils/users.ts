@@ -3,11 +3,11 @@ import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { images } from '../user-profiles';
 import { allInterests } from './interests';
-import { UserProps } from './types';
+import { LatLng, UserProps } from './types';
 
 // Determines where the users will be located: +- delta from centerPos
 export const generateOtherUsers = (
-  centerPos: { lat: number; lng: number },
+  centerPos: LatLng,
   delta: number,
   numUsers: number,
   seed: number

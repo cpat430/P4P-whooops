@@ -2,6 +2,8 @@ import { Avatar, Divider, Grid, Modal, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { LeaveUserProfileAppEvent } from '../../utils/appEvent';
+import { trackEvent } from '../../utils/trackEvent';
 import { UserProps } from '../../utils/types';
 import {
   CapitalisedChip,
@@ -24,6 +26,9 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user } = useContext(UserContext);
 
   const handleClose = () => {
+    if (profileUser) {
+      trackEvent(new LeaveUserProfileAppEvent(profileUser));
+    }
     onClose();
   };
 

@@ -10,7 +10,12 @@ import { UserProfile } from '../../components/UserProfile';
 import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
-import { ClickUserProfileAppEvent } from '../../utils/appEvent';
+import {
+  AddToPathAppEvent,
+  ClickAddFriendButton,
+  ClickRemoveFriendButton,
+  ClickUserProfileAppEvent,
+} from '../../utils/appEvent';
 import { allInterests } from '../../utils/interests';
 import { trackEvent } from '../../utils/trackEvent';
 import { LatLng, UserProps } from '../../utils/types';
@@ -50,6 +55,7 @@ const MapPage = (): JSX.Element => {
   }
 
   const addToPath = (latlng: LatLng) => {
+    trackEvent(new AddToPathAppEvent(latlng));
     setPath((path) => {
       return path.concat(latlng);
     });
@@ -72,6 +78,12 @@ const MapPage = (): JSX.Element => {
 
   const handleToggleIsFriend = (otherUser: UserProps | null): void => {
     if (!otherUser) return;
+
+    if (user.friendIds.includes(otherUser.id)) {
+      trackEvent(new ClickRemoveFriendButton(otherUser));
+    } else {
+      trackEvent(new ClickAddFriendButton(otherUser));
+    }
 
     const newFriendIds = user.friendIds.includes(otherUser.id)
       ? user.friendIds.filter((id) => {
@@ -118,7 +130,7 @@ const MapPage = (): JSX.Element => {
               user={otherUser}
               onClick={() => {
                 setOpenUserProfile(otherUser);
-                trackEvent(new ClickUserProfileAppEvent());
+                trackEvent(new ClickUserProfileAppEvent(otherUser));
               }}
             />
           );
@@ -129,7 +141,7 @@ const MapPage = (): JSX.Element => {
               key={-2 - index}
               lat={locationMarkerLocation.lat}
               lng={locationMarkerLocation.lng}
-              locationLetter="A"
+              locationLetter={String.fromCharCode('A'.charCodeAt(0) + index)}
               onClick={() => {
                 // TODO
                 addToPath(locationMarkerLocation);

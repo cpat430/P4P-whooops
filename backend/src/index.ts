@@ -13,7 +13,10 @@ const main = () => {
   const app = express();
   app.use(express.json());
 
-  app.use('/services', services);
+  // Download all events here
+  app.get('/all-events', (req, res) => {
+    res.json(allAppEvents);
+  });
 
   // The request is forwarded to the frontend if it does not hit any backend endpoints
   // It sends the index.html of the frontend, which is generated after yarn build
@@ -36,7 +39,6 @@ const main = () => {
       io.emit('update-testing-group', testingGroup);
     });
     socket.on('track-event', (appEvent: unknown) => {
-      console.log('Received event', appEvent);
       allAppEvents.push(appEvent);
       io.emit('update-all-events', allAppEvents);
     });

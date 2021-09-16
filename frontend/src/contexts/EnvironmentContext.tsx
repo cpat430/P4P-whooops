@@ -1,13 +1,15 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
+import { StartEnvironmentAppEvent } from '../utils/appEvent';
 import { defaultEnvironment } from '../utils/environments';
 import { getSingletonSocketIo } from '../utils/singletonSocketIo';
-import { UserProps } from '../utils/types';
+import { trackEvent } from '../utils/trackEvent';
+import { LatLng, UserProps } from '../utils/types';
 
 export type Environment = {
   name: string;
-  startingLocation: { lat: number; lng: number };
+  startingLocation: LatLng;
   otherUsers: UserProps[];
-  locationMarkerLocations: { lat: number; lng: number }[];
+  locationMarkerLocations: LatLng[];
 };
 
 export const EnvironmentContext =
@@ -26,6 +28,7 @@ export const EnvironmentProvider = ({
   useEffect(() => {
     io.on('update-env', (environment: Environment) => {
       console.log('Received updates to change env:', environment);
+      trackEvent(new StartEnvironmentAppEvent(environment));
       setEnvironment(environment);
     });
   }, []);
