@@ -1,5 +1,9 @@
 import { Environment } from '../contexts/EnvironmentContext';
 import {
+  albertParkEast,
+  albertParkFountain,
+  albertParkNorth,
+  albertParkWest,
   albertStreetCountdown,
   biologyBuilding,
   coffeeShop1,
@@ -33,6 +37,7 @@ export const defaultEnvironment: Environment = {
   locationMarkerLocations: [biologyBuilding],
 };
 
+// 3 groups - 1 has more people
 export const coffeeEnvironment: Environment = {
   name: 'Choose Coffee',
   startingLocation: kateEdger,
@@ -44,26 +49,29 @@ export const coffeeEnvironment: Environment = {
   locationMarkerLocations: [coffeeShop1, coffeeShop2, coffeeShop3],
 };
 
+// 1 group - common interest
 export const goingToLectureEnvironment: Environment = {
   name: 'Going to lecture',
   startingLocation: kateEdger,
   otherUsers: [
     ...generateOtherUsers(oggbBuilding, 0.0005, 40, 3),
-    ...generateOtherUsers(kateEdger, 0.001, 10, 3),
+    ...generateOtherUsers(kateEdger, 0.001, 10, 3), // random people
   ],
   locationMarkerLocations: [biologyBuilding],
 };
 
+// 1 group - not common interest
 export const oggbToLibraryEnvironment: Environment = {
   name: 'OGGB To Library',
   startingLocation: oggbBuilding,
   otherUsers: [
     ...generateOtherUsers(quadPos, 0.0002, 30, 3),
-    ...generateOtherUsers(kateEdger, 0.001, 10, 3),
+    ...generateOtherUsers(kateEdger, 0.001, 10, 3), // random people
   ],
   locationMarkerLocations: [generalLibrary],
 };
 
+// 2 groups - 1 common interest, one not
 export const unihallToSymonds: Environment = {
   name: 'UniHall To Symonds',
   startingLocation: uniHall,
@@ -74,6 +82,7 @@ export const unihallToSymonds: Environment = {
   locationMarkerLocations: [symondsBusStop],
 };
 
+// 1 group of people
 export const chooseCountdown: Environment = {
   name: 'Choose Countdown',
   startingLocation: fortSt,
@@ -87,6 +96,19 @@ export const chooseCountdown: Environment = {
     vicStreetCountdown,
   ],
 };
+
+// 3 groups - 1 common, 2 not
+export const albertParkHangout: Environment = {
+  name: 'Albert Park Hangout',
+  startingLocation: albertParkFountain,
+  otherUsers: [
+    ...generateOtherUsers(albertParkWest, 0.00015, 10, 3),
+    ...generateOtherUsers(albertParkEast, 0.00015, 10, 3),
+    ...generateOtherUsers(albertParkNorth, 0.00015, 10, 3),
+  ],
+  locationMarkerLocations: [albertParkWest, albertParkEast, albertParkNorth],
+};
+
 export const allEnvironments = [
   emptyEnvironment,
   defaultEnvironment,
@@ -95,4 +117,5 @@ export const allEnvironments = [
   oggbToLibraryEnvironment,
   unihallToSymonds,
   chooseCountdown,
+  albertParkHangout,
 ];

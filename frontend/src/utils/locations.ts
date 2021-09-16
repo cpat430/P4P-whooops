@@ -92,3 +92,23 @@ export const symondsWarMemorial = {
   lat: -36.85579332303736,
   lng: 174.76595878601077,
 };
+
+export const albertParkFountain = {
+  lat: -36.850599431373176,
+  lng: 174.7679114341736,
+};
+
+export const albertParkWest = {
+  lat: -36.85036762963474,
+  lng: 174.7671926021576,
+};
+
+export const albertParkEast = {
+  lat: -36.85072820981304,
+  lng: 174.76843714714053,
+};
+
+export const albertParkNorth = {
+  lat: -36.85011007132324,
+  lng: 174.7681474685669,
+};

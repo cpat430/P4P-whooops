@@ -61,7 +61,6 @@ export const ControlPage = (): JSX.Element => {
                               variant="contained"
                               color="primary"
                               onClick={() => {
-                                console.log('Emit once', Date.now());
                                 io.emit('change-env', environment);
                                 trackEvent(
                                   new StartEnvironmentAppEvent(environment)

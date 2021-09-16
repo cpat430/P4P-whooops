@@ -38,7 +38,6 @@ const main = () => {
       io.emit('update-testing-group', testingGroup);
     });
     socket.on('track-event', (appEvent: any) => {
-      console.log('Tracking event here!', appEvent.name);
       allAppEvents.push(appEvent);
       io.emit('update-all-events', allAppEvents);
     });
