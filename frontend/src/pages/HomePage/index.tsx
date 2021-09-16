@@ -16,7 +16,6 @@ import {
 const defaultValues = {
   firstName: '',
   lastName: '',
-  email: '',
 };
 
 export const HomePage = (): JSX.Element => {
@@ -37,13 +36,12 @@ export const HomePage = (): JSX.Element => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // means we can do what we like.
 
-    const { firstName, lastName, email } = formValues;
+    const { firstName, lastName } = formValues;
     setUser({
       ...user,
       image: images[_.random(0, images.length - 1)],
       firstName,
       lastName,
-      email,
     });
 
     history.push('/map');
@@ -89,16 +87,6 @@ export const HomePage = (): JSX.Element => {
                   type="text"
                   name="lastName"
                   value={formValues.lastName}
-                  onChange={handleInputChange}
-                  required
-                />
-                <PageTextField
-                  id="email-input"
-                  placeholder="e.g. test@gmail.com"
-                  label="Email"
-                  type="text"
-                  name="email"
-                  value={formValues.email}
                   onChange={handleInputChange}
                   required
                 />

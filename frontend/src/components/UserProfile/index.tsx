@@ -60,7 +60,7 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
             </Grid>
             <Grid item xs={12}>
               <UserNameTypography variant="h6" data-testid={'user-name'}>
-                {profileUser.firstName + ' ' + profileUser.lastName}
+                {profileUser.firstName}
               </UserNameTypography>
             </Grid>
 
@@ -73,23 +73,6 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
                 />
               </Grid>
             )}
-
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography
-                gutterBottom
-                variant="h6"
-                data-testid={'bio-user-text'}
-              >
-                Bio
-              </Typography>
-              <Typography data-testid={'user-description'}>
-                {profileUser.description}
-              </Typography>
-            </Grid>
 
             <Grid item xs={12}>
               <Divider />

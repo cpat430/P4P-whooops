@@ -20,9 +20,7 @@ export type UserProps = {
   lng: number;
   firstName: string;
   lastName: string;
-  email: string;
   image: string;
-  description: string;
   interests: Interest[];
   friendIds: string[];
   testingGroup: TestingGroup;
