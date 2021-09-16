@@ -83,7 +83,7 @@ const MapPage = (): JSX.Element => {
 
   useEffect(() => {
     setPath([startingLocation]);
-  }, [startingLocation]);
+  }, [environment]);
 
   useEffect(() => {
     if (map && maps) {

@@ -62,8 +62,8 @@ export const getCoffeeEnvironment = (): Environment => {
     startingLocation: kateEdger,
     otherUsers: [
       ...makeUsers(coffeeShop1, 0.0005, 2, null, 1, 5, 2),
-      ...makeUsers(coffeeShop2, 0.0005, 15, null, 1, 5, 2),
-      ...makeUsers(coffeeShop3, 0.0005, 5, null, 1, 5, 2),
+      ...makeUsers(coffeeShop2, 0.0005, 15, null, 1, 5, 3),
+      ...makeUsers(coffeeShop3, 0.0005, 5, null, 1, 5, 4),
     ],
     locationMarkerLocations: [coffeeShop1, coffeeShop2, coffeeShop3],
   };
@@ -78,8 +78,8 @@ export const getGoingToLectureEnvironment = (
     name: 'Going to lecture',
     startingLocation: kateEdger,
     otherUsers: [
-      ...makeUsers(oggbBuilding, 0.0005, 40, yesInterest, 1, 5, 3), // common interest
-      ...makeUsers(kateEdger, 0.001, 10, null, 1, 5, 3), // random people
+      ...makeUsers(oggbBuilding, 0.0005, 40, yesInterest, 1, 5, 5), // common interest
+      ...makeUsers(kateEdger, 0.001, 10, null, 1, 5, 6), // random people
     ],
     locationMarkerLocations: [biologyBuilding],
   };
@@ -94,8 +94,8 @@ export const getOGGBToLibraryEnvironment = (
     name: 'OGGB To Library',
     startingLocation: oggbBuilding,
     otherUsers: [
-      ...makeUsers(quadPos, 0.0002, 30, noInterest, 1, 5, 3),
-      ...makeUsers(kateEdger, 0.001, 10, null, 1, 5, 3), // random people
+      ...makeUsers(quadPos, 0.0002, 30, noInterest, 1, 5, 7),
+      ...makeUsers(kateEdger, 0.001, 10, null, 1, 5, 8), // random people
     ],
     locationMarkerLocations: [generalLibrary],
   };
@@ -108,9 +108,9 @@ export const getUniHallToSymonds = (interests: Interest[]): Environment => {
     name: 'UniHall To Symonds',
     startingLocation: uniHall,
     otherUsers: [
-      ...makeUsers(symondsWarMemorial, 0.0002, 10, yesInterest, 1, 5, 3),
-      ...makeUsers(symondsIntersection, 0.0002, 10, noInterest, 1, 5, 3),
-      ...makeUsers(symondsBusStop, 0.001, 10, null, 1, 5, 3),
+      ...makeUsers(symondsWarMemorial, 0.0002, 10, yesInterest, 1, 5, 9),
+      ...makeUsers(symondsIntersection, 0.0002, 10, noInterest, 1, 5, 10),
+      ...makeUsers(symondsBusStop, 0.001, 10, null, 1, 5, 11),
     ],
     locationMarkerLocations: [symondsBusStop],
   };
@@ -122,8 +122,8 @@ export const getChooseCountdown = (): Environment => {
     name: 'Choose Countdown',
     startingLocation: fortSt,
     otherUsers: [
-      ...makeUsers(lowerQueenSt, 0.0004, 40, null, 1, 5, 3),
-      ...makeUsers(fortSt, 0.004, 20, null, 1, 5, 3),
+      ...makeUsers(lowerQueenSt, 0.0004, 40, null, 1, 5, 12),
+      ...makeUsers(fortSt, 0.004, 20, null, 1, 5, 13),
     ],
     locationMarkerLocations: [
       quayStreetCountdown,
@@ -140,9 +140,9 @@ export const getAlbertParkHangout = (interests: Interest[]): Environment => {
     name: 'Albert Park Hangout',
     startingLocation: albertParkFountain,
     otherUsers: [
-      ...makeUsers(albertParkWest, 0.00015, 10, yesInterest, 1, 5, 3),
-      ...makeUsers(albertParkEast, 0.00015, 10, noInterest, 1, 5, 3),
-      ...makeUsers(albertParkNorth, 0.00015, 10, null, 1, 5, 3),
+      ...makeUsers(albertParkWest, 0.00015, 10, yesInterest, 1, 5, 14),
+      ...makeUsers(albertParkEast, 0.00015, 10, noInterest, 1, 5, 15),
+      ...makeUsers(albertParkNorth, 0.00015, 10, null, 1, 5, 16),
     ],
     locationMarkerLocations: [albertParkWest, albertParkEast, albertParkNorth],
   };
