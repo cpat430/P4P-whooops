@@ -6,14 +6,11 @@ describe('User Profile', () => {
   it('should render user profile', () => {
     const user = {
       id: '1',
-      // Sky Tower
       lat: -36.8484,
       lng: 174.7622,
       firstName: 'john',
       lastName: 'stockman',
-      email: 'j.stockman@gmail.com',
       image: '',
-      description: 'love long walks on the beach',
       interests: [
         {
           id: 1,
@@ -22,7 +19,7 @@ describe('User Profile', () => {
         },
       ],
       friendIds: [],
-      group: 0,
+      testingGroup: 'no-interest-badge' as const,
     };
     const setUserToNull = jest.fn();
     const toggleIsFriend = jest.fn();
@@ -39,7 +36,7 @@ describe('User Profile', () => {
     const userName = screen.getByTestId('user-name');
     const userInterests = screen.getByTestId('user-interests');
     expect(userProfile).toBeInTheDocument();
-    expect(userName.innerHTML).toBe('john stockman');
+    expect(userName.innerHTML).toBe('john');
     expect(userInterests).toBeInTheDocument();
   });
 });
