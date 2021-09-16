@@ -1,4 +1,10 @@
-import { Environment, LatLng, UserProps } from './types';
+import {
+  Environment,
+  Interest,
+  LatLng,
+  TestingGroup,
+  UserProps,
+} from './types';
 
 export abstract class AppEvent {
   abstract name: string;
@@ -11,9 +17,11 @@ export abstract class AppEvent {
 export class ClickUserProfileAppEvent extends AppEvent {
   name = 'Click User Profile';
   user: UserProps;
-  constructor(user: UserProps) {
+  visibleInterests: Interest[] | null;
+  constructor(user: UserProps, visibleInterests: Interest[] | null) {
     super();
     this.user = user;
+    this.visibleInterests = visibleInterests;
   }
 }
 
@@ -24,6 +32,14 @@ export class LeaveUserProfileAppEvent extends AppEvent {
     super();
     this.user = user;
   }
+}
+
+export class ClickFriendsAppEvent extends AppEvent {
+  name = 'Click Friends';
+}
+
+export class LeaveFriendsAppEvent extends AppEvent {
+  name = 'Leave Friends';
 }
 
 export class SubmitDetailsAppEvent extends AppEvent {
@@ -43,6 +59,15 @@ export class StartEnvironmentAppEvent extends AppEvent {
   constructor(environment: Environment) {
     super();
     this.environment = environment;
+  }
+}
+
+export class StartTestingGroupAppEvent extends AppEvent {
+  name = 'Start Testing Group';
+  testingGroup: TestingGroup;
+  constructor(testingGroup: TestingGroup) {
+    super();
+    this.testingGroup = testingGroup;
   }
 }
 
@@ -85,5 +110,14 @@ export class ClickLocationMarkerAppEvent extends AppEvent {
     super();
     this.environment = environment;
     this.index = index;
+  }
+}
+
+export class UpdateUserInterestsAppEvent extends AppEvent {
+  name = 'UpdateUserInterests';
+  interests: Interest[];
+  constructor(interests: Interest[]) {
+    super();
+    this.interests = interests;
   }
 }

@@ -47,7 +47,34 @@ export const getEmojis = (
     case 'similar-interests':
       // Only show similar interests
       return getEmojiString(commonInterests, 2);
+    default:
       return null;
+  }
+};
+
+export const getShownInterests = (
+  userInterests: Interest[],
+  otherUserInterests: Interest[],
+  testingGroup: TestingGroup
+): Interest[] | null => {
+  const commonInterests = userInterests.filter((userInterest) => {
+    return otherUserInterests.some((otherUserInterest) => {
+      return userInterest.id === otherUserInterest.id;
+    });
+  });
+
+  switch (testingGroup) {
+    case 'all-interests': {
+      // Display the interests as-is
+      return otherUserInterests.slice(0, 2);
+    }
+    case 'no-interest-badge': {
+      // No interest badge
+      return null;
+    }
+    case 'similar-interests':
+      // Only show similar interests
+      return commonInterests.slice(0, 2);
     default:
       return null;
   }

@@ -1,6 +1,11 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { images } from '../user-profiles';
+import {
+  StartTestingGroupAppEvent,
+  UpdateUserInterestsAppEvent,
+} from '../utils/appEvent';
 import { singletonIo } from '../utils/singletonSocketIo';
+import { trackEvent } from '../utils/trackEvent';
 import { TestingGroup, UserProps } from '../utils/types';
 
 const defaultUser: UserProps = {
@@ -35,6 +40,8 @@ export const UserProvider = ({
 
   useEffect(() => {
     io.on('update-testing-group', (testingGroup: TestingGroup) => {
+      trackEvent(new StartTestingGroupAppEvent(testingGroup));
+
       setUser((user) => {
         return { ...user, testingGroup };
       });
@@ -43,6 +50,10 @@ export const UserProvider = ({
       io.off('update-testing-group');
     };
   }, []);
+
+  useEffect(() => {
+    trackEvent(new UpdateUserInterestsAppEvent(user.interests));
+  }, [user.interests]);
 
   const context = {
     user,

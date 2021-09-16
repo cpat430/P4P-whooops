@@ -13,9 +13,10 @@ import { images } from '../../user-profiles';
 import {
   AddToPathAppEvent,
   ClickAddFriendButton,
+  ClickFriendsAppEvent,
   ClickLocationMarkerAppEvent,
   ClickRemoveFriendButton,
-  ClickUserProfileAppEvent,
+  LeaveFriendsAppEvent,
   RemovePathAppEvent,
 } from '../../utils/appEvent';
 import { allInterests } from '../../utils/interests';
@@ -150,7 +151,6 @@ const MapPage = (): JSX.Element => {
               user={otherUser}
               onClick={() => {
                 setOpenUserProfile(otherUser);
-                trackEvent(new ClickUserProfileAppEvent(otherUser));
               }}
             />
           );
@@ -191,6 +191,7 @@ const MapPage = (): JSX.Element => {
 
       <FriendsFab
         onClick={() => {
+          trackEvent(new ClickFriendsAppEvent());
           setOpenFriendsModal(true);
         }}
       >
@@ -216,6 +217,7 @@ const MapPage = (): JSX.Element => {
       <FriendsModal
         open={openFriendsModal}
         handleClose={() => {
+          trackEvent(new LeaveFriendsAppEvent());
           setOpenFriendsModal(false);
         }}
         setCurrentUser={setOpenUserProfile}
