@@ -7,7 +7,7 @@ dotenv.config();
 const port = process.env.PORT || 4000;
 
 const allAppEvents: unknown[] = [];
-Ø;
+
 const main = () => {
   const app = express();
   app.use(express.json());
