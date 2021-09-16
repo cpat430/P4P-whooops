@@ -38,8 +38,8 @@ const MapPage = (): JSX.Element => {
   const environment = useContext(EnvironmentContext);
   const { startingLocation, otherUsers, locationMarkerLocations } = environment;
 
-  const [map, setMap] = useState<any>(null);
-  const [maps, setMaps] = useState<any>(null);
+  const [map, setMap] = useState<any>(null); // eslint-disable-line
+  const [maps, setMaps] = useState<any>(null); // eslint-disable-line
   const [path, setPath] = useState<{ lat: number; lng: number }[]>([]);
 
   const [openUserProfile, setOpenUserProfile] = useState<UserProps | null>(
@@ -112,6 +112,7 @@ const MapPage = (): JSX.Element => {
         center={startingLocation}
         zoom={20}
         onGoogleApiLoaded={({ map, maps }) => {
+          // eslint-disable-next-line
           map.addListener('dblclick', (event: any) => {
             addToPath({
               lat: event.latLng.lat(),

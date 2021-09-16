@@ -144,7 +144,7 @@ export const ControlPage = (): JSX.Element => {
                     onClick={() => {
                       // ty stackoverflow
                       const downloadObjectAsJson = (
-                        exportObj: any,
+                        exportObj: any, // eslint-disable-line
                         exportName: string
                       ) => {
                         const dataStr =
