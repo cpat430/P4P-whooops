@@ -120,7 +120,7 @@ export const ControlPage = (): JSX.Element => {
                 <Grid
                   item
                   xs={12}
-                  style={{ maxHeight: '80vh', overflow: 'scroll' }}
+                  style={{ maxHeight: '50vh', overflow: 'scroll' }}
                 >
                   {allAppEvents.map((e: AppEvent, i) => {
                     const date = new Date(e.time);
@@ -129,7 +129,7 @@ export const ControlPage = (): JSX.Element => {
                       <Typography
                         gutterBottom
                         key={i}
-                      >{`${date.toTimeString()} ${e.name}`}</Typography>
+                      >{`${date.toLocaleTimeString()} ${e.name}`}</Typography>
                     );
                   })}
                 </Grid>
