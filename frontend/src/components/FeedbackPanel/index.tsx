@@ -4,8 +4,7 @@ import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
-import React, { useContext, useState } from 'react';
-import { trackEvent } from '../../utils/trackEvent';
+import React, { useState } from 'react';
 import { Rating } from '../Rating';
 import {
   FeedbackAnswerField,

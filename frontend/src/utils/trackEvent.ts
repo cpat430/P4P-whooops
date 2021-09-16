@@ -1,6 +1,7 @@
+import { AppEvent } from './appEvent';
 import { getSingletonSocketIo } from './singletonSocketIo';
-import { AppEvent } from './types';
 
-export const trackEvent = (event: AppEvent) => {
+export const trackEvent = (event: AppEvent): void => {
   const io = getSingletonSocketIo();
+  io.emit('track-event', event);
 };

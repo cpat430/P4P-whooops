@@ -28,10 +28,10 @@ const UserMapMarker = (props: UserMapMarkerProps): JSX.Element => {
   return (
     <>
       {/* triangle that points towards the location */}
-      <TriangleDiv isUser={user === currentUser} />
+      <TriangleDiv $isUser={user === currentUser} />
 
       {/* button that contains the profile image */}
-      <ImageIconButton isUser={user === currentUser} onClick={handleClick}>
+      <ImageIconButton $isUser={user === currentUser} onClick={handleClick}>
         {/* profile image */}
         <ImageAvatar src={user.image} />
       </ImageIconButton>

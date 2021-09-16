@@ -4,6 +4,11 @@ export type Interest = {
   emoji: string;
 };
 
+export type LatLng = {
+  lat: number;
+  lng: number;
+};
+
 export type TestingGroup =
   | 'no-interest-badge'
   | 'similar-interests'
@@ -21,14 +26,4 @@ export type UserProps = {
   interests: Interest[];
   friendIds: string[];
   testingGroup: TestingGroup;
-};
-
-export type AppEvent = {
-  name:
-    | 'init-app'
-    | 'click-add-friend-button'
-    | 'click-user-profile'
-    | 'click-edit-interest'
-    | 'submit-survey'
-    | 'click-location-marker';
 };

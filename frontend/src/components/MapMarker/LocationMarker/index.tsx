@@ -21,10 +21,10 @@ const LocationMapMarker = (props: LocationMapMarkerProps): JSX.Element => {
   return (
     <>
       {/* triangle that points towards the location */}
-      <TriangleDiv isLocation={true} />
+      <TriangleDiv $isLocation={true} />
 
       {/* button that contains the location letter */}
-      <ImageIconButton onClick={handleClick} isLocation={true}>
+      <ImageIconButton onClick={handleClick} $isLocation={true}>
         {/* location letter */}
         <LocationImage>{locationLetter}</LocationImage>
       </ImageIconButton>

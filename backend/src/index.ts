@@ -7,6 +7,8 @@ import { services } from './services';
 dotenv.config();
 const port = process.env.PORT || 4000;
 
+const allAppEvents: unknown[] = [];
+
 const main = () => {
   const app = express();
   app.use(express.json());
@@ -24,14 +26,19 @@ const main = () => {
     console.log(`🚀 Server listening on port ${port}!`);
   });
 
+  // Init socket listeners
   const io = new Server(server);
   io.on('connection', (socket) => {
-    console.log('User connected!');
     socket.on('change-env', (environment: unknown) => {
       io.emit('update-env', environment);
     });
     socket.on('change-testing-group', (testingGroup: unknown) => {
       io.emit('update-testing-group', testingGroup);
+    });
+    socket.on('track-event', (appEvent: unknown) => {
+      console.log('Received event', appEvent);
+      allAppEvents.push(appEvent);
+      io.emit('update-all-events', allAppEvents);
     });
   });
 };

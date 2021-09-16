@@ -1,7 +1,7 @@
 import EditIcon from '@material-ui/icons/Edit';
 import GroupIcon from '@material-ui/icons/Group';
 import GoogleMapReact from 'google-map-react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FriendsModal } from '../../components/FriendsModal';
 import LocationMapMarker from '../../components/MapMarker/LocationMarker';
 import UserMapMarker from '../../components/MapMarker/UserMarker';
@@ -10,14 +10,17 @@ import { UserProfile } from '../../components/UserProfile';
 import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
+import { ClickUserProfileAppEvent } from '../../utils/appEvent';
 import { allInterests } from '../../utils/interests';
-import { UserProps } from '../../utils/types';
+import { trackEvent } from '../../utils/trackEvent';
+import { LatLng, UserProps } from '../../utils/types';
 import { EditInterestFab, FriendsFab, MapDiv } from './MapPage.styled';
 
 const mapOptions = (maps: GoogleMapReact.Maps) => {
   return {
     clickableIcons: false, // The user cannot click on objects in the map
     fullscreenControl: false,
+    disableDoubleClickZoom: true,
     zoomControlOptions: {
       position: maps.ControlPosition.RIGHT_CENTER,
     },
@@ -29,16 +32,9 @@ const MapPage = (): JSX.Element => {
   const { startingLocation, otherUsers, locationMarkerLocations } =
     useContext(EnvironmentContext);
 
-  const handleToggleIsFriend = (otherUser: UserProps | null): void => {
-    if (!otherUser) return;
-
-    const newFriendIds = user.friendIds.includes(otherUser.id)
-      ? user.friendIds.filter((id) => {
-          return id !== otherUser.id;
-        })
-      : user.friendIds.concat(otherUser.id);
-    setUser({ ...user, friendIds: newFriendIds });
-  };
+  const [map, setMap] = useState<any>(null);
+  const [maps, setMaps] = useState<any>(null);
+  const [path, setPath] = useState<{ lat: number; lng: number }[]>([]);
 
   const [openUserProfile, setOpenUserProfile] = useState<UserProps | null>(
     null
@@ -52,6 +48,38 @@ const MapPage = (): JSX.Element => {
   if (mapKey === undefined) {
     console.error('Map key is undefined');
   }
+
+  const addToPath = (latlng: LatLng) => {
+    setPath((path) => {
+      return path.concat(latlng);
+    });
+  };
+
+  useEffect(() => {
+    setPath([startingLocation]);
+  }, [startingLocation]);
+
+  useEffect(() => {
+    if (map && maps) {
+      const feature = map.data.add({
+        geometry: new maps.Data.LineString(path),
+      });
+      return () => {
+        map.data.remove(feature);
+      };
+    }
+  }, [map, maps, path]);
+
+  const handleToggleIsFriend = (otherUser: UserProps | null): void => {
+    if (!otherUser) return;
+
+    const newFriendIds = user.friendIds.includes(otherUser.id)
+      ? user.friendIds.filter((id) => {
+          return id !== otherUser.id;
+        })
+      : user.friendIds.concat(otherUser.id);
+    setUser({ ...user, friendIds: newFriendIds });
+  };
 
   return (
     <MapDiv data-testid={'map-page'}>
@@ -70,6 +98,16 @@ const MapPage = (): JSX.Element => {
         options={mapOptions}
         center={startingLocation}
         zoom={20}
+        onGoogleApiLoaded={({ map, maps }) => {
+          map.addListener('dblclick', (event: any) => {
+            addToPath({
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng(),
+            });
+          });
+          setMap(map);
+          setMaps(maps);
+        }}
       >
         {otherUsers.map((otherUser, userIndex) => {
           return (
@@ -80,6 +118,7 @@ const MapPage = (): JSX.Element => {
               user={otherUser}
               onClick={() => {
                 setOpenUserProfile(otherUser);
+                trackEvent(new ClickUserProfileAppEvent());
               }}
             />
           );
@@ -93,6 +132,7 @@ const MapPage = (): JSX.Element => {
               locationLetter="A"
               onClick={() => {
                 // TODO
+                addToPath(locationMarkerLocation);
               }}
             />
           );

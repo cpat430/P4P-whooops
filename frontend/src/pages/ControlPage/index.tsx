@@ -1,12 +1,21 @@
 import { Button, Card, Grid, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Environment } from '../../contexts/EnvironmentContext';
+import { AppEvent } from '../../utils/appEvent';
 import { allEnvironments } from '../../utils/environments';
 import { getSingletonSocketIo } from '../../utils/singletonSocketIo';
 import { TestingGroup } from '../../utils/types';
 
 const io = getSingletonSocketIo();
 export const ControlPage = (): JSX.Element => {
+  const [allAppEvents, setAllAppEvents] = useState<AppEvent[]>([]);
+
+  useEffect(() => {
+    // init io events
+    io.on('update-all-events', (allEvents: AppEvent[]) => {
+      setAllAppEvents(allEvents);
+    });
+  }, []);
   return (
     <Grid
       container
@@ -92,6 +101,11 @@ export const ControlPage = (): JSX.Element => {
           >
             <Grid item xs={12}>
               <Typography variant="h5">Live Events</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              {allAppEvents.map((e) => {
+                return JSON.stringify(e);
+              })}
             </Grid>
           </Grid>
         </Card>

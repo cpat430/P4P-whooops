@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RemoveIcon from '@material-ui/icons/Remove';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 type FriendButtonProps = {
   className: string;
