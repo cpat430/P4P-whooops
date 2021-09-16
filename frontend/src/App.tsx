@@ -16,7 +16,7 @@ function App(): JSX.Element {
   return (
     <Router>
       <Switch>
-        <Route path="/app/*">
+        <Route path="/app*">
           <UserProvider>
             <EnvironmentProvider>
               <Switch>

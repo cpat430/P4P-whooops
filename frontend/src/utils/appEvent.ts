@@ -28,6 +28,13 @@ export class LeaveUserProfileAppEvent extends AppEvent {
 
 export class SubmitDetailsAppEvent extends AppEvent {
   name = 'Submit Details';
+  firstName: string;
+  lastName: string;
+  constructor(firstName: string, lastName: string) {
+    super();
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 }
 
 export class StartEnvironmentAppEvent extends AppEvent {

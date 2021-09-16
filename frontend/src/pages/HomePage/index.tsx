@@ -4,6 +4,8 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
+import { SubmitDetailsAppEvent } from '../../utils/appEvent';
+import { trackEvent } from '../../utils/trackEvent';
 import {
   PageBackgroundGrid,
   PageCard,
@@ -37,6 +39,9 @@ export const HomePage = (): JSX.Element => {
     event.preventDefault(); // means we can do what we like.
 
     const { firstName, lastName } = formValues;
+
+    trackEvent(new SubmitDetailsAppEvent(firstName, lastName));
+
     setUser({
       ...user,
       image: images[_.random(0, images.length - 1)],
@@ -69,7 +74,7 @@ export const HomePage = (): JSX.Element => {
             </Grid>
             <Grid item xs={12}>
               <PageForm onSubmit={handleSubmit}>
-                <RegisterTextField>Register</RegisterTextField>
+                <RegisterTextField>Details</RegisterTextField>
                 <PageTextField
                   id="first-name-input"
                   placeholder="e.g. John"
