@@ -28,7 +28,7 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
     fullscreenControl: false,
     disableDoubleClickZoom: true,
     zoomControlOptions: {
-      position: maps.ControlPosition.RIGHT_CENTER,
+      position: maps.ControlPosition.RIGHT_BOTTOM,
     },
   };
 };
@@ -54,6 +54,22 @@ const MapPage = (): JSX.Element => {
   if (mapKey === undefined) {
     console.error('Map key is undefined');
   }
+
+  useEffect(() => {
+    const cb = (e: KeyboardEvent) => {
+      // if the user presses a, it undos the last drawn path
+      if (e.key === 'a' || e.key === 'A') {
+        setPath((path) => {
+          if (path.length === 1) return path;
+          return path.slice(0, path.length - 1);
+        });
+      }
+    };
+    document.addEventListener('keypress', cb);
+    return () => {
+      document.removeEventListener('keypress', cb);
+    };
+  }, []);
 
   const addToPath = (latlng: LatLng) => {
     trackEvent(new AddToPathAppEvent(latlng));
