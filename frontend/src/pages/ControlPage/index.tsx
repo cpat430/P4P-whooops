@@ -1,12 +1,13 @@
 import { Button, Card, Grid, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Environment } from '../../contexts/EnvironmentContext';
-import { AppEvent } from '../../utils/appEvent';
+import { AppEvent, StartEnvironmentAppEvent } from '../../utils/appEvent';
 import { allEnvironments } from '../../utils/environments';
-import { getSingletonSocketIo } from '../../utils/singletonSocketIo';
+import { singletonIo } from '../../utils/singletonSocketIo';
+import { trackEvent } from '../../utils/trackEvent';
 import { TestingGroup } from '../../utils/types';
 
-const io = getSingletonSocketIo();
+const io = singletonIo;
 export const ControlPage = (): JSX.Element => {
   const [allAppEvents, setAllAppEvents] = useState<AppEvent[]>([]);
 
@@ -15,7 +16,11 @@ export const ControlPage = (): JSX.Element => {
     io.on('update-all-events', (allEvents: AppEvent[]) => {
       setAllAppEvents(allEvents);
     });
+    return () => {
+      io.off('update-all-events');
+    };
   }, []);
+
   return (
     <Grid
       container
@@ -56,7 +61,11 @@ export const ControlPage = (): JSX.Element => {
                               variant="contained"
                               color="primary"
                               onClick={() => {
+                                console.log('Emit once', Date.now());
                                 io.emit('change-env', environment);
+                                trackEvent(
+                                  new StartEnvironmentAppEvent(environment)
+                                );
                               }}
                             >
                               {environment.name}

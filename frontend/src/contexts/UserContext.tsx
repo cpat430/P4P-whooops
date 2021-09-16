@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { images } from '../user-profiles';
-import { getSingletonSocketIo } from '../utils/singletonSocketIo';
+import { singletonIo } from '../utils/singletonSocketIo';
 import { TestingGroup, UserProps } from '../utils/types';
 
 const defaultUser: UserProps = {
@@ -25,7 +25,7 @@ export const UserContext = createContext<UserContextProps>({
   setUser: (user: UserProps) => console.warn(`${user}`),
 });
 
-const io = getSingletonSocketIo();
+const io = singletonIo;
 export const UserProvider = ({
   children,
 }: {
@@ -39,6 +39,9 @@ export const UserProvider = ({
         return { ...user, testingGroup };
       });
     });
+    return () => {
+      io.off('update-testing-group');
+    };
   }, []);
 
   const context = {

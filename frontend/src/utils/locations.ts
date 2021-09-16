@@ -18,6 +18,11 @@ export const albertParkPos = {
   lng: 174.767598,
 };
 
+export const fortSt = {
+  lat: -36.846066292080884,
+  lng: 174.76750373840332,
+};
+
 export const quayStreetCountdown = {
   lat: -36.84460279365626,
   lng: 174.77308801116143,
@@ -31,6 +36,11 @@ export const vicStreetCountdown = {
 export const albertStreetCountdown = {
   lat: -36.8431351455885,
   lng: 174.7653208149553,
+};
+
+export const lowerQueenSt = {
+  lat: -36.84470114634267,
+  lng: 174.76660251617434,
 };
 
 export const coffeeShop1 = {
@@ -61,4 +71,24 @@ export const biologyBuilding = {
 export const oggbBuilding = {
   lat: -36.853128749999996,
   lng: 174.7712888303203,
+};
+
+export const generalLibrary = {
+  lat: -36.85122375,
+  lng: 174.7692681572312,
+};
+
+export const uniHall = {
+  lat: -36.85641645,
+  lng: 174.76732922583437,
+};
+
+export const symondsBusStop = {
+  lat: -36.85494343764182,
+  lng: 174.76742863655093,
+};
+
+export const symondsWarMemorial = {
+  lat: -36.85579332303736,
+  lng: 174.76595878601077,
 };

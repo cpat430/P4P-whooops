@@ -2,13 +2,12 @@ import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
 import { Server } from 'socket.io';
-import { services } from './services';
 
 dotenv.config();
 const port = process.env.PORT || 4000;
 
 const allAppEvents: unknown[] = [];
-
+Ø;
 const main = () => {
   const app = express();
   app.use(express.json());
@@ -38,7 +37,8 @@ const main = () => {
     socket.on('change-testing-group', (testingGroup: unknown) => {
       io.emit('update-testing-group', testingGroup);
     });
-    socket.on('track-event', (appEvent: unknown) => {
+    socket.on('track-event', (appEvent: any) => {
+      console.log('Tracking event here!', appEvent.name);
       allAppEvents.push(appEvent);
       io.emit('update-all-events', allAppEvents);
     });
