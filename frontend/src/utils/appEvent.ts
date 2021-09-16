@@ -67,11 +67,13 @@ export class ClickRemoveFriendButton extends AppEvent {
   }
 }
 
-// How does the participant describe their path?
-
-// | 'init-app'
-// | 'click-add-friend-button'
-// | 'click-user-profile'
-// | 'click-edit-interest'
-// | 'submit-survey'
-// | 'click-location-marker';
+export class ClickLocationMarkerAppEvent extends AppEvent {
+  name = 'Click Location Marker';
+  environment: Environment;
+  index: number;
+  constructor(environment: Environment, index: number) {
+    super();
+    this.environment = environment;
+    this.index = index;
+  }
+}

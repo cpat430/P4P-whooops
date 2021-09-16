@@ -13,6 +13,7 @@ import { images } from '../../user-profiles';
 import {
   AddToPathAppEvent,
   ClickAddFriendButton,
+  ClickLocationMarkerAppEvent,
   ClickRemoveFriendButton,
   ClickUserProfileAppEvent,
 } from '../../utils/appEvent';
@@ -34,8 +35,8 @@ const mapOptions = (maps: GoogleMapReact.Maps) => {
 
 const MapPage = (): JSX.Element => {
   const { user, setUser } = useContext(UserContext);
-  const { startingLocation, otherUsers, locationMarkerLocations } =
-    useContext(EnvironmentContext);
+  const environment = useContext(EnvironmentContext);
+  const { startingLocation, otherUsers, locationMarkerLocations } = environment;
 
   const [map, setMap] = useState<any>(null);
   const [maps, setMaps] = useState<any>(null);
@@ -143,8 +144,8 @@ const MapPage = (): JSX.Element => {
               lng={locationMarkerLocation.lng}
               locationLetter={String.fromCharCode('A'.charCodeAt(0) + index)}
               onClick={() => {
-                // TODO
                 addToPath(locationMarkerLocation);
+                trackEvent(new ClickLocationMarkerAppEvent(environment, index));
               }}
             />
           );
