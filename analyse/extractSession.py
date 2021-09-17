@@ -40,6 +40,6 @@ def extractSession(allEventsFile: str, firstName: str, lastName: str) -> None:
 
 if __name__ == "__main__":
     allEventsFile = "allEvents.json"
-    firstName = "sam"
-    lastName = "sam"
+    firstName = "Sam"
+    lastName = "Chen"
     extractSession(allEventsFile, firstName, lastName)
