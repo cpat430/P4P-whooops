@@ -60,7 +60,7 @@ const MapPage = (): JSX.Element => {
   useEffect(() => {
     const cb = (e: KeyboardEvent) => {
       // if the user presses a, it undos the last drawn path
-      if (e.key === 'a' || e.key === 'A') {
+      if (e.key === 'u' || e.key === 'U') {
         setPath((path) => {
           if (path.length === 1) return path;
           trackEvent(new RemovePathAppEvent());

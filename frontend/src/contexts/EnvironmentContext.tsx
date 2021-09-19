@@ -8,7 +8,7 @@ import React, {
 import { StartEnvironmentAppEvent } from '../utils/appEvent';
 import {
   allEnvironmentMakers,
-  getDefaultEnvironment,
+  getEmptyEnvironment,
 } from '../utils/environments';
 import { singletonIo } from '../utils/singletonSocketIo';
 import { trackEvent } from '../utils/trackEvent';
@@ -16,7 +16,7 @@ import { Environment } from '../utils/types';
 import { UserContext } from './UserContext';
 
 export const EnvironmentContext = createContext<Environment>(
-  getDefaultEnvironment()
+  getEmptyEnvironment()
 );
 
 const io = singletonIo;
@@ -28,7 +28,7 @@ export const EnvironmentProvider = ({
 }): JSX.Element => {
   const { user } = useContext(UserContext);
   const [environment, setEnvironment] = useState<Environment>(
-    getDefaultEnvironment()
+    getEmptyEnvironment()
   );
 
   useEffect(() => {

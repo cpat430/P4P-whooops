@@ -4,8 +4,8 @@ export const skyTowerPos = {
 };
 
 export const quadPos = {
-  lat: -36.851779,
-  lng: 174.769078,
+  lat: -36.85209324793872,
+  lng: 174.76908624172214,
 };
 
 export const sparkArenaPos = {

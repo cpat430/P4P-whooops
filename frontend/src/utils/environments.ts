@@ -46,11 +46,20 @@ export const getEmptyEnvironment = (): Environment => {
   };
 };
 
-export const getDefaultEnvironment = (): Environment => {
+export const getDemo1 = (): Environment => {
   return {
-    name: 'Play around',
+    name: 'Demo 1',
     startingLocation: quadPos,
-    otherUsers: makeUsers(quadPos, 0.001, 5, null, 1, 5, 1),
+    otherUsers: [],
+    locationMarkerLocations: [oggbBuilding],
+  };
+};
+
+export const getDemo2 = (): Environment => {
+  return {
+    name: 'Demo 2',
+    startingLocation: oggbBuilding,
+    otherUsers: makeUsers(oggbBuilding, 0.001, 5, null, 1, 5, 1),
     locationMarkerLocations: [biologyBuilding],
   };
 };
@@ -150,7 +159,8 @@ export const getAlbertParkHangout = (interests: Interest[]): Environment => {
 
 export const allEnvironmentMakers = [
   getEmptyEnvironment,
-  getDefaultEnvironment,
+  getDemo1,
+  getDemo2,
   getCoffeeEnvironment,
   getGoingToLectureEnvironment,
   getOGGBToLibraryEnvironment,

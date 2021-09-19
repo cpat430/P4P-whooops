@@ -1,10 +1,24 @@
 import { Button, Card, Grid, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { AppEvent } from '../../utils/appEvent';
+import { AppEvent, FinishTalkingAppEvent } from '../../utils/appEvent';
 import { allEnvironmentMakers } from '../../utils/environments';
 import { allInterests } from '../../utils/interests';
 import { singletonIo } from '../../utils/singletonSocketIo';
+import { trackEvent } from '../../utils/trackEvent';
 import { TestingGroup } from '../../utils/types';
+
+// ty stackoverflow
+const downloadObjectAsJson = (exportObj: unknown, exportName: string) => {
+  const dataStr =
+    'data:text/json;charset=utf-8,' +
+    encodeURIComponent(JSON.stringify(exportObj));
+  const downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute('href', dataStr);
+  downloadAnchorNode.setAttribute('download', exportName + '.json');
+  document.body.appendChild(downloadAnchorNode); // required for firefox
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+};
 
 const io = singletonIo;
 export const ControlPage = (): JSX.Element => {
@@ -101,6 +115,25 @@ export const ControlPage = (): JSX.Element => {
                     })}
                   </Grid>
                 </Grid>
+
+                <Grid item xs={12}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                      Manual Events
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          trackEvent(new FinishTalkingAppEvent());
+                        }}
+                      >
+                        Finished Talking
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
               </Grid>
             </Card>
           </Grid>
@@ -139,28 +172,29 @@ export const ControlPage = (): JSX.Element => {
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                      // ty stackoverflow
-                      const downloadObjectAsJson = (
-                        exportObj: any, // eslint-disable-line
-                        exportName: string
-                      ) => {
-                        const dataStr =
-                          'data:text/json;charset=utf-8,' +
-                          encodeURIComponent(JSON.stringify(exportObj));
-                        const downloadAnchorNode = document.createElement('a');
-                        downloadAnchorNode.setAttribute('href', dataStr);
-                        downloadAnchorNode.setAttribute(
-                          'download',
-                          exportName + '.json'
-                        );
-                        document.body.appendChild(downloadAnchorNode); // required for firefox
-                        downloadAnchorNode.click();
-                        downloadAnchorNode.remove();
-                      };
                       downloadObjectAsJson(allAppEvents, 'all-events');
                     }}
                   >
-                    download events
+                    download all events
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      const recentEvents: AppEvent[] = [];
+                      for (let i = allAppEvents.length - 1; i >= 0; i--) {
+                        recentEvents.push(allAppEvents[i]);
+                        if (allAppEvents[i].name === 'Submit Details') {
+                          break;
+                        }
+                      }
+                      recentEvents.reverse();
+                      downloadObjectAsJson(recentEvents, 'recent-session');
+                    }}
+                  >
+                    download recent session
                   </Button>
                 </Grid>
               </Grid>
