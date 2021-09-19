@@ -4,7 +4,7 @@ import { circleRadius, triangleHeight } from '../MapMarker.styled';
 
 const interestHeight = 0.6;
 const interestPadding = 0.3;
-const interestFontSize = 0.5;
+const interestFontSize = 0.6;
 const interestBackgroundColor = '#666';
 
 export const ImageAvatar = styled(Avatar)`

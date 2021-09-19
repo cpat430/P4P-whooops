@@ -27,8 +27,6 @@ import file026girl4png from './png/026-girl-4.png';
 import file027man7png from './png/027-man-7.png';
 import file028woman7png from './png/028-woman-7.png';
 import file029man8png from './png/029-man-8.png';
-import file030policewomanpng from './png/030-policewoman.png';
-import file031policemanpng from './png/031-policeman.png';
 import file032girl5png from './png/032-girl-5.png';
 import file033superheropng from './png/033-superhero.png';
 import file034woman8png from './png/034-woman-8.png';
@@ -39,26 +37,17 @@ import file038man10png from './png/038-man-10.png';
 import file039woman10png from './png/039-woman-10.png';
 import file040man11png from './png/040-man-11.png';
 import file041woman11png from './png/041-woman-11.png';
-import file042vampirepng from './png/042-vampire.png';
 import file043chefpng from './png/043-chef.png';
-import file044farmerpng from './png/044-farmer.png';
 import file045man12png from './png/045-man-12.png';
 import file046woman12png from './png/046-woman-12.png';
 import file047man13png from './png/047-man-13.png';
 import file048boy5png from './png/048-boy-5.png';
-import file049thiefpng from './png/049-thief.png';
-import file050catwomanpng from './png/050-catwoman.png';
-import file051americanfootballplayerpng from './png/051-american-football-player.png';
-import file052witchpng from './png/052-witch.png';
-import file053conciergepng from './png/053-concierge.png';
 import file054woman13png from './png/054-woman-13.png';
 import file055bodybuilderpng from './png/055-bodybuilder.png';
 import file056girl6png from './png/056-girl-6.png';
 import file057woman14png from './png/057-woman-14.png';
-import file058deathpng from './png/058-death.png';
 import file059doctorpng from './png/059-doctor.png';
 import file060doctor1png from './png/060-doctor-1.png';
-import file061nunpng from './png/061-nun.png';
 import file062builderpng from './png/062-builder.png';
 import file063girl7png from './png/063-girl-7.png';
 import file064punkpng from './png/064-punk.png';
@@ -99,8 +88,6 @@ export const images = [
   file027man7png,
   file028woman7png,
   file029man8png,
-  file030policewomanpng,
-  file031policemanpng,
   file032girl5png,
   file033superheropng,
   file034woman8png,
@@ -111,26 +98,17 @@ export const images = [
   file039woman10png,
   file040man11png,
   file041woman11png,
-  file042vampirepng,
   file043chefpng,
-  file044farmerpng,
   file045man12png,
   file046woman12png,
   file047man13png,
   file048boy5png,
-  file049thiefpng,
-  file050catwomanpng,
-  file051americanfootballplayerpng,
-  file052witchpng,
-  file053conciergepng,
   file054woman13png,
   file055bodybuilderpng,
   file056girl6png,
   file057woman14png,
-  file058deathpng,
   file059doctorpng,
   file060doctor1png,
-  file061nunpng,
   file062builderpng,
   file063girl7png,
   file064punkpng,

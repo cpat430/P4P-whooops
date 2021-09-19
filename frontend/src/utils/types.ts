@@ -4,16 +4,31 @@ export type Interest = {
   emoji: string;
 };
 
+export type LatLng = {
+  lat: number;
+  lng: number;
+};
+
+export type TestingGroup =
+  | 'no-interest-badge'
+  | 'similar-interests'
+  | 'all-interests';
+
 export type UserProps = {
   id: string;
   lat: number;
   lng: number;
   firstName: string;
   lastName: string;
-  email: string;
   image: string;
-  description: string;
   interests: Interest[];
   friendIds: string[];
-  group: number; // which A/B/N group they are in
+  testingGroup: TestingGroup;
+};
+
+export type Environment = {
+  name: string;
+  startingLocation: LatLng;
+  otherUsers: UserProps[];
+  locationMarkerLocations: LatLng[];
 };

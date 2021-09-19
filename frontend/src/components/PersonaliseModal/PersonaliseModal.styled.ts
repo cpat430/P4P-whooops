@@ -48,10 +48,10 @@ export const ImagesGrid = styled(Grid)`
 export const ImageIconButton = styled(IconButton)<{ $selected: boolean }>`
   &&& {
     background-color: ${(props) =>
-      props.$selected ? colours.primary : undefined};
+      props.$selected ? colours.primary : '#eee'};
   }
 `;
 
 export const UserImage = styled.img`
-  height: 2rem;
+  height: 3rem;
 `;

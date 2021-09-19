@@ -1,9 +1,9 @@
 import { Avatar, Divider, Grid, Modal, Typography } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import React, { useContext, useState } from 'react';
-import { ChallengeContext } from '../../contexts/ChallengeContext';
+import { EnvironmentContext } from '../../contexts/EnvironmentContext';
 import { UserContext } from '../../contexts/UserContext';
-import { dummyInterests } from '../../utils/dummyInterests';
+import { allInterests } from '../../utils/interests';
 import { getEmojis } from '../../utils/getEmojis';
 import { Interest, UserProps } from '../../utils/types';
 import { InterestChip } from '../InterestChip';
@@ -33,9 +33,7 @@ export const FriendsModal = ({
   setCurrentUser,
 }: FriendsModalProps): JSX.Element => {
   const { user } = useContext(UserContext);
-  const {
-    challenge: { otherUsers },
-  } = useContext(ChallengeContext);
+  const { otherUsers } = useContext(EnvironmentContext);
 
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [filterInterests, setFilterInterests] = useState<Interest[]>([]);
@@ -117,7 +115,7 @@ export const FriendsModal = ({
                         {getEmojis(
                           user.interests,
                           otherUser.interests,
-                          user.group
+                          user.testingGroup
                         )}
                       </Typography>
                     </Grid>
@@ -143,7 +141,7 @@ export const FriendsModal = ({
             <Grid item xs={12}>
               <Divider />
             </Grid>
-            {dummyInterests.map((interest, index) => {
+            {allInterests.map((interest, index) => {
               const filterInterestIndex = filterInterests.findIndex(
                 (filterInterest) => {
                   return filterInterest.id === interest.id;

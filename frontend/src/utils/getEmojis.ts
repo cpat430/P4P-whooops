@@ -1,4 +1,4 @@
-import { Interest } from './types';
+import { Interest, TestingGroup } from './types';
 
 const getEmojiString = (
   interests: Interest[],
@@ -19,15 +19,15 @@ const getEmojiString = (
 };
 
 /**
- * Gets the interest string that the user will see. Depends on the group value
+ * Gets the interest string that the user will see. Depends on the testingGroup
  * @param userInterests
  * @param otherUserInterests
- * @param group
+ * @param testingGroup
  */
 export const getEmojis = (
   userInterests: Interest[],
   otherUserInterests: Interest[],
-  group: number
+  testingGroup: TestingGroup
 ): string | null => {
   const commonInterests = userInterests.filter((userInterest) => {
     return otherUserInterests.some((otherUserInterest) => {
@@ -35,25 +35,46 @@ export const getEmojis = (
     });
   });
 
-  const nonCommonInterests = otherUserInterests.filter((otherUserInterest) => {
-    return !commonInterests.some((commonInterest) => {
-      return otherUserInterest.id === commonInterest.id;
+  switch (testingGroup) {
+    case 'all-interests': {
+      // Display the interests as-is
+      return getEmojiString(otherUserInterests, 2);
+    }
+    case 'no-interest-badge': {
+      // No interest badge
+      return null;
+    }
+    case 'similar-interests':
+      // Only show similar interests
+      return getEmojiString(commonInterests, 2);
+    default:
+      return null;
+  }
+};
+
+export const getShownInterests = (
+  userInterests: Interest[],
+  otherUserInterests: Interest[],
+  testingGroup: TestingGroup
+): Interest[] | null => {
+  const commonInterests = userInterests.filter((userInterest) => {
+    return otherUserInterests.some((otherUserInterest) => {
+      return userInterest.id === otherUserInterest.id;
     });
   });
 
-  switch (group) {
-    case 1: {
-      // Group A - see relevant interests first?
-      const interestOrder = commonInterests.concat(nonCommonInterests);
-      return getEmojiString(interestOrder, 2);
+  switch (testingGroup) {
+    case 'all-interests': {
+      // Display the interests as-is
+      return otherUserInterests.slice(0, 2);
     }
-    case 2: {
-      // Group B - see nonrelevant interests first?
-      const interestOrder = nonCommonInterests.concat(commonInterests);
-      return getEmojiString(interestOrder, 2);
-    }
-    case 3: // Group C - see  no interests
+    case 'no-interest-badge': {
+      // No interest badge
       return null;
+    }
+    case 'similar-interests':
+      // Only show similar interests
+      return commonInterests.slice(0, 2);
     default:
       return null;
   }

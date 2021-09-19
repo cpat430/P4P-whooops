@@ -2,6 +2,8 @@ import { Avatar, Divider, Grid, Modal, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { LeaveUserProfileAppEvent } from '../../utils/appEvent';
+import { trackEvent } from '../../utils/trackEvent';
 import { UserProps } from '../../utils/types';
 import {
   CapitalisedChip,
@@ -24,6 +26,9 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
   const { user } = useContext(UserContext);
 
   const handleClose = () => {
+    if (profileUser) {
+      trackEvent(new LeaveUserProfileAppEvent(profileUser));
+    }
     onClose();
   };
 
@@ -55,7 +60,7 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
             </Grid>
             <Grid item xs={12}>
               <UserNameTypography variant="h6" data-testid={'user-name'}>
-                {profileUser.firstName + ' ' + profileUser.lastName}
+                {profileUser.firstName}
               </UserNameTypography>
             </Grid>
 
@@ -68,23 +73,6 @@ export const UserProfile = (props: UserProfileProps): JSX.Element => {
                 />
               </Grid>
             )}
-
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography
-                gutterBottom
-                variant="h6"
-                data-testid={'bio-user-text'}
-              >
-                Bio
-              </Typography>
-              <Typography data-testid={'user-description'}>
-                {profileUser.description}
-              </Typography>
-            </Grid>
 
             <Grid item xs={12}>
               <Divider />

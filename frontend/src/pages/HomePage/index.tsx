@@ -4,7 +4,8 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
 import { images } from '../../user-profiles';
-import { createUser } from '../../utils/createUser';
+import { SubmitDetailsAppEvent } from '../../utils/appEvent';
+import { trackEvent } from '../../utils/trackEvent';
 import {
   PageBackgroundGrid,
   PageCard,
@@ -17,7 +18,6 @@ import {
 const defaultValues = {
   firstName: '',
   lastName: '',
-  email: '',
 };
 
 export const HomePage = (): JSX.Element => {
@@ -38,22 +38,20 @@ export const HomePage = (): JSX.Element => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // means we can do what we like.
 
-    const { firstName, lastName, email } = formValues;
+    const { firstName, lastName } = formValues;
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
 
-    const { id, group } = await createUser({ firstName, lastName, email });
-    // get group id
+    trackEvent(new SubmitDetailsAppEvent(trimmedFirstName, trimmedLastName));
 
     setUser({
       ...user,
       image: images[_.random(0, images.length - 1)],
-      id,
-      firstName,
-      lastName,
-      email,
-      group,
+      firstName: trimmedFirstName,
+      lastName: trimmedLastName,
     });
 
-    history.push('/map');
+    history.push('/app/map');
   };
 
   return (
@@ -78,7 +76,7 @@ export const HomePage = (): JSX.Element => {
             </Grid>
             <Grid item xs={12}>
               <PageForm onSubmit={handleSubmit}>
-                <RegisterTextField>Register</RegisterTextField>
+                <RegisterTextField>Details</RegisterTextField>
                 <PageTextField
                   id="first-name-input"
                   placeholder="e.g. John"
@@ -96,16 +94,6 @@ export const HomePage = (): JSX.Element => {
                   type="text"
                   name="lastName"
                   value={formValues.lastName}
-                  onChange={handleInputChange}
-                  required
-                />
-                <PageTextField
-                  id="email-input"
-                  placeholder="e.g. test@gmail.com"
-                  label="Email"
-                  type="text"
-                  name="email"
-                  value={formValues.email}
                   onChange={handleInputChange}
                   required
                 />

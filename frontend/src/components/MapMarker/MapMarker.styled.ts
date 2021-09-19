@@ -15,8 +15,8 @@ const circleColor = '#555';
 const isUserCircleColor = colours.primary;
 
 type UserProps = {
-  isUser?: boolean;
-  isLocation?: boolean;
+  $isUser?: boolean;
+  $isLocation?: boolean;
 };
 
 export const TriangleDiv = styled.div<UserProps>`
@@ -28,9 +28,9 @@ export const TriangleDiv = styled.div<UserProps>`
   width: 0;
   border-top: ${triangleHeight}rem solid
     ${(props) =>
-      props.isLocation
+      props.$isLocation
         ? locationOuterColor
-        : props.isUser
+        : props.$isUser
         ? isUserCircleColor
         : triangleColor};
   border-bottom: ${triangleHeight}rem solid transparent;
@@ -46,13 +46,13 @@ export const ImageIconButton = styled(IconButton)<UserProps>`
     top: ${-triangleHeight}rem;
     left: 0;
     height: ${(props) =>
-      props.isLocation ? circleRadius * 1.4 : circleRadius * 2}rem;
+      props.$isLocation ? circleRadius * 1.4 : circleRadius * 2}rem;
     width: ${(props) =>
-      props.isLocation ? circleRadius * 1.4 : circleRadius * 2}rem;
+      props.$isLocation ? circleRadius * 1.4 : circleRadius * 2}rem;
     background-color: ${(props) =>
-      props.isLocation
+      props.$isLocation
         ? locationOuterColor
-        : props.isUser
+        : props.$isUser
         ? isUserCircleColor
         : circleColor};
     padding: ${circlePadding}rem;
